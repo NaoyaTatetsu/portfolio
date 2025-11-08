@@ -1,0 +1,43 @@
+{
+  "home": {
+    "title": "ポートフォリオ",
+    "blog": "ブログ",
+    "contact": "お問い合わせ",
+    "experience": "履歴書",
+    "news": "お知らせ",
+    "profile": "プロフィール"
+  },
+  "pages": {
+    "blog": "",
+    "contact": "",
+    "experience": "",
+    "news": "",
+    "profile": ""
+  },
+  "profile": {
+    "name": "Name",
+    "nameValue": "立津 尚也",
+    "birthday": "Birthday",
+    "birthdayValue": "1998/01/10",
+    "live": "Live",
+    "liveValue": "東京",
+    "from": "From",
+    "fromValue": "沖縄",
+    "age": "Age",
+    "ageValue": "27"
+  },
+  "news": {
+    "items": [
+      {
+        "title": "ポートフォリオサイトを公開しました",
+        "content": "ポートフォリオサイトを公開しました",
+        "date": "2024-01-15"
+      }
+    ]
+  },
+  "notFound": {
+    "title": "ページが見つかりません",
+    "description": "お探しのページは存在しません。",
+    "backToHome": "ホームに戻る"
+  }
+}

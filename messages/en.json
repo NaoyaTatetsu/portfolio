@@ -1,0 +1,43 @@
+{
+  "home": {
+    "title": "Portfolio",
+    "blog": "Blog",
+    "contact": "Contact",
+    "experience": "Experience",
+    "news": "News",
+    "profile": "Profile"
+  },
+  "pages": {
+    "blog": "",
+    "contact": "",
+    "experience": "",
+    "news": "",
+    "profile": ""
+  },
+  "profile": {
+    "name": "Name",
+    "nameValue": "Naoya Tatetsu",
+    "birthday": "Birthday",
+    "birthdayValue": "1998/01/10",
+    "live": "Live",
+    "liveValue": "Tokyo, Japan",
+    "from": "From",
+    "fromValue": "Okinawa, Japan",
+    "age": "Age",
+    "ageValue": "27"
+  },
+  "news": {
+    "items": [
+      {
+        "title": "Portfolio site published",
+        "content": "Portfolio site published",
+        "date": "2024-01-15"
+      }
+    ]
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "The page you are looking for does not exist.",
+    "backToHome": "Back to Home"
+  }
+}
