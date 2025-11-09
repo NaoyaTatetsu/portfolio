@@ -64,19 +64,19 @@
   "profile": {
     "items": [
       {
-        "title": "Name",
+        "title": "名前",
         "description": "立津 尚也"
       },
       {
-        "title": "Age",
+        "title": "年齢",
         "description": "27"
       },
       {
-        "title": "Work & Live",
+        "title": "会社 / 住居",
         "description": "東京"
       },
       {
-        "title": "From",
+        "title": "出身",
         "description": "沖縄"
       },
       {
