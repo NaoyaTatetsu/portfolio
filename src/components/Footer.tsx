@@ -2,7 +2,7 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { FaXTwitter, FaInstagram, FaGithub } from "react-icons/fa6";
+import { FaGithub, FaInstagram, FaXTwitter } from "react-icons/fa6";
 
 export default function Footer() {
   const { theme } = useTheme();
@@ -73,4 +73,3 @@ export default function Footer() {
     </footer>
   );
 }
-
