@@ -10,9 +10,56 @@
   "pages": {
     "blog": "",
     "contact": "",
-    "experience": "",
+    "experience": "Experience",
     "news": "",
     "profile": ""
+  },
+  "experience": {
+    "title": "Experience",
+    "items": [
+      {
+        "school": "FOURDIGIT, Inc.",
+        "icon": "🏢",
+        "period": "2025年8月 - Present",
+        "major": "System Engineer",
+        "description": []
+      },
+      {
+        "school": "CyberAgent, Inc.",
+        "icon": "🏢",
+        "period": "2023 Apr - 2025 Jul",
+        "major": "Backend Engineer",
+        "description": [
+          "Backend development using TypeScript, Golang.",
+          "Adopted a microservices architecture and developed APIs.",
+          "Developed in a multi-tenant environment."
+        ]
+      },
+      {
+        "school": "Musashino University",
+        "icon": "🏫",
+        "period": "2019 Apr - 2023 Mar",
+        "major": "Data Science",
+        "description": [
+          "Python-based data analysis, machine learning, database design.",
+          "Developed a frontend using Next.js as a part-time job for 6 months."
+        ]
+      },
+      {
+        "school": "FLS Saddleback College",
+        "icon": "🏫",
+        "period": "2017 Nov - 2018 May",
+        "major": "ESL (California)",
+        "description": []
+      },
+      {
+        "school": "Ryukyu University",
+        "icon": "🏫",
+        "period": "2016 Apr - 2017 Aug",
+        "major": "Physics",
+        "description": []
+      }
+    ]
   },
   "profile": {
     "name": "Name",

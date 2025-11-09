@@ -10,9 +10,56 @@
   "pages": {
     "blog": "",
     "contact": "",
-    "experience": "",
+    "experience": "経歴",
     "news": "",
     "profile": ""
+  },
+  "experience": {
+    "title": "経歴",
+    "items": [
+      {
+        "school": "株式会社フォーディジット",
+        "icon": "🏢",
+        "period": "2025年8月 - Present",
+        "major": "システムエンジニア",
+        "description": []
+      },
+      {
+        "school": "株式会社サイバーエージェント",
+        "icon": "🏢",
+        "period": "2023年4月 - 2025年7月",
+        "major": "バックエンドエンジニア",
+        "description": [
+          "TypeScriptやGolangを使用したバックエンド開発。",
+          "マイクロサービスアーキテクチャを採用し、APIの開発を担当。",
+          "マルチテナント環境での開発を担当。"
+        ]
+      },
+      {
+        "school": "武蔵野大学",
+        "icon": "🏫",
+        "period": "2019年4月 - 2023年3月",
+        "major": "データサイエンス学部 データサイエンス学科",
+        "description": [
+          "Pythonを使用したデータ分析、機械学習、データベース設計。",
+          "アルバイトとしてNext.jsを使用したフロントエンド開発。(6ヶ月)"
+        ]
+      },
+      {
+        "school": "FLS Saddleback College",
+        "icon": "🏫",
+        "period": "2017年11月 - 2018年5月",
+        "major": "語学学校（カリフォルニア）",
+        "description": []
+      },
+      {
+        "school": "琉球大学",
+        "icon": "🏫",
+        "period": "2016年4月 - 2017年8月",
+        "major": "理学部 物質地球化学科",
+        "description": []
+      }
+    ]
   },
   "profile": {
     "name": "Name",
