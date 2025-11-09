@@ -3,16 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": ">=22.5.1",
     "npm": "⚠️use pnpm!⚠️",
-    "yarn": "⚠️use pnpm!⚠️",
-    "pnpm": ">=10.14.0"
+    "yarn": "⚠️use pnpm!⚠️"
   },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "biome check",
+    "lint:fix": "biome check --write",
     "format": "biome format --write"
   },
   "dependencies": {

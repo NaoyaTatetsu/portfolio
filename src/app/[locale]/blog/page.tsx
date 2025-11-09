@@ -1,4 +1,3 @@
-import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 interface PageProps {
