@@ -23,7 +23,7 @@ export default async function NewsPage({ params }: PageProps) {
   return (
     <div className="w-full px-4 self-start pt-24">
       <div className="max-w-7xl mx-auto">
-        <div className="text-2xl mb-8">{t("news")}</div>
+        <div className="text-2xl mb-8 text-center font-bold">{t("news")}</div>
         <div className="space-y-6">
           {newsItems.map((item, index) => (
             <Link

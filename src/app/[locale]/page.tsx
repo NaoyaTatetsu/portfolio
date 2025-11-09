@@ -24,8 +24,8 @@ export default async function Home({ params }: PageProps) {
   return (
     <div className="flex w-full max-w-3xl flex-col items-center justify-center px-16 font-sans mt-8">
       <Image
-        src="/me_in_cafe.svg"
-        alt="me in cafe"
+        src="/dev_icon.svg"
+        alt="dev icon"
         width={320}
         height={320}
         className="mb-8 rounded-full w-40 h-40 md:w-56 md:h-56 lg:w-72 lg:h-72"

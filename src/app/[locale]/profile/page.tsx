@@ -15,8 +15,8 @@ export default async function ProfilePage({ params }: PageProps) {
   return (
     <div className="w-full px-4">
       <div className="max-w-7xl mx-auto">
-        <div className="text-2xl mb-8">{t("profile")}</div>
         <div className="flex flex-col items-center gap-6 md:gap-8">
+          <div className="text-2xl mb-4 text-center font-bold">{t("profile")}</div>
           <Image
             src="/me_in_cafe.svg"
             alt="Me in cafe"

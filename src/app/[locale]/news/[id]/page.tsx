@@ -31,7 +31,7 @@ export default async function NewsDetailPage({ params }: PageProps) {
     <div className="w-full px-4 self-start pt-24">
       <div className="max-w-4xl mx-auto">
         <article className="pb-8 mb-8">
-          <h1 className="text-3xl font-bold mb-4">{newsItem.title}</h1>
+          <h1 className="text-xl font-bold mb-4">{newsItem.title}</h1>
           <div className="text-sm text-gray-500 dark:text-gray-500 mb-6">
             {newsItem.date}
           </div>
