@@ -1,7 +1,7 @@
-import { Link } from "@/i18n/routing";
-import { getTranslations } from "next-intl/server";
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 import TypingText from "@/components/TypingText";
+import { Link } from "@/i18n/routing";
 
 interface PageProps {
   params: Promise<{
@@ -14,11 +14,11 @@ export default async function Home({ params }: PageProps) {
   const t = await getTranslations("home");
 
   const pages = [
-    { name: t("profile"), path: "/profile", icon: "👤", },
-    { name: t("news"), path: "/news", icon: "📰", },
-    { name: t("blog"), path: "/blog", icon: "📝", },
-    { name: t("experience"), path: "/experience", icon: "🏢", },
-    { name: t("contact"), path: "/contact", icon: "📧", },
+    { name: t("profile"), path: "/profile", icon: "👤" },
+    { name: t("news"), path: "/news", icon: "📰" },
+    { name: t("blog"), path: "/blog", icon: "📝" },
+    { name: t("experience"), path: "/experience", icon: "🏢" },
+    { name: t("contact"), path: "/contact", icon: "📧" },
   ];
 
   return (
@@ -46,4 +46,3 @@ export default async function Home({ params }: PageProps) {
     </div>
   );
 }
-

@@ -1,5 +1,5 @@
-import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 
 interface PageProps {
   params: Promise<{
@@ -35,12 +35,9 @@ export default async function NewsDetailPage({ params }: PageProps) {
           <div className="text-sm text-gray-500 dark:text-gray-500 mb-6">
             {newsItem.date}
           </div>
-          <div className="mb-4">
-            {newsItem.content}
-          </div>
+          <div className="mb-4">{newsItem.content}</div>
         </article>
       </div>
     </div>
   );
 }
-

@@ -33,7 +33,9 @@ export default async function NewsPage({ params }: PageProps) {
             >
               <div className="flex-1">
                 <div className="text-lg font-semibold mb-2">{item.title}</div>
-                <div className="text-sm text-gray-500 dark:text-gray-500">{item.date}</div>
+                <div className="text-sm text-gray-500 dark:text-gray-500">
+                  {item.date}
+                </div>
               </div>
               <div className="ml-4 text-gray-400 dark:text-gray-500 font-black text-2xl">
                 ➔

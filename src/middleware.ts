@@ -6,4 +6,3 @@ export default createMiddleware(routing);
 export const config = {
   matcher: ["/", "/(ja|en)/:path*"],
 };
-
