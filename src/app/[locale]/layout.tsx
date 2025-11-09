@@ -48,7 +48,7 @@ export default async function LocaleLayout({
             <ScrollLock />
             <div className="min-h-screen flex flex-col">
               <Header />
-              <main className="flex-1 flex items-center justify-center pb-20">
+              <main className="flex-1 flex items-center justify-center pb-20 overflow-y-auto">
                 {children}
               </main>
               <Footer />

@@ -7,11 +7,10 @@ export default function ScrollLock() {
     const pathname = usePathname();
 
     useEffect(() => {
-        // ホームページ（ルートパス）またはprofileページの場合のみスクロールを無効化
+        // ホームページ（ルートパス）の場合のみスクロールを無効化
         const isHomePage = pathname === "/";
-        const isProfilePage = pathname === "/profile" || pathname.endsWith("/profile");
 
-        if (isHomePage || isProfilePage) {
+        if (isHomePage) {
             document.body.style.overflow = "hidden";
         } else {
             document.body.style.overflow = "";

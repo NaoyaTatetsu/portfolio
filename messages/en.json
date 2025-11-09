@@ -62,16 +62,32 @@
     ]
   },
   "profile": {
-    "name": "Name",
-    "nameValue": "Naoya Tatetsu",
-    "birthday": "Birthday",
-    "birthdayValue": "1998/01/10",
-    "live": "Live",
-    "liveValue": "Tokyo, Japan",
-    "from": "From",
-    "fromValue": "Okinawa, Japan",
-    "age": "Age",
-    "ageValue": "27"
+    "items": [
+      {
+        "title": "Name",
+        "description": "Naoya Tatetsu"
+      },
+      {
+        "title": "Age",
+        "description": "27"
+      },
+      {
+        "title": "Work & Live",
+        "description": "Tokyo, Japan"
+      },
+      {
+        "title": "From",
+        "description": "Okinawa, Japan"
+      },
+      {
+        "title": "Favorite",
+        "description": "TWICE / milkygreek"
+      },
+      {
+        "title": "Skills",
+        "description": "TypeScript / Golang / Python / Docker / Terraform / AWS / GCP"
+      }
+    ]
   },
   "news": {
     "items": [
