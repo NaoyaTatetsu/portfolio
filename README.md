@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio Website
 
-## Getting Started
+個人ポートフォリオサイトです。Next.jsを使用して構築されており、多言語対応（日本語・英語）とダークモード対応を備えています。
 
-First, run the development server:
+## 技術スタック
+
+- **Framework**: [Next.js](https://nextjs.org/) 16.0.1 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS 4
+- **Internationalization**: [next-intl](https://next-intl-docs.vercel.app/) 4.5.0
+- **Theme**: [next-themes](https://github.com/pacocoursey/next-themes) 0.4.6
+- **Linting/Formatting**: [Biome](https://biomejs.dev/) 2.2.0
+- **React Compiler**: babel-plugin-react-compiler 1.0.0
+
+## 機能
+
+- 🌐 多言語対応（日本語・英語）
+- 🌓 ダークモード対応
+- 📱 レスポンシブデザイン
+- 📝 ブログ機能
+- 📰 お知らせ機能
+- 👤 プロフィールページ
+- 🏢 履歴書ページ
+- 📧 お問い合わせページ
+
+## セットアップ
+
+### 必要な環境
+
+- Node.js 24.7.0（[mise](https://mise.jdx.dev/)を使用して自動インストール可能）
+- pnpm（推奨）
+
+### インストール
+
+1. リポジトリをクローン
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd portfolio
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. 依存関係をインストール
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. 開発サーバーを起動
 
-## Learn More
+```bash
+pnpm dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+ブラウザで [http://localhost:3000](http://localhost:3000) を開いて確認できます。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 開発コマンド
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+# 開発サーバーを起動
+pnpm dev
 
-## Deploy on Vercel
+# プロダクションビルド
+pnpm build
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# プロダクションサーバーを起動
+pnpm start
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# リントチェック
+pnpm lint
+
+# コードフォーマット
+pnpm format
+```
+
+## プロジェクト構造
+
+```
+portfolio/
+├── src/
+│   ├── app/                    # Next.js App Router
+│   │   ├── [locale]/          # 多言語対応のルーティング
+│   │   │   ├── blog/          # ブログページ
+│   │   │   ├── contact/       # お問い合わせページ
+│   │   │   ├── experience/    # 履歴書ページ
+│   │   │   ├── news/          # お知らせページ
+│   │   │   ├── profile/       # プロフィールページ
+│   │   │   └── page.tsx       # ホームページ
+│   │   ├── layout.tsx         # ルートレイアウト
+│   │   └── globals.css        # グローバルスタイル
+│   ├── components/            # 再利用可能なコンポーネント
+│   │   ├── Header.tsx         # ヘッダーコンポーネント
+│   │   ├── Footer.tsx         # フッターコンポーネント
+│   │   ├── ScrollLock.tsx    # スクロールロックコンポーネント
+│   │   └── ThemeProvider.tsx  # テーマプロバイダー
+│   ├── i18n/                  # 国際化設定
+│   │   ├── request.ts        # i18nリクエスト設定
+│   │   └── routing.ts        # ルーティング設定
+│   └── middleware.ts          # Next.jsミドルウェア
+├── messages/                  # 翻訳ファイル
+│   ├── en.json               # 英語翻訳
+│   └── ja.json               # 日本語翻訳
+├── public/                    # 静的ファイル
+├── next.config.ts            # Next.js設定
+├── biome.json                # Biome設定
+├── mise.toml                 # mise設定（Node.jsバージョン管理）
+└── package.json              # 依存関係とスクリプト
+```
+
+## 多言語対応
+
+このプロジェクトは `next-intl` を使用して多言語対応を実装しています。
+
+- 対応言語: 日本語（`ja`）、英語（`en`）
+- 翻訳ファイル: `messages/ja.json`、`messages/en.json`
+- URL構造: `/{locale}/...`（例: `/ja/profile`、`/en/profile`）
+
+新しい翻訳キーを追加する場合は、`messages/ja.json` と `messages/en.json` の両方に追加してください。
