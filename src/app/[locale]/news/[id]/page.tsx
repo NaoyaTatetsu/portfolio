@@ -21,7 +21,11 @@ export default async function NewsDetailPage({ params }: PageProps) {
   const newsItems: NewsItem[] = tNews.raw("items") as NewsItem[];
   const newsIndex = parseInt(id, 10);
 
-  if (isNaN(newsIndex) || newsIndex < 0 || newsIndex >= newsItems.length) {
+  if (
+    Number.isNaN(newsIndex) ||
+    newsIndex < 0 ||
+    newsIndex >= newsItems.length
+  ) {
     notFound();
   }
 

@@ -33,7 +33,7 @@ export default async function ProfilePage({ params }: PageProps) {
           />
           <div className="space-y-4 text-left w-full px-10 md:px-[300px] pb-8">
             {items.map((item, index) => (
-              <div key={index} className="flex flex-col">
+              <div key={`${item.title}-${index}`} className="flex flex-col">
                 <span className="font-semibold break-words">{item.title}</span>
                 <span className="text-sm break-words">{item.description}</span>
               </div>
