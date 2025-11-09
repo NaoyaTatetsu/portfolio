@@ -90,8 +90,8 @@ portfolio/
 │   ├── components/            # 再利用可能なコンポーネント
 │   │   ├── Header.tsx         # ヘッダーコンポーネント
 │   │   ├── Footer.tsx         # フッターコンポーネント
-│   │   ├── ScrollLock.tsx    # スクロールロックコンポーネント
-│   │   └── ThemeProvider.tsx  # テーマプロバイダー
+│   │   ├── ThemeProvider.tsx  # テーマプロバイダー
+│   │   └── TypingText.tsx     # タイピングアニメーションコンポーネント
 │   ├── i18n/                  # 国際化設定
 │   │   ├── request.ts        # i18nリクエスト設定
 │   │   └── routing.ts        # ルーティング設定
