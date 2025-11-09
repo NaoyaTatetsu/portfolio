@@ -16,13 +16,13 @@ export default async function ProfilePage({ params }: PageProps) {
     <div className="w-full px-4">
       <div className="max-w-7xl mx-auto">
         <div className="text-2xl mb-8">{t("profile")}</div>
-        <div className="flex flex-col items-center gap-12 md:gap-20">
+        <div className="flex flex-col items-center gap-6 md:gap-8">
           <Image
             src="/me_in_cafe.svg"
             alt="Me in cafe"
-            width={500}
-            height={500}
-            className="w-full max-w-48 md:max-w-sm h-auto rounded-full"
+            width={320}
+            height={320}
+            className="rounded-full w-40 h-40 md:w-56 md:h-56 lg:w-72 lg:h-72"
           />
           <div className="space-y-4 text-left">
             <div>
