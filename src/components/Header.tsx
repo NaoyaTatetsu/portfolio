@@ -1,10 +1,9 @@
 "use client";
 
-import { usePathname, useRouter, Link } from "@/i18n/routing";
 import { useLocale } from "next-intl";
-import { routing } from "@/i18n/routing";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { Link, routing, usePathname, useRouter } from "@/i18n/routing";
 
 export default function Header() {
   const router = useRouter();
@@ -55,6 +54,7 @@ export default function Header() {
           </Link>
           <div className="flex items-center gap-2">
             <button
+              type="button"
               onClick={toggleTheme}
               className="px-3 py-1.5 text-sm font-medium rounded-md transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300"
               aria-label="Toggle theme"
@@ -64,12 +64,14 @@ export default function Header() {
             <div className="flex gap-2">
               {routing.locales.map((locale) => (
                 <button
+                  type="button"
                   key={locale}
                   onClick={() => switchLocale(locale)}
-                  className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${currentLocale === locale
-                    ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
-                    : "hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300"
-                    }`}
+                  className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${
+                    currentLocale === locale
+                      ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
+                      : "hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300"
+                  }`}
                 >
                   {getLocaleFlag(locale)}
                 </button>
@@ -81,4 +83,3 @@ export default function Header() {
     </header>
   );
 }
-

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface TypingTextProps {
   texts?: string[];
@@ -57,7 +57,8 @@ export default function TypingText({
         } else {
           // 削除完了後、次のテキストに移動
           currentIndexRef.current = 0;
-          currentTextIndexRef.current = (currentTextIndexRef.current + 1) % texts.length;
+          currentTextIndexRef.current =
+            (currentTextIndexRef.current + 1) % texts.length;
           timeoutId = setTimeout(() => {
             isTypingRef.current = true;
             animate();
@@ -81,4 +82,3 @@ export default function TypingText({
     </h2>
   );
 }
-
