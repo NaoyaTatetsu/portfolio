@@ -31,7 +31,7 @@ export default async function ProfilePage({ params }: PageProps) {
             height={320}
             className="rounded-full w-40 h-40 md:w-56 md:h-56 lg:w-72 lg:h-72"
           />
-          <div className="space-y-4 text-left w-full px-10">
+          <div className="space-y-4 text-left w-full px-10 md:px-[300px]">
             {items.map((item, index) => (
               <div key={index} className="flex flex-col">
                 <span className="font-semibold break-words">{item.title}</span>
