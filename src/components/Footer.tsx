@@ -2,6 +2,7 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { FaXTwitter, FaInstagram, FaGithub } from "react-icons/fa6";
 
 export default function Footer() {
   const { theme } = useTheme();
@@ -20,13 +21,53 @@ export default function Footer() {
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div
-          className="text-center text-sm dark:text-zinc-400"
-          style={{
-            color: mounted && theme === "light" ? "#000000" : undefined,
-          }}
-        >
-          ©2025 Naoya Tatetsu
+        <div className="flex flex-col items-center gap-4">
+          <div className="flex gap-4">
+            <a
+              href="https://x.com/tttnaobi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xl hover:opacity-70 transition-opacity"
+              aria-label="X (Twitter)"
+              style={{
+                color: mounted && theme === "light" ? "#000000" : undefined,
+              }}
+            >
+              <FaXTwitter />
+            </a>
+            <a
+              href="https://www.instagram.com/tttnaoya?igsh=NG9jdTE1aG9zMDFp&utm_source=qr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xl hover:opacity-70 transition-opacity"
+              aria-label="Instagram"
+              style={{
+                color: mounted && theme === "light" ? "#000000" : undefined,
+              }}
+            >
+              <FaInstagram />
+            </a>
+            <a
+              href="https://github.com/NaoyaTatetsu"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xl hover:opacity-70 transition-opacity"
+              aria-label="GitHub"
+              style={{
+                color: mounted && theme === "light" ? "#000000" : undefined,
+              }}
+            >
+              <FaGithub />
+            </a>
+          </div>
+          <div
+            className="text-center text-sm dark:text-zinc-400"
+            style={{
+              color: mounted && theme === "light" ? "#000000" : undefined,
+            }}
+          >
+            ©2025 Naoya Tatetsu
+          </div>
         </div>
       </div>
     </footer>

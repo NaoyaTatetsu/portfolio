@@ -80,12 +80,12 @@
         "description": "Okinawa, Japan"
       },
       {
-        "title": "Favorite",
-        "description": "TWICE / milkygreek"
-      },
-      {
         "title": "Skills",
         "description": "TypeScript / Golang / Python / Docker / Terraform / AWS / GCP"
+      },
+      {
+        "title": "Favorite",
+        "description": "TWICE / milkygreek"
       }
     ]
   },

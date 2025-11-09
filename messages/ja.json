@@ -80,12 +80,12 @@
         "description": "沖縄"
       },
       {
-        "title": "趣味",
-        "description": "TWICE / milkygreek"
-      },
-      {
         "title": "スキル",
         "description": "TypeScript / Golang / Python / Docker / Terraform / AWS / GCP"
+      },
+      {
+        "title": "趣味",
+        "description": "TWICE / milkygreek"
       }
     ]
   },
