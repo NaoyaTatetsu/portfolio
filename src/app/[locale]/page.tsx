@@ -22,13 +22,13 @@ export default async function Home({ params }: PageProps) {
   ];
 
   return (
-    <div className="flex w-full max-w-3xl flex-col items-center justify-center px-16 font-sans mt-8">
+    <div className="flex w-full max-w-3xl flex-col items-center justify-center px-16 font-sans mt-8 mb-8">
       <Image
         src="/dev_icon.svg"
         alt="dev icon"
         width={320}
         height={320}
-        className="mb-8 rounded-full w-40 h-40 md:w-56 md:h-56 lg:w-72 lg:h-72"
+        className="mb-8 rounded-full w-32 h-32 md:w-44 md:h-44 lg:w-44 lg:h-44 shadow-lg dark:shadow-xl dark:shadow-zinc-800/50"
       />
       <TypingText />
       <nav className="flex flex-col gap-4">

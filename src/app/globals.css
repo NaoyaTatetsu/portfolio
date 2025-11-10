@@ -26,4 +26,174 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* オーロラ背景効果 */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background:
+    radial-gradient(
+      circle at 20% 50%,
+      rgba(120, 119, 198, 0.3) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(255, 119, 198, 0.3) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 40% 20%,
+      rgba(120, 219, 255, 0.3) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 60% 60%,
+      rgba(255, 219, 120, 0.2) 0%,
+      transparent 50%
+    );
+  pointer-events: none;
+}
+
+.dark body::before {
+  background:
+    radial-gradient(
+      circle at 20% 50%,
+      rgba(120, 119, 198, 0.4) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(255, 119, 198, 0.4) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 40% 20%,
+      rgba(120, 219, 255, 0.4) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 60% 60%,
+      rgba(255, 219, 120, 0.3) 0%,
+      transparent 50%
+    );
+}
+
+@keyframes aurora-primary {
+  0% {
+    transform: translate(0%, 0%) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  12% {
+    transform: translate(8%, -12%) scale(1.15) rotate(2deg);
+    opacity: 0.85;
+  }
+  25% {
+    transform: translate(-6%, 7%) scale(0.9) rotate(-1deg);
+    opacity: 0.95;
+  }
+  37% {
+    transform: translate(12%, 4%) scale(1.2) rotate(3deg);
+    opacity: 0.88;
+  }
+  50% {
+    transform: translate(-8%, -5%) scale(0.95) rotate(-2deg);
+    opacity: 1;
+  }
+  62% {
+    transform: translate(5%, 10%) scale(1.1) rotate(1deg);
+    opacity: 0.92;
+  }
+  75% {
+    transform: translate(-10%, 3%) scale(0.88) rotate(-3deg);
+    opacity: 0.9;
+  }
+  87% {
+    transform: translate(7%, -8%) scale(1.05) rotate(2deg);
+    opacity: 0.94;
+  }
+  100% {
+    transform: translate(0%, 0%) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* 追加のオーロラレイヤー */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background:
+    radial-gradient(
+      circle at 70% 30%,
+      rgba(150, 100, 255, 0.25) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 30% 70%,
+      rgba(100, 200, 255, 0.25) 0%,
+      transparent 50%
+    );
+  pointer-events: none;
+}
+
+.dark body::after {
+  background:
+    radial-gradient(
+      circle at 70% 30%,
+      rgba(150, 100, 255, 0.35) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 30% 70%,
+      rgba(100, 200, 255, 0.35) 0%,
+      transparent 50%
+    );
+}
+
+@keyframes aurora-secondary {
+  0% {
+    transform: translate(0%, 0%) scale(1) rotate(0deg);
+    opacity: 0.8;
+  }
+  15% {
+    transform: translate(-12%, 8%) scale(1.12) rotate(-2deg);
+    opacity: 0.95;
+  }
+  28% {
+    transform: translate(9%, -6%) scale(0.85) rotate(3deg);
+    opacity: 0.75;
+  }
+  42% {
+    transform: translate(-5%, 12%) scale(1.18) rotate(-1deg);
+    opacity: 0.9;
+  }
+  55% {
+    transform: translate(11%, -4%) scale(0.92) rotate(2deg);
+    opacity: 0.82;
+  }
+  68% {
+    transform: translate(-8%, 6%) scale(1.08) rotate(-3deg);
+    opacity: 0.88;
+  }
+  82% {
+    transform: translate(6%, -9%) scale(0.96) rotate(1deg);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate(0%, 0%) scale(1) rotate(0deg);
+    opacity: 0.8;
+  }
 }
