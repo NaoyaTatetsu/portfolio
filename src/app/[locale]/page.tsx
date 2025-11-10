@@ -28,7 +28,7 @@ export default async function Home({ params }: PageProps) {
         alt="dev icon"
         width={320}
         height={320}
-        className="mb-8 rounded-full w-32 h-32 md:w-44 md:h-44 lg:w-56 lg:h-56 shadow-lg dark:shadow-xl dark:shadow-zinc-800/50"
+        className="mb-8 rounded-full w-32 h-32 md:w-44 md:h-44 lg:w-44 lg:h-44 shadow-lg dark:shadow-xl dark:shadow-zinc-800/50"
       />
       <TypingText />
       <nav className="flex flex-col gap-4">
