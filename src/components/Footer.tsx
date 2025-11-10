@@ -14,7 +14,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="fixed bottom-0 left-0 right-0 z-50 dark:border-t dark:border-zinc-800 dark:bg-zinc-900/80 dark:backdrop-blur-sm"
+      className="w-full dark:border-t dark:border-zinc-800 dark:bg-zinc-900/60 dark:backdrop-blur-sm"
       style={{
         backgroundColor: mounted && theme === "light" ? "#ffffff" : undefined,
         borderTop: mounted && theme === "light" ? "none" : undefined,

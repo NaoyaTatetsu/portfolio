@@ -21,15 +21,15 @@ export default async function NewsPage({ params }: PageProps) {
   const newsItems: NewsItem[] = tNews.raw("items") as NewsItem[];
 
   return (
-    <div className="w-full px-4 self-start pt-24">
+    <div className="w-full px-4 self-start pt-7">
       <div className="max-w-7xl mx-auto">
         <div className="text-2xl mb-8 text-center font-bold">{t("news")}</div>
-        <div className="space-y-6">
+        <div className="flex flex-col items-center space-y-6">
           {newsItems.map((item, index) => (
             <Link
               key={`${item.title}-${index}`}
               href={`/news/${index}`}
-              className="flex items-center justify-between border-b border-gray-200 pb-6 transition-colors p-4 -m-4 hover:bg-gray-50 dark:hover:bg-gray-900"
+              className="flex items-center justify-between border-b border-gray-200 pb-6 transition-colors p-4 -m-4 hover:bg-gray-50 dark:hover:bg-gray-900 w-full max-w-xl"
             >
               <div className="flex-1">
                 <div className="text-lg font-semibold mb-2">{item.title}</div>
