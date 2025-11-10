@@ -36,11 +36,11 @@ export default async function NewsDetailPage({ params }: PageProps) {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col items-center">
           <article className="pb-8 mb-8 w-full max-w-xl">
-          <h1 className="text-xl font-bold mb-4">{newsItem.title}</h1>
-          <div className="text-sm text-gray-500 dark:text-gray-500 mb-6">
-            {newsItem.date}
-          </div>
-          <div className="mb-4">{newsItem.content}</div>
+            <h1 className="text-xl font-bold mb-4">{newsItem.title}</h1>
+            <div className="text-sm text-gray-500 dark:text-gray-500 mb-6">
+              {newsItem.date}
+            </div>
+            <div className="mb-4">{newsItem.content}</div>
           </article>
         </div>
       </div>
