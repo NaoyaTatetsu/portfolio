@@ -3,11 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
+    "node": "22.x",
     "npm": "⚠️use pnpm!⚠️",
     "yarn": "⚠️use pnpm!⚠️",
     "pnpm": "10.14.0"
   },
   "packageManager": "pnpm@10.14.0",
+  "pnpm": {
+    "allowedBuildScripts": [
+      "@swc/core",
+      "sharp"
+    ]
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
