@@ -9,6 +9,12 @@
     "pnpm": "10.14.0"
   },
   "packageManager": "pnpm@10.14.0",
+  "pnpm": {
+    "allowedBuildScripts": [
+      "@swc/core",
+      "sharp"
+    ]
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
