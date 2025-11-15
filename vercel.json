@@ -1,4 +1,14 @@
 {
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/node"
+    }
+  ],
+  "engines": {
+    "node": "22.x"
+  },
   "github": {
     "silent": true
   }
