@@ -95,7 +95,7 @@ portfolio/
 │   ├── i18n/                  # 国際化設定
 │   │   ├── request.ts        # i18nリクエスト設定
 │   │   └── routing.ts        # ルーティング設定
-│   └── middleware.ts          # Next.jsミドルウェア
+│   └── proxy.ts               # Next.jsプロキシ（旧middleware）
 ├── messages/                  # 翻訳ファイル
 │   ├── en.json               # 英語翻訳
 │   └── ja.json               # 日本語翻訳
