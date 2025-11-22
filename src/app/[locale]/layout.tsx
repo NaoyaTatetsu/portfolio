@@ -53,13 +53,7 @@ export default async function LocaleLayout({
       >
         <ThemeProvider>
           <NextIntlClientProvider messages={messages}>
-            <div className="aurora-container">
-              <div className="aurora-layer"></div>
-              <div className="aurora-layer"></div>
-              <div className="aurora-layer"></div>
-              <div className="aurora-layer"></div>
-            </div>
-            <div className="min-h-screen flex flex-col relative z-10">
+            <div className="min-h-screen flex flex-col">
               <Header />
               <main className="flex-1 flex items-center justify-center pt-16">
                 {children}
