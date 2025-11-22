@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
-const MIN_LOADING_TIME = 200; // 最小表示時間（ミリ秒）
+const MIN_LOADING_TIME = 1000; // 最小表示時間（ミリ秒）
 
 export default function Loading() {
   const [show, setShow] = useState(false);
