@@ -66,7 +66,7 @@ export default function Footer() {
               color: mounted && theme === "light" ? "#000000" : undefined,
             }}
           >
-            ©2025 Naoya Tatetsu
+            © 2025 NaoyaTatetsu
           </div>
         </div>
       </div>
