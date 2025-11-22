@@ -10,16 +10,14 @@ export default function LoadingSpinner({
   className = "",
 }: LoadingSpinnerProps) {
   return (
-    <div
+    <output
       className={`loading-spinner-container ${className}`}
       style={{ width: size, height: size }}
-      role="status"
       aria-live="polite"
     >
       <div className="loading-spinner">
-        <span className="sr-only">読み込み中...</span>
+        <span className="sr-only">loading...</span>
       </div>
-    </div>
+    </output>
   );
 }
-

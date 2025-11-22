@@ -239,7 +239,7 @@ body {
 }
 
 .loading-spinner::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: -8px;
   border-radius: 50%;
