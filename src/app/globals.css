@@ -53,19 +53,25 @@ body {
 /* 2層目 - 色相変換（薄いピンク系） */
 .aurora-layer:nth-child(2) {
   box-shadow: 0 0 45vmax 45vmax #ffb3d9;
-  animation: hue1 10s 0s linear infinite, move1 19s 0s linear infinite;
+  animation:
+    hue1 10s 0s linear infinite,
+    move1 19s 0s linear infinite;
 }
 
 /* 3層目 - 位置調整（薄い青系） */
 .aurora-layer:nth-child(3) {
   box-shadow: 0 0 45vmax 45vmax #b3d9ff;
-  animation: hue2 15s 0s linear infinite, move2 25s 0s linear infinite;
+  animation:
+    hue2 15s 0s linear infinite,
+    move2 25s 0s linear infinite;
 }
 
 /* 4層目 - 位置調整を時間差で（薄い紫系） */
 .aurora-layer:nth-child(4) {
   box-shadow: 0 0 45vmax 45vmax #d9b3ff;
-  animation: hue3 20s 0s linear infinite, move3 15s 0s linear infinite;
+  animation:
+    hue3 20s 0s linear infinite,
+    move3 15s 0s linear infinite;
 }
 
 /* ダークモード時の調整 */
