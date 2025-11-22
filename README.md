@@ -5,11 +5,13 @@
 ## 技術スタック
 
 - **Framework**: [Next.js](https://nextjs.org/) 16.0.1 (App Router)
-- **Language**: TypeScript
+- **Language**: TypeScript 5
+- **Runtime**: React 19.2.0
 - **Styling**: Tailwind CSS 4
 - **Internationalization**: [next-intl](https://next-intl-docs.vercel.app/) 4.5.0
 - **Theme**: [next-themes](https://github.com/pacocoursey/next-themes) 0.4.6
-- **Linting/Formatting**: [Biome](https://biomejs.dev/) 2.2.0
+- **Icons**: [react-icons](https://react-icons.github.io/react-icons/) 5.5.0
+- **Linting/Formatting**: [Biome](https://biomejs.dev/) 2.3.4
 - **React Compiler**: babel-plugin-react-compiler 1.0.0
 
 ## 機能
@@ -27,8 +29,8 @@
 
 ### 必要な環境
 
-- Node.js 24.7.0（[mise](https://mise.jdx.dev/)を使用して自動インストール可能）
-- pnpm（推奨）
+- Node.js 22.5.1（[mise](https://mise.jdx.dev/)を使用して自動インストール可能）
+- pnpm 10.14.0（推奨）
 
 ### インストール
 
@@ -67,6 +69,9 @@ pnpm start
 
 # リントチェック
 pnpm lint
+
+# リントチェックと自動修正
+pnpm lint:fix
 
 # コードフォーマット
 pnpm format
