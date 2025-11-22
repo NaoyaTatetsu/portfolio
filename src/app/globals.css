@@ -197,3 +197,58 @@ body::after {
     opacity: 0.8;
   }
 }
+
+/* ローディングスピナー - ネオンリング・スピナースタイル */
+.loading-spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-spinner {
+  width: 100%;
+  height: 100%;
+  border: 4px solid transparent;
+  border-radius: 50%;
+  border-top-color: #0ff;
+  border-right-color: #0ff;
+  position: relative;
+  animation: spinner-spin 1.5s linear infinite;
+  filter: drop-shadow(0 0 10px #0ff) drop-shadow(0 0 20px #0ff);
+  will-change: transform;
+}
+
+.loading-spinner::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-bottom-color: #f0f;
+  border-left-color: #f0f;
+  animation: spinner-spin 1s linear infinite reverse;
+  filter: drop-shadow(0 0 10px #f0f) drop-shadow(0 0 20px #f0f);
+  will-change: transform;
+}
+
+@keyframes spinner-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* スクリーンリーダー用のテキストを非表示 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
