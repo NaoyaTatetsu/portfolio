@@ -31,169 +31,183 @@ body {
 }
 
 /* オーロラ背景効果 */
-body::before {
-  content: "";
+.aurora-container {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
-  background:
-    radial-gradient(
-      circle at 20% 50%,
-      rgba(120, 119, 198, 0.3) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 80% 80%,
-      rgba(255, 119, 198, 0.3) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 40% 20%,
-      rgba(120, 219, 255, 0.3) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 60% 60%,
-      rgba(255, 219, 120, 0.2) 0%,
-      transparent 50%
-    );
+  z-index: 0;
   pointer-events: none;
+  overflow: hidden;
 }
 
-.dark body::before {
-  background:
-    radial-gradient(
-      circle at 20% 50%,
-      rgba(120, 119, 198, 0.4) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 80% 80%,
-      rgba(255, 119, 198, 0.4) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 40% 20%,
-      rgba(120, 219, 255, 0.4) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 60% 60%,
-      rgba(255, 219, 120, 0.3) 0%,
-      transparent 50%
-    );
+.aurora-layer {
+  position: absolute;
+  width: 0.001vmin;
+  height: 0.001vmin;
+  border-radius: 50%;
+  opacity: 0.5;
 }
 
-@keyframes aurora-primary {
-  0% {
-    transform: translate(0%, 0%) scale(1) rotate(0deg);
-    opacity: 1;
+/* 2層目 - 色相変換（薄いピンク系） */
+.aurora-layer:nth-child(2) {
+  box-shadow: 0 0 45vmax 45vmax #ffb3d9;
+  animation: hue1 10s 0s linear infinite, move1 19s 0s linear infinite;
+}
+
+/* 3層目 - 位置調整（薄い青系） */
+.aurora-layer:nth-child(3) {
+  box-shadow: 0 0 45vmax 45vmax #b3d9ff;
+  animation: hue2 15s 0s linear infinite, move2 25s 0s linear infinite;
+}
+
+/* 4層目 - 位置調整を時間差で（薄い紫系） */
+.aurora-layer:nth-child(4) {
+  box-shadow: 0 0 45vmax 45vmax #d9b3ff;
+  animation: hue3 20s 0s linear infinite, move3 15s 0s linear infinite;
+}
+
+/* ダークモード時の調整 */
+.dark .aurora-layer {
+  opacity: 0.5;
+}
+
+/* 色相変換アニメーション - 360度回転でグラデーション効果を強化 */
+@keyframes hue1 {
+  to {
+    filter: hue-rotate(360deg);
   }
-  12% {
-    transform: translate(8%, -12%) scale(1.15) rotate(2deg);
-    opacity: 0.85;
+}
+
+@keyframes hue2 {
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes hue3 {
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+
+/* 位置調整アニメーション1 - 上下と斜めの動きを追加 */
+@keyframes move1 {
+  0% {
+    top: 0vh;
+    left: 50vw;
+  }
+  12.5% {
+    top: 25vh;
+    left: 25vw;
   }
   25% {
-    transform: translate(-6%, 7%) scale(0.9) rotate(-1deg);
-    opacity: 0.95;
+    top: 50vh;
+    left: 0vw;
   }
-  37% {
-    transform: translate(12%, 4%) scale(1.2) rotate(3deg);
-    opacity: 0.88;
+  37.5% {
+    top: 75vh;
+    left: 25vw;
   }
   50% {
-    transform: translate(-8%, -5%) scale(0.95) rotate(-2deg);
-    opacity: 1;
+    top: 100vh;
+    left: 50vw;
   }
-  62% {
-    transform: translate(5%, 10%) scale(1.1) rotate(1deg);
-    opacity: 0.92;
+  62.5% {
+    top: 75vh;
+    left: 75vw;
   }
   75% {
-    transform: translate(-10%, 3%) scale(0.88) rotate(-3deg);
-    opacity: 0.9;
+    top: 50vh;
+    left: 100vw;
   }
-  87% {
-    transform: translate(7%, -8%) scale(1.05) rotate(2deg);
-    opacity: 0.94;
+  87.5% {
+    top: 25vh;
+    left: 75vw;
   }
   100% {
-    transform: translate(0%, 0%) scale(1) rotate(0deg);
-    opacity: 1;
+    top: 0vh;
+    left: 50vw;
   }
 }
 
-/* 追加のオーロラレイヤー */
-body::after {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background:
-    radial-gradient(
-      circle at 70% 30%,
-      rgba(150, 100, 255, 0.25) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 30% 70%,
-      rgba(100, 200, 255, 0.25) 0%,
-      transparent 50%
-    );
-  pointer-events: none;
-}
-
-.dark body::after {
-  background:
-    radial-gradient(
-      circle at 70% 30%,
-      rgba(150, 100, 255, 0.35) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 30% 70%,
-      rgba(100, 200, 255, 0.35) 0%,
-      transparent 50%
-    );
-}
-
-@keyframes aurora-secondary {
+/* 位置調整アニメーション2 - 上下と斜めの動きを追加 */
+@keyframes move2 {
   0% {
-    transform: translate(0%, 0%) scale(1) rotate(0deg);
-    opacity: 0.8;
+    top: 50vh;
+    left: 100vw;
   }
-  15% {
-    transform: translate(-12%, 8%) scale(1.12) rotate(-2deg);
-    opacity: 0.95;
+  12.5% {
+    top: 75vh;
+    left: 75vw;
   }
-  28% {
-    transform: translate(9%, -6%) scale(0.85) rotate(3deg);
-    opacity: 0.75;
+  25% {
+    top: 100vh;
+    left: 50vw;
   }
-  42% {
-    transform: translate(-5%, 12%) scale(1.18) rotate(-1deg);
-    opacity: 0.9;
+  37.5% {
+    top: 75vh;
+    left: 25vw;
   }
-  55% {
-    transform: translate(11%, -4%) scale(0.92) rotate(2deg);
-    opacity: 0.82;
+  50% {
+    top: 50vh;
+    left: 0vw;
   }
-  68% {
-    transform: translate(-8%, 6%) scale(1.08) rotate(-3deg);
-    opacity: 0.88;
+  62.5% {
+    top: 25vh;
+    left: 25vw;
   }
-  82% {
-    transform: translate(6%, -9%) scale(0.96) rotate(1deg);
-    opacity: 0.85;
+  75% {
+    top: 0vh;
+    left: 50vw;
+  }
+  87.5% {
+    top: 25vh;
+    left: 75vw;
   }
   100% {
-    transform: translate(0%, 0%) scale(1) rotate(0deg);
-    opacity: 0.8;
+    top: 50vh;
+    left: 100vw;
+  }
+}
+
+/* 位置調整アニメーション3 - 上下と斜めの動きを追加 */
+@keyframes move3 {
+  0% {
+    top: 100vh;
+    left: 50vw;
+  }
+  12.5% {
+    top: 75vh;
+    left: 75vw;
+  }
+  25% {
+    top: 50vh;
+    left: 100vw;
+  }
+  37.5% {
+    top: 25vh;
+    left: 75vw;
+  }
+  50% {
+    top: 0vh;
+    left: 50vw;
+  }
+  62.5% {
+    top: 25vh;
+    left: 25vw;
+  }
+  75% {
+    top: 50vh;
+    left: 0vw;
+  }
+  87.5% {
+    top: 75vh;
+    left: 25vw;
+  }
+  100% {
+    top: 100vh;
+    left: 50vw;
   }
 }
