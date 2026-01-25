@@ -29,7 +29,7 @@
 
 ### 必要な環境
 
-- Node.js 22.5.1（[mise](https://mise.jdx.dev/)を使用して自動インストール可能）
+- Node.js 24.7.0（[mise](https://mise.jdx.dev/)を使用して自動インストール可能）
 - pnpm 10.14.0（推奨）
 
 ### インストール
