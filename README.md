@@ -2,6 +2,8 @@
 
 A personal portfolio website built with Next.js, featuring multilingual support (Japanese/English) and dark mode.
 
+> 📖 [日本語版のREADMEはこちら](docs/README_jp.md)
+
 ## Tech Stack
 
 - **Framework**: [Next.js](https://nextjs.org/) 16.1.5 (App Router)
