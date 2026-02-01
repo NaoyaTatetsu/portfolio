@@ -1,122 +1,122 @@
 # Portfolio Website
 
-個人ポートフォリオサイトです。Next.jsを使用して構築されており、多言語対応（日本語・英語）とダークモード対応を備えています。
+A personal portfolio website built with Next.js, featuring multilingual support (Japanese/English) and dark mode.
 
-## 技術スタック
+## Tech Stack
 
-- **Framework**: [Next.js](https://nextjs.org/) 16.0.1 (App Router)
+- **Framework**: [Next.js](https://nextjs.org/) 16.1.5 (App Router)
 - **Language**: TypeScript 5
-- **Runtime**: React 19.2.0
+- **Runtime**: React 19.2.1
 - **Styling**: Tailwind CSS 4
-- **Internationalization**: [next-intl](https://next-intl-docs.vercel.app/) 4.5.0
+- **Internationalization**: [next-intl](https://next-intl-docs.vercel.app/) 4.7.0
 - **Theme**: [next-themes](https://github.com/pacocoursey/next-themes) 0.4.6
 - **Icons**: [react-icons](https://react-icons.github.io/react-icons/) 5.5.0
-- **Linting/Formatting**: [Biome](https://biomejs.dev/) 2.3.4
+- **Linting/Formatting**: [Biome](https://biomejs.dev/) 2.3.8
 - **React Compiler**: babel-plugin-react-compiler 1.0.0
 
-## 機能
+## Features
 
-- 🌐 多言語対応（日本語・英語）
-- 🌓 ダークモード対応
-- 📱 レスポンシブデザイン
-- 📝 ブログ機能
-- 📰 お知らせ機能
-- 👤 プロフィールページ
-- 🏢 履歴書ページ
-- 📧 お問い合わせページ
+- 🌐 Multilingual support (Japanese/English)
+- 🌓 Dark mode support
+- 📱 Responsive design
+- 📝 Blog functionality
+- 📰 News/Announcements
+- 👤 Profile page
+- 🏢 Experience/Resume page
+- 📧 Contact page
 
-## セットアップ
+## Setup
 
-### 必要な環境
+### Requirements
 
-- Node.js 24.7.0（[mise](https://mise.jdx.dev/)を使用して自動インストール可能）
-- pnpm 10.14.0（推奨）
+- Node.js 24.7.0 (can be automatically installed using [mise](https://mise.jdx.dev/))
+- pnpm 10.14.0 (recommended)
 
-### インストール
+### Installation
 
-1. リポジトリをクローン
+1. Clone the repository
 
 ```bash
 git clone <repository-url>
 cd portfolio
 ```
 
-2. 依存関係をインストール
+2. Install dependencies
 
 ```bash
 pnpm install
 ```
 
-3. 開発サーバーを起動
+3. Start the development server
 
 ```bash
 pnpm dev
 ```
 
-ブラウザで [http://localhost:3000](http://localhost:3000) を開いて確認できます。
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the site.
 
-## 開発コマンド
+## Development Commands
 
 ```bash
-# 開発サーバーを起動
+# Start development server
 pnpm dev
 
-# プロダクションビルド
+# Build for production
 pnpm build
 
-# プロダクションサーバーを起動
+# Start production server
 pnpm start
 
-# リントチェック
+# Run linting
 pnpm lint
 
-# リントチェックと自動修正
+# Run linting with auto-fix
 pnpm lint:fix
 
-# コードフォーマット
+# Format code
 pnpm format
 ```
 
-## プロジェクト構造
+## Project Structure
 
 ```
 portfolio/
 ├── src/
 │   ├── app/                    # Next.js App Router
-│   │   ├── [locale]/          # 多言語対応のルーティング
-│   │   │   ├── blog/          # ブログページ
-│   │   │   ├── contact/       # お問い合わせページ
-│   │   │   ├── experience/    # 履歴書ページ
-│   │   │   ├── news/          # お知らせページ
-│   │   │   ├── profile/       # プロフィールページ
-│   │   │   └── page.tsx       # ホームページ
-│   │   ├── layout.tsx         # ルートレイアウト
-│   │   └── globals.css        # グローバルスタイル
-│   ├── components/            # 再利用可能なコンポーネント
-│   │   ├── Header.tsx         # ヘッダーコンポーネント
-│   │   ├── Footer.tsx         # フッターコンポーネント
-│   │   ├── ThemeProvider.tsx  # テーマプロバイダー
-│   │   └── TypingText.tsx     # タイピングアニメーションコンポーネント
-│   ├── i18n/                  # 国際化設定
-│   │   ├── request.ts        # i18nリクエスト設定
-│   │   └── routing.ts        # ルーティング設定
-│   └── proxy.ts               # Next.jsプロキシ（旧middleware）
-├── messages/                  # 翻訳ファイル
-│   ├── en.json               # 英語翻訳
-│   └── ja.json               # 日本語翻訳
-├── public/                    # 静的ファイル
-├── next.config.ts            # Next.js設定
-├── biome.json                # Biome設定
-├── mise.toml                 # mise設定（Node.jsバージョン管理）
-└── package.json              # 依存関係とスクリプト
+│   │   ├── [locale]/          # Multilingual routing
+│   │   │   ├── blog/          # Blog page
+│   │   │   ├── contact/       # Contact page
+│   │   │   ├── experience/    # Experience/Resume page
+│   │   │   ├── news/          # News page
+│   │   │   ├── profile/       # Profile page
+│   │   │   └── page.tsx       # Home page
+│   │   ├── layout.tsx         # Root layout
+│   │   └── globals.css        # Global styles
+│   ├── components/            # Reusable components
+│   │   ├── Header.tsx         # Header component
+│   │   ├── Footer.tsx         # Footer component
+│   │   ├── ThemeProvider.tsx  # Theme provider
+│   │   └── TypingText.tsx     # Typing animation component
+│   ├── i18n/                  # Internationalization setup
+│   │   ├── request.ts        # i18n request configuration
+│   │   └── routing.ts        # Routing configuration
+│   └── proxy.ts               # Next.js proxy (formerly middleware)
+├── messages/                  # Translation files
+│   ├── en.json               # English translations
+│   └── ja.json               # Japanese translations
+├── public/                    # Static files
+├── next.config.ts            # Next.js configuration
+├── biome.json                # Biome configuration
+├── mise.toml                 # mise configuration (Node.js version management)
+└── package.json              # Dependencies and scripts
 ```
 
-## 多言語対応
+## Internationalization
 
-このプロジェクトは `next-intl` を使用して多言語対応を実装しています。
+This project uses `next-intl` for internationalization.
 
-- 対応言語: 日本語（`ja`）、英語（`en`）
-- 翻訳ファイル: `messages/ja.json`、`messages/en.json`
-- URL構造: `/{locale}/...`（例: `/ja/profile`、`/en/profile`）
+- Supported languages: Japanese (`ja`), English (`en`)
+- Translation files: `messages/ja.json`, `messages/en.json`
+- URL structure: `/{locale}/...` (e.g., `/ja/profile`, `/en/profile`)
 
-新しい翻訳キーを追加する場合は、`messages/ja.json` と `messages/en.json` の両方に追加してください。
+When adding new translation keys, please add them to both `messages/ja.json` and `messages/en.json`.
