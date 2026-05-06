@@ -26,11 +26,8 @@ export default async function ExperiencePage({ params }: PageProps) {
           {t("experience")}
         </div>
         <div className="flex flex-col items-center">
-          {items.map((item, index) => (
-            <div
-              key={`${item.school}-${index}`}
-              className="flex gap-4 w-full max-w-xl"
-            >
+          {items.map((item) => (
+            <div key={item.school} className="flex gap-4 w-full max-w-xl">
               <div className="flex flex-col items-center">
                 <div className="text-sm">{item.icon}</div>
                 <div className="w-0.5 bg-gray-300 dark:bg-gray-700 flex-1"></div>
@@ -43,11 +40,8 @@ export default async function ExperiencePage({ params }: PageProps) {
                 <div className="italic mb-2">{item.major}</div>
                 {item.description && item.description.length > 0 && (
                   <ul className="list-disc list-inside space-y-1">
-                    {item.description.map((desc, descIndex) => (
-                      <li
-                        key={`${item.school}-desc-${descIndex}`}
-                        className="text-sm"
-                      >
+                    {item.description.map((desc) => (
+                      <li key={`${item.school}-${desc}`} className="text-sm">
                         {desc}
                       </li>
                     ))}

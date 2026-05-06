@@ -27,7 +27,7 @@ export default async function NewsPage({ params }: PageProps) {
         <div className="flex flex-col items-center space-y-6">
           {newsItems.map((item, index) => (
             <Link
-              key={`${item.title}-${index}`}
+              key={item.title}
               href={`/news/${index}`}
               className="flex items-center justify-between border-b border-gray-200 pb-6 transition-opacity p-4 -m-4 hover:opacity-60 w-full max-w-xl"
             >
