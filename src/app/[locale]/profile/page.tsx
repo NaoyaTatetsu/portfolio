@@ -32,8 +32,8 @@ export default async function ProfilePage({ params }: PageProps) {
             className="rounded-full w-32 h-32 md:w-44 md:h-44 lg:w-56 lg:h-56 shadow-lg dark:shadow-xl dark:shadow-zinc-800/50"
           />
           <div className="space-y-4 text-left max-w-70 md:max-w-90 lg:max-w-90 mx-auto px-4 pb-8">
-            {items.map((item, index) => (
-              <div key={`${item.title}-${index}`} className="flex flex-col">
+            {items.map((item) => (
+              <div key={item.title} className="flex flex-col">
                 <span className="font-semibold break-words">{item.title}</span>
                 <span className="text-sm break-words">{item.description}</span>
               </div>
