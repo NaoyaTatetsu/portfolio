@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
+import InstagramPhone from "@/components/InstagramPhone";
 
 interface PageProps {
   params: Promise<{
@@ -11,6 +12,15 @@ interface ProfileItem {
   title: string;
   description: string;
 }
+
+const INSTAGRAM_URL =
+  "https://www.instagram.com/tttnaoya?igsh=NG9jdTE1aG9zMDFp&utm_source=qr";
+
+const instagramFeeds = [
+  "/instagram/feed-1.svg",
+  "/instagram/feed-2.svg",
+  "/instagram/feed-3.svg",
+];
 
 export default async function ProfilePage({ params }: PageProps) {
   await params;
@@ -38,6 +48,20 @@ export default async function ProfilePage({ params }: PageProps) {
                 <span className="text-sm break-words">{item.description}</span>
               </div>
             ))}
+          </div>
+          <div className="text-2xl text-center font-bold">
+            {profileT("instagramTitle")}
+          </div>
+          <InstagramPhone feeds={instagramFeeds} />
+          <div className="text-sm pb-8">
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-70 transition-opacity underline underline-offset-4"
+            >
+              @tttnaoya →
+            </a>
           </div>
         </div>
       </div>

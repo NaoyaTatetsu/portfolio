@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="800" viewBox="0 0 640 800">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fdf2f8"/>
+      <stop offset="100%" stop-color="#fbcfe8"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="800" fill="url(#g)"/>
+  <g stroke="#ec4899" stroke-width="14" fill="none" stroke-linecap="round">
+    <rect x="245" y="305" width="150" height="150" rx="40"/>
+    <circle cx="320" cy="380" r="38"/>
+    <circle cx="365" cy="335" r="7" fill="#ec4899" stroke="none"/>
+  </g>
+  <text x="320" y="540" text-anchor="middle" font-family="sans-serif" font-size="24" fill="#9d174d">Replace with your feed screenshot</text>
+  <text x="320" y="575" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#9d174d">public/instagram/feed-1.svg</text>
+</svg>

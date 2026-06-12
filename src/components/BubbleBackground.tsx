@@ -79,7 +79,15 @@ export default function BubbleBackground() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+    // WebGLが使えない環境(コンテキスト上限超過など)では背景なしで動作させる。
+    // ここで例外を投げるとNext.jsのdevオーバーレイがbodyにoverflow:hiddenを
+    // 設定し、ページ全体がスクロール不能になる
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+    } catch {
+      return;
+    }
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -137,6 +145,9 @@ export default function BubbleBackground() {
       mesh.geometry.dispose();
       material.dispose();
       renderer.dispose();
+      // HMRでの再マウントごとにWebGLコンテキストが溜まり上限超過で
+      // 生成失敗するのを防ぐため、明示的にコンテキストを解放する
+      renderer.forceContextLoss();
     };
   }, []);
 
