@@ -36,13 +36,7 @@ export default function Header() {
   };
 
   return (
-    <header
-      className="fixed top-0 left-0 right-0 z-50 dark:border-b dark:border-zinc-800 dark:bg-zinc-900/60 dark:backdrop-blur-sm"
-      style={{
-        backgroundColor: mounted && theme === "light" ? "#ffffff" : undefined,
-        borderBottom: mounted && theme === "light" ? "none" : undefined,
-      }}
-    >
+    <header className="fixed top-0 left-0 right-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 gap-4">
           <Link
