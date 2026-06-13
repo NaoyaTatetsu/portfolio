@@ -5,7 +5,6 @@ import { getMessages } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 import type { Metadata } from "next";
-import BubbleBackground from "@/components/BubbleBackground";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -53,7 +52,6 @@ export default async function LocaleLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-black`}
       >
         <ThemeProvider>
-          <BubbleBackground />
           <NextIntlClientProvider messages={messages}>
             <div className="min-h-screen flex flex-col">
               <Header />
