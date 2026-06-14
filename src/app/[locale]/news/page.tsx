@@ -29,17 +29,10 @@ export default async function NewsPage({ params }: PageProps) {
             <Link
               key={item.title}
               href={`/news/${index}`}
-              className="flex items-center justify-between border-b border-gray-200 pb-6 transition-opacity p-4 -m-4 hover:opacity-60 w-full max-w-xl"
+              className="block border-b border-gray-200 pb-6 transition-opacity p-4 -m-4 hover:opacity-60 w-full max-w-xl"
             >
-              <div className="flex-1">
-                <div className="text-lg font-semibold mb-2">{item.title}</div>
-                <div className="text-sm text-gray-400 dark:text-gray-400">
-                  {item.date}
-                </div>
-              </div>
-              <div className="ml-4 text-gray-400 dark:text-gray-500 font-black text-2xl">
-                👉
-              </div>
+              <div className="text-lg font-semibold mb-2">{item.title}</div>
+              <div className="text-sm">{item.date}</div>
             </Link>
           ))}
         </div>

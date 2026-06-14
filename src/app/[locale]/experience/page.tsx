@@ -33,9 +33,7 @@ export default async function ExperiencePage({ params }: PageProps) {
                 <div className="w-0.5 bg-gray-300 dark:bg-gray-700 flex-1"></div>
               </div>
               <div className="flex-1 mb-8 text-left">
-                <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                  {item.period}
-                </div>
+                <div className="text-sm mb-2">{item.period}</div>
                 <h3 className="text-xl font-semibold mb-2">{item.school}</h3>
                 <div className="italic mb-2">{item.major}</div>
                 {item.description && item.description.length > 0 && (

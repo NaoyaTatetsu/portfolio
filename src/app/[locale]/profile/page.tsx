@@ -29,6 +29,7 @@ export default async function ProfilePage({ params }: PageProps) {
             alt="Me in cafe"
             width={320}
             height={320}
+            priority
             className="rounded-full w-32 h-32 md:w-44 md:h-44 lg:w-56 lg:h-56 shadow-lg dark:shadow-xl dark:shadow-zinc-800/50"
           />
           <div className="space-y-4 text-left max-w-70 md:max-w-90 lg:max-w-90 mx-auto px-4 pb-8">

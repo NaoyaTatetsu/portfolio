@@ -84,6 +84,14 @@
         "description": "TypeScript / Golang / Python / Docker / Terraform / AWS / GCP"
       },
       {
+        "title": "ツール",
+        "description": "GitHub / WezTerm / Docker"
+      },
+      {
+        "title": "AI",
+        "description": "Cursor / Codex / Claude / Devin / Gemini"
+      },
+      {
         "title": "趣味",
         "description": "TWICE / milkygreek"
       }
