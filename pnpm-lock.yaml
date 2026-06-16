@@ -47,7 +47,7 @@ importers:
         version: 1.0.0
       tailwindcss:
         specifier: ^4
-        version: 4.1.18
+        version: 4.3.1
       typescript:
         specifier: ^5
         version: 5.9.3
@@ -848,9 +848,6 @@ packages:
       babel-plugin-macros:
         optional: true
 
-  tailwindcss@4.1.18:
-    resolution: {integrity: sha512-4+Z+0yiYyEtUVCScyfHCxOYP06L5Ne+JiHhY2IjR2KWMIWhJOYZKLSGZaP5HkZ8+bY0cxfzwDE5uOmzFXyIwxw==}
-
   tailwindcss@4.3.1:
     resolution: {integrity: sha512-hk+TB1m+K8CYNrP6rjQaq/Y+4Zylwpa87mLYBKCunwnnQ9p+fHb7kmSfGqyEJoxF/O6CDyABWVFEafNSYKll+Q==}
 
@@ -1506,8 +1503,6 @@ snapshots:
     dependencies:
       client-only: 0.0.1
       react: 19.2.6
-
-  tailwindcss@4.1.18: {}
 
   tailwindcss@4.3.1: {}
 
