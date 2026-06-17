@@ -244,7 +244,7 @@ export const OBSTACLES: Obstacle[] = (() => {
     arr.push({
       position: surfacePos(t.phi, t.theta),
       // collision only at trunk-ish footprint, not leaf canopy
-      radius: 0.022 * t.scale,
+      radius: 0.04 * t.scale,
     });
   }
   for (const l of DATA.lamps) {
@@ -982,17 +982,18 @@ function Tree({ phi, theta, variant, rotation, scale }: TreePlacement) {
 
   if (variant === 1) {
     // tall pine
+    const trunkH = 0.1 * scale;
+    const coneR = 0.11 * scale;
+    const coneH = 0.3 * scale;
     return (
       <group position={position} quaternion={quaternion}>
         <group rotation={[0, rotation, 0]}>
-          <mesh position={[0, 0.025 * scale, 0]} castShadow>
-            <cylinderGeometry
-              args={[0.012 * scale, 0.018 * scale, 0.05 * scale, 6]}
-            />
+          <mesh position={[0, trunkH / 2, 0]} castShadow>
+            <cylinderGeometry args={[0.022 * scale, 0.03 * scale, trunkH, 6]} />
             <meshStandardMaterial color="#5a3a1a" />
           </mesh>
-          <mesh position={[0, 0.11 * scale, 0]} castShadow>
-            <coneGeometry args={[0.06 * scale, 0.16 * scale, 7]} />
+          <mesh position={[0, trunkH + coneH / 2, 0]} castShadow>
+            <coneGeometry args={[coneR, coneH, 7]} />
             <meshStandardMaterial color="#3d7236" flatShading roughness={0.9} />
           </mesh>
         </group>
@@ -1000,16 +1001,16 @@ function Tree({ phi, theta, variant, rotation, scale }: TreePlacement) {
     );
   }
   // default round tree
-  const trunkH = 0.05 * scale;
-  const leafR = 0.075 * scale;
+  const trunkH = 0.1 * scale;
+  const leafR = 0.13 * scale;
   return (
     <group position={position} quaternion={quaternion}>
       <group rotation={[0, rotation, 0]}>
         <mesh position={[0, trunkH / 2, 0]} castShadow>
-          <cylinderGeometry args={[0.013 * scale, 0.018 * scale, trunkH, 6]} />
+          <cylinderGeometry args={[0.022 * scale, 0.03 * scale, trunkH, 6]} />
           <meshStandardMaterial color="#5a3a1a" />
         </mesh>
-        <mesh position={[0, trunkH + leafR * 0.65, 0]} castShadow>
+        <mesh position={[0, trunkH + leafR * 0.7, 0]} castShadow>
           <icosahedronGeometry args={[leafR, 0]} />
           <meshStandardMaterial color="#4f8a3a" flatShading roughness={0.9} />
         </mesh>
@@ -1179,7 +1180,7 @@ function ColoredPlanet() {
         Math.cos(c.phi),
         Math.sin(c.phi) * Math.sin(c.theta),
       ),
-      cosThreshold: Math.cos(0.28 * c.size),
+      cosThreshold: Math.cos(0.55 * c.size),
     }));
 
     for (let i = 0; i < positions.count; i++) {
@@ -1193,13 +1194,15 @@ function ColoredPlanet() {
         }
       }
       const smooth = landMix * landMix * (3 - 2 * landMix);
-      if (smooth < 0.18) {
+      // narrow ocean band, fast transition to land so the planet reads as
+      // mostly green ground with small water gaps between continents.
+      if (smooth < 0.04) {
         tmp.copy(ocean);
-      } else if (smooth < 0.32) {
-        const k = (smooth - 0.18) / (0.32 - 0.18);
+      } else if (smooth < 0.14) {
+        const k = (smooth - 0.04) / (0.14 - 0.04);
         tmp.copy(ocean).lerp(shore, k);
       } else {
-        const k = (smooth - 0.32) / (1 - 0.32);
+        const k = (smooth - 0.14) / (1 - 0.14);
         tmp.copy(shore).lerp(land, Math.min(1, k));
       }
       colors[i * 3] = tmp.r;

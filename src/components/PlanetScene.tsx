@@ -9,7 +9,8 @@ import PlanetWorld, { OBSTACLES } from "./PlanetWorld";
 import { PLANET_RADIUS, surfacePos, surfaceQuat } from "./planet-config";
 
 const MOVE_SPEED = 0.55;
-const TURN_RATE = 4; // smaller = more gradual viewpoint turn while strafing
+const TURN_RATE = 0.6; // viewpoint (camera) — gradual
+const BODY_TURN_RATE = 9; // character body — quick snap toward movement direction
 const MARKER_PROXIMITY = 0.42;
 const JUMP_SPEED = 1.05;
 const GRAVITY = 3.2;
@@ -97,6 +98,7 @@ function Character({ inputRef, positionRef }: CharacterProps) {
   const stateRef = useRef({
     position: new THREE.Vector3(0, PLANET_RADIUS, 0),
     forward: new THREE.Vector3(0, 0, 1),
+    bodyForward: new THREE.Vector3(0, 0, 1),
     up: new THREE.Vector3(0, 1, 0),
     bob: 0,
     verticalOffset: 0,
@@ -168,23 +170,29 @@ function Character({ inputRef, positionRef }: CharacterProps) {
         if (!blocked) {
           st.position.copy(candidate);
           st.up.copy(st.position).normalize();
-          // keep forward tangent to the new surface by applying the same q
+          // keep both forward vectors tangent to the new surface
           st.forward.applyQuaternion(q);
-          const dot = st.forward.dot(st.up);
-          st.forward.sub(st.up.clone().multiplyScalar(dot)).normalize();
+          st.bodyForward.applyQuaternion(q);
+          let d = st.forward.dot(st.up);
+          st.forward.sub(st.up.clone().multiplyScalar(d)).normalize();
+          d = st.bodyForward.dot(st.up);
+          st.bodyForward.sub(st.up.clone().multiplyScalar(d)).normalize();
         }
-        // smoothly slew the facing toward the movement direction. The amount
-        // is proportional to elapsed time, so the viewpoint turns gradually
-        // while the player keeps holding the input (e.g. holding left rotates
-        // the camera left in proportion to how far the character travels).
+        // slew toward movement direction
         const target = moveDir.clone();
         target.sub(st.up.clone().multiplyScalar(target.dot(st.up)));
         if (target.lengthSq() > 0.0001) {
           target.normalize();
-          const turnAmt = 1 - Math.exp(-dt * TURN_RATE);
-          st.forward.lerp(target, turnAmt);
-          const d = st.forward.dot(st.up);
+          // camera (forward) follows slowly
+          const camAmt = 1 - Math.exp(-dt * TURN_RATE);
+          st.forward.lerp(target, camAmt);
+          let d = st.forward.dot(st.up);
           st.forward.sub(st.up.clone().multiplyScalar(d)).normalize();
+          // body snaps quickly toward movement direction
+          const bodyAmt = 1 - Math.exp(-dt * BODY_TURN_RATE);
+          st.bodyForward.lerp(target, bodyAmt);
+          d = st.bodyForward.dot(st.up);
+          st.bodyForward.sub(st.up.clone().multiplyScalar(d)).normalize();
         }
       }
     }
@@ -200,10 +208,12 @@ function Character({ inputRef, positionRef }: CharacterProps) {
 
     if (groupRef.current) {
       groupRef.current.position.copy(worldPos);
+      // Use bodyForward for the visible character mesh so the body
+      // snaps to face movement direction independently of the camera.
       const right = new THREE.Vector3()
-        .crossVectors(st.up, st.forward)
+        .crossVectors(st.up, st.bodyForward)
         .normalize();
-      const m = new THREE.Matrix4().makeBasis(right, st.up, st.forward);
+      const m = new THREE.Matrix4().makeBasis(right, st.up, st.bodyForward);
       groupRef.current.quaternion.setFromRotationMatrix(m);
     }
 
@@ -222,8 +232,8 @@ function Character({ inputRef, positionRef }: CharacterProps) {
       rightLegRef.current.rotation.x = -swing;
     }
 
-    const camDistance = 1.1;
-    const camHeight = 0.7;
+    const camDistance = 1.35;
+    const camHeight = 0.38;
     const desiredCam = st.position
       .clone()
       .add(st.forward.clone().multiplyScalar(-camDistance))
@@ -486,6 +496,91 @@ interface InfoPanelProps {
   item: ProfileItem | null;
 }
 
+function FullscreenButton({
+  containerRef,
+  pseudoFs,
+  setPseudoFs,
+}: {
+  containerRef: React.RefObject<HTMLDivElement | null>;
+  pseudoFs: boolean;
+  setPseudoFs: (v: boolean) => void;
+}) {
+  const [realFs, setRealFs] = useState(false);
+  const isFs = realFs || pseudoFs;
+
+  useEffect(() => {
+    const onChange = () =>
+      setRealFs(document.fullscreenElement === containerRef.current);
+    document.addEventListener("fullscreenchange", onChange);
+    return () => document.removeEventListener("fullscreenchange", onChange);
+  }, [containerRef]);
+
+  const toggle = async () => {
+    // exit pseudo fullscreen
+    if (pseudoFs) {
+      setPseudoFs(false);
+      return;
+    }
+    // exit real fullscreen
+    if (document.fullscreenElement) {
+      try {
+        await document.exitFullscreen();
+      } catch {
+        // ignore
+      }
+      return;
+    }
+    // enter real fullscreen; fall back to pseudo on iOS / unsupported browsers
+    const el = containerRef.current;
+    if (!el) return;
+    if (typeof el.requestFullscreen !== "function") {
+      setPseudoFs(true);
+      return;
+    }
+    try {
+      await el.requestFullscreen();
+    } catch {
+      setPseudoFs(true);
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={toggle}
+      aria-label={isFs ? "全画面解除" : "全画面"}
+      className="absolute top-2 right-2 z-20 select-none w-9 h-9 md:w-10 md:h-10 flex items-center justify-center rounded-md border-2 border-zinc-900 dark:border-zinc-50 bg-white/85 dark:bg-zinc-900/85 text-zinc-900 dark:text-zinc-50 shadow-[2px_2px_0_0_rgba(0,0,0,0.85)] dark:shadow-[2px_2px_0_0_rgba(255,255,255,0.7)] hover:-translate-y-0.5 active:translate-y-0 transition-transform"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        className="w-4 h-4 md:w-5 md:h-5"
+        role="img"
+        aria-label={isFs ? "全画面解除" : "全画面"}
+      >
+        {isFs ? (
+          <path
+            d="M9 4H5v4M9 20H5v-4M15 4h4v4M15 20h4v-4"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        ) : (
+          <path
+            d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        )}
+      </svg>
+    </button>
+  );
+}
+
 function InfoPanel({ item }: InfoPanelProps) {
   return (
     <div className="pointer-events-none absolute left-2 right-2 md:left-4 md:right-4 bottom-20 md:bottom-4 flex justify-center z-10">
@@ -520,6 +615,22 @@ export default function PlanetScene({ items }: PlanetSceneProps) {
   const characterPosRef = useRef<THREE.Vector3 | null>(
     new THREE.Vector3(0, PLANET_RADIUS, 0),
   );
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [pseudoFs, setPseudoFs] = useState(false);
+
+  useEffect(() => {
+    if (!pseudoFs) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setPseudoFs(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [pseudoFs]);
 
   useKeyboard(inputRef);
 
@@ -558,7 +669,14 @@ export default function PlanetScene({ items }: PlanetSceneProps) {
   }
 
   return (
-    <div className="relative w-full h-full">
+    <div
+      ref={containerRef}
+      className={`bg-[#dff1ed] dark:bg-[#0a1430] ${
+        pseudoFs
+          ? "fixed inset-0 z-[9999] w-screen h-[100dvh]"
+          : "relative w-full h-full"
+      }`}
+    >
       <Canvas
         shadows
         dpr={[1, 2]}
@@ -631,6 +749,11 @@ export default function PlanetScene({ items }: PlanetSceneProps) {
           {visited.size}/{markers.length} 見つけた
         </span>
       </div>
+      <FullscreenButton
+        containerRef={containerRef}
+        pseudoFs={pseudoFs}
+        setPseudoFs={setPseudoFs}
+      />
       <ControlPad inputRef={inputRef} />
       <JumpButton inputRef={inputRef} />
       <InfoPanel item={activeItem} />

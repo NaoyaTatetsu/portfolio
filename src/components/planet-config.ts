@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-export const PLANET_RADIUS = 1.5;
+export const PLANET_RADIUS = 1.8;
 
 export function surfacePos(phi: number, theta: number, radius = PLANET_RADIUS) {
   return new THREE.Vector3(
