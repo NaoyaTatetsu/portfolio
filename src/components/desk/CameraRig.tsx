@@ -13,11 +13,11 @@ interface Targets {
 
 const VIEW_TARGETS: Record<CameraView, Targets> = {
   room: {
-    position: new Vector3(-7, 6.5, 7),
+    position: new Vector3(-8.5, 7.8, 9),
     lookAt: new Vector3(0, 1.0, -1.4),
   },
   pc: {
-    position: new Vector3(0, 1.55, -0.65),
+    position: new Vector3(0, 1.55, -0.2),
     lookAt: new Vector3(0, 1.55, -1.78),
   },
 };
@@ -33,6 +33,8 @@ export default function CameraRig({ view, onArrived }: CameraRigProps) {
   const arrivedRef = useRef<CameraView | null>(null);
 
   useFrame((_, delta) => {
+    if (arrivedRef.current === view) return;
+
     const target = VIEW_TARGETS[view];
     const lerpFactor = 1 - Math.exp(-delta * 5);
 
@@ -44,10 +46,8 @@ export default function CameraRig({ view, onArrived }: CameraRigProps) {
     const lookDist = currentLookAt.current.distanceTo(target.lookAt);
 
     if (positionDist < 0.02 && lookDist < 0.02) {
-      if (arrivedRef.current !== view) {
-        arrivedRef.current = view;
-        onArrived?.(view);
-      }
+      arrivedRef.current = view;
+      onArrived?.(view);
     } else {
       arrivedRef.current = null;
     }

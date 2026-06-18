@@ -1,7 +1,6 @@
 "use client";
 
 import type { ThreeEvent } from "@react-three/fiber";
-import { useState } from "react";
 
 interface SceneProps {
   view: "room" | "pc";
@@ -9,20 +8,15 @@ interface SceneProps {
 }
 
 export default function Scene({ view, onMonitorClick }: SceneProps) {
-  const [hovered, setHovered] = useState(false);
-
-  const wallColor = "#f6ead4";
-  const wallSideColor = "#ecd9b5";
-  const floorColor = "#b58453";
+  const wallColor = "#ffffff";
+  const wallSideColor = "#f5f5f5";
+  const floorColor = "#f0f0f0";
   const deskColor = "#a87248";
   const deskTopColor = "#c69267";
-  const monitorBezelColor = "#2a2a32";
   const monitorBackColor = "#3a3a44";
   const standColor = "#4a4a52";
   const keyboardColor = "#e6e6ea";
   const mouseColor = "#dcdce0";
-  const screenIdleColor = "#162049";
-  const screenEmissive = "#3b62d6";
 
   const handleMonitorClick = (e: ThreeEvent<MouseEvent>) => {
     e.stopPropagation();
@@ -149,47 +143,19 @@ export default function Scene({ view, onMonitorClick }: SceneProps) {
       </group>
 
       {/* biome-ignore lint/a11y/noStaticElementInteractions: three.js group is not a DOM element */}
-      <group
-        position={[0, 1.55, -1.78]}
-        onPointerOver={(e) => {
-          e.stopPropagation();
-          if (view === "room") setHovered(true);
-        }}
-        onPointerOut={(e) => {
-          e.stopPropagation();
-          setHovered(false);
-        }}
-        onClick={handleMonitorClick}
-      >
+      <group position={[0, 1.55, -1.78]} onClick={handleMonitorClick}>
         <mesh position={[0, 0, -0.025]}>
-          <boxGeometry args={[1.5, 0.9, 0.05]} />
+          <boxGeometry args={[1.55, 0.95, 0.05]} />
           <meshStandardMaterial color={monitorBackColor} />
         </mesh>
         <mesh position={[0, 0, 0.005]}>
-          <boxGeometry args={[1.6, 1.0, 0.03]} />
-          <meshStandardMaterial color={monitorBezelColor} />
+          <boxGeometry args={[1.54, 0.94, 0.03]} />
+          <meshStandardMaterial color="#0a0a14" />
         </mesh>
         <mesh position={[0, 0, 0.022]}>
           <planeGeometry args={[1.5, 0.9]} />
-          <meshStandardMaterial
-            color={screenIdleColor}
-            emissive={screenEmissive}
-            emissiveIntensity={view === "pc" ? 0.0 : 0.7}
-            toneMapped={false}
-          />
+          <meshStandardMaterial color="#0a0a14" />
         </mesh>
-        {view === "room" && (
-          <mesh position={[0, 0, 0.0225]}>
-            <planeGeometry args={[1.5, 0.9]} />
-            <meshStandardMaterial
-              color="#ffffff"
-              transparent
-              opacity={hovered ? 0.18 : 0}
-              emissive="#c0d6ff"
-              emissiveIntensity={hovered ? 0.4 : 0}
-            />
-          </mesh>
-        )}
         <mesh position={[0, 0.46, 0.022]}>
           <circleGeometry args={[0.01, 16]} />
           <meshStandardMaterial color="#888" />

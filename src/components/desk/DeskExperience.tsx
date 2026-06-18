@@ -1,5 +1,6 @@
 "use client";
 
+import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { NextIntlClientProvider, useLocale } from "next-intl";
 import { useTheme } from "next-themes";
@@ -83,7 +84,7 @@ export default function DeskExperience() {
       style={{ background: BG_COLOR }}
     >
       <Canvas
-        camera={{ position: [-7, 6.5, 7], fov: 45, near: 0.1, far: 50 }}
+        camera={{ position: [-8.5, 7.8, 9], fov: 45, near: 0.1, far: 50 }}
         dpr={[1, 2]}
         gl={{ antialias: true }}
       >
@@ -91,6 +92,17 @@ export default function DeskExperience() {
         <fog attach="fog" args={[BG_COLOR, 18, 35]} />
         <CameraRig view={view} onArrived={handleArrived} />
         <Scene view={view} onMonitorClick={handleMonitorClick} />
+        <OrbitControls
+          enabled={view === "room" && arrived === "room"}
+          target={[0, 1.0, -1.4]}
+          enableZoom={false}
+          enablePan={false}
+          rotateSpeed={0.5}
+          minAzimuthAngle={-Math.PI / 2}
+          maxAzimuthAngle={Math.PI / 10}
+          minPolarAngle={Math.PI / 6}
+          maxPolarAngle={Math.PI / 2 - 0.1}
+        />
         <ScreenTracker innerRef={innerRef} />
       </Canvas>
 
@@ -101,6 +113,7 @@ export default function DeskExperience() {
             width: `${DESKTOP_NATIVE_WIDTH}px`,
             height: `${DESKTOP_NATIVE_HEIGHT}px`,
             transformOrigin: "0 0",
+            transform: "scale(0)",
             pointerEvents: desktopVisible ? "auto" : "none",
           }}
         >

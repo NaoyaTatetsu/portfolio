@@ -33,6 +33,11 @@ export default function ScreenTracker({ innerRef }: ScreenTrackerProps) {
     const inner = innerRef.current;
     if (!inner) return;
 
+    // OrbitControls/CameraRig mutate camera.position & camera.rotation,
+    // but matrixWorld / matrixWorldInverse are only refreshed inside
+    // renderer.render(). Force update so projection uses the latest matrix.
+    camera.updateMatrixWorld();
+
     const px: number[] = new Array(4);
     const py: number[] = new Array(4);
     for (let i = 0; i < 4; i++) {
