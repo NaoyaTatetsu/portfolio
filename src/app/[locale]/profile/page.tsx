@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
+import DecodeText from "@/components/DecodeText";
 
 interface PageProps {
   params: Promise<{
@@ -23,7 +24,9 @@ export default async function ProfilePage({ params }: PageProps) {
     <div className="w-full px-4 pt-7 pb-20 self-start">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col items-center gap-6 md:gap-8">
-          <div className="text-2xl text-center font-bold">{t("profile")}</div>
+          <div className="text-2xl text-center font-bold">
+            <DecodeText text={t("profile")} />
+          </div>
           <Image
             src="/me_in_cafe.svg"
             alt="Me in cafe"

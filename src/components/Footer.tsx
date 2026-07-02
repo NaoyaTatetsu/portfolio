@@ -1,37 +1,17 @@
-"use client";
-
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 import { FaGithub, FaInstagram, FaXTwitter } from "react-icons/fa6";
 
 export default function Footer() {
-  const { theme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
-    <footer
-      className="w-full dark:border-t dark:border-zinc-800 dark:bg-zinc-900/60 dark:backdrop-blur-sm"
-      style={{
-        backgroundColor: mounted && theme === "light" ? "#ffffff" : undefined,
-        borderTop: mounted && theme === "light" ? "none" : undefined,
-      }}
-    >
+    <footer className="w-full bg-white/60 backdrop-blur-sm dark:border-t dark:border-zinc-800 dark:bg-zinc-900/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex flex-col items-center gap-4">
-          <div className="flex gap-4">
+          <div className="flex gap-4 text-zinc-600 dark:text-zinc-300">
             <a
               href="https://x.com/tttnaobi"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xl hover:opacity-70 transition-opacity"
               aria-label="X (Twitter)"
-              style={{
-                color: mounted && theme === "light" ? "#000000" : undefined,
-              }}
             >
               <FaXTwitter />
             </a>
@@ -41,9 +21,6 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="text-xl hover:opacity-70 transition-opacity"
               aria-label="Instagram"
-              style={{
-                color: mounted && theme === "light" ? "#000000" : undefined,
-              }}
             >
               <FaInstagram />
             </a>
@@ -53,19 +30,11 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="text-xl hover:opacity-70 transition-opacity"
               aria-label="GitHub"
-              style={{
-                color: mounted && theme === "light" ? "#000000" : undefined,
-              }}
             >
               <FaGithub />
             </a>
           </div>
-          <div
-            className="text-center text-sm dark:text-zinc-400"
-            style={{
-              color: mounted && theme === "light" ? "#000000" : undefined,
-            }}
-          >
+          <div className="text-center text-sm text-zinc-500 dark:text-zinc-400">
             © 2025 NaoyaTatetsu
           </div>
         </div>

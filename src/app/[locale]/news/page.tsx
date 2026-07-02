@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import DecodeText from "@/components/DecodeText";
 import { Link } from "@/i18n/routing";
 
 interface PageProps {
@@ -23,7 +24,9 @@ export default async function NewsPage({ params }: PageProps) {
   return (
     <div className="w-full px-4 self-start pt-7">
       <div className="max-w-7xl mx-auto">
-        <div className="text-2xl mb-8 text-center font-bold">{t("news")}</div>
+        <div className="text-2xl mb-8 text-center font-bold">
+          <DecodeText text={t("news")} />
+        </div>
         <div className="flex flex-col items-center space-y-6">
           {newsItems.map((item, index) => (
             <Link

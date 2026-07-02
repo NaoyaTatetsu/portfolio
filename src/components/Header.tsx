@@ -49,6 +49,16 @@ export default function Header() {
           <div className="flex items-center gap-2">
             <button
               type="button"
+              onClick={() =>
+                window.dispatchEvent(new Event("open-command-palette"))
+              }
+              className="px-2.5 py-1.5 font-mono text-xs font-medium rounded-md border border-zinc-300 text-zinc-500 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800"
+              aria-label="Open command palette"
+            >
+              ⌘K
+            </button>
+            <button
+              type="button"
               onClick={toggleTheme}
               className="px-3 py-1.5 text-sm font-medium rounded-md transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300"
               aria-label="Toggle theme"

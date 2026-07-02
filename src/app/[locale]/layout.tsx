@@ -5,6 +5,7 @@ import { getMessages } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 import type { Metadata } from "next";
+import CommandPalette from "@/components/CommandPalette";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -60,6 +61,7 @@ export default async function LocaleLayout({
               </main>
               <Footer />
             </div>
+            <CommandPalette />
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

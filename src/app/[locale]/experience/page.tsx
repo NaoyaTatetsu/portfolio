@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import DecodeText from "@/components/DecodeText";
 
 interface PageProps {
   params: Promise<{
@@ -23,7 +24,7 @@ export default async function ExperiencePage({ params }: PageProps) {
     <div className="w-full px-4 pt-7 self-start">
       <div className="max-w-7xl mx-auto">
         <div className="text-2xl mb-8 text-center font-bold">
-          {t("experience")}
+          <DecodeText text={t("experience")} />
         </div>
         <div className="flex flex-col items-center">
           {items.map((item) => (

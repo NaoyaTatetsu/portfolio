@@ -5,7 +5,15 @@
     "contact": "Contact",
     "experience": "Experience",
     "news": "News",
-    "profile": "Profile"
+    "profile": "Profile",
+    "terminalWelcome": "Welcome to Naoya Tatetsu's portfolio terminal!",
+    "terminalHint": "Type 'help' for available commands, or 'ls' to look around."
+  },
+  "palette": {
+    "placeholder": "Type a command…",
+    "toggleTheme": "Toggle theme",
+    "switchLocale": "日本語に切り替え",
+    "noResults": "No results found"
   },
   "pages": {
     "blog": "",

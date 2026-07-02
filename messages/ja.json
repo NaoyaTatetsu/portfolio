@@ -5,7 +5,15 @@
     "contact": "お問い合わせ",
     "experience": "履歴書",
     "news": "お知らせ",
-    "profile": "プロフィール"
+    "profile": "プロフィール",
+    "terminalWelcome": "Naoya Tatetsu のポートフォリオターミナルへようこそ!",
+    "terminalHint": "'help' でコマンド一覧、'ls' でファイル一覧を表示できます。"
+  },
+  "palette": {
+    "placeholder": "コマンドを入力…",
+    "toggleTheme": "テーマを切り替え",
+    "switchLocale": "Switch to English",
+    "noResults": "見つかりませんでした"
   },
   "pages": {
     "blog": "",
