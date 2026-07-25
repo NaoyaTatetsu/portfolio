@@ -17,14 +17,14 @@
     "items": [
       {
         "school": "株式会社フォーディジット",
-        "icon": "🏢",
+        "icon": "company",
         "period": "2025年8月 - Present",
         "major": "システムエンジニア",
         "description": []
       },
       {
         "school": "株式会社サイバーエージェント",
-        "icon": "🏢",
+        "icon": "company",
         "period": "2023年4月 - 2025年7月",
         "major": "バックエンドエンジニア",
         "description": [
@@ -35,7 +35,7 @@
       },
       {
         "school": "武蔵野大学",
-        "icon": "🏫",
+        "icon": "school",
         "period": "2019年4月 - 2023年3月",
         "major": "データサイエンス学部 データサイエンス学科",
         "description": [
@@ -45,14 +45,14 @@
       },
       {
         "school": "FLS Saddleback College",
-        "icon": "🏫",
+        "icon": "school",
         "period": "2017年11月 - 2018年5月",
         "major": "語学学校（カリフォルニア）",
         "description": []
       },
       {
         "school": "琉球大学",
-        "icon": "🏫",
+        "icon": "school",
         "period": "2016年4月 - 2017年8月",
         "major": "理学部 物質地球化学科",
         "description": []
@@ -60,14 +60,15 @@
     ]
   },
   "profile": {
-    "items": [
+    "about": "About",
+    "basic": [
       {
         "title": "名前",
         "description": "立津 尚也"
       },
       {
         "title": "年齢",
-        "description": "27"
+        "description": "28"
       },
       {
         "title": "会社 / 住居",
@@ -76,24 +77,12 @@
       {
         "title": "出身",
         "description": "沖縄"
-      },
-      {
-        "title": "スキル",
-        "description": "TypeScript / Golang / Python / Docker / Terraform / AWS / GCP"
-      },
-      {
-        "title": "ツール",
-        "description": "GitHub / WezTerm / Docker"
-      },
-      {
-        "title": "AI",
-        "description": "Cursor / Codex / Claude / Devin / Gemini"
-      },
-      {
-        "title": "趣味",
-        "description": "TWICE / milkygreek"
       }
-    ]
+    ],
+    "skills": "スキル",
+    "toolsAndAi": "ツール & AI",
+    "favorite": "趣味",
+    "favoriteDescription": "TWICE / milkygreek"
   },
   "notFound": {
     "title": "ページが見つかりません",

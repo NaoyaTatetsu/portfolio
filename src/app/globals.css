@@ -202,6 +202,40 @@ body::after {
   }
 }
 
+/* トップページ: ナビアイコンのシャボン玉軌道 */
+.orbit-container {
+  --orbit-radius: clamp(135px, 38vw, 230px);
+}
+
+/* PC表示では軌道を大きく */
+@media (min-width: 1024px) {
+  .orbit-container {
+    --orbit-radius: 380px;
+  }
+}
+
+.orbit-bubble {
+  /* アニメーション無効時（reduced motion）の静止位置 */
+  transform: rotate(var(--orbit-angle)) translateX(var(--orbit-radius))
+    rotate(calc(var(--orbit-angle) * -1));
+  animation: orbit 120s linear infinite;
+}
+
+@keyframes orbit {
+  from {
+    transform: rotate(0deg) translateX(var(--orbit-radius)) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(var(--orbit-radius)) rotate(-360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-bubble {
+    animation: none;
+  }
+}
+
 /* ローディングスピナー - ネオンリング・スピナースタイル */
 .loading-spinner-container {
   display: flex;

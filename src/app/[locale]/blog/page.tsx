@@ -17,7 +17,7 @@ export default async function BlogPage({ params }: PageProps) {
   return (
     <div className="w-full px-4 self-start pt-7">
       <div className="max-w-7xl mx-auto">
-        <div className="text-2xl mb-8 text-center font-bold">{t("blog")}</div>
+        <div className="text-3xl mb-14 text-center font-bold">{t("blog")}</div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-xs sm:max-w-2xl lg:max-w-4xl mx-auto">
           {posts.map((post) => (
             <Link
