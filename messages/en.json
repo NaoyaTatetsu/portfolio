@@ -60,14 +60,15 @@
     ]
   },
   "profile": {
-    "items": [
+    "about": "About",
+    "basic": [
       {
         "title": "Name",
         "description": "Naoya Tatetsu"
       },
       {
         "title": "Age",
-        "description": "27"
+        "description": "28"
       },
       {
         "title": "Work & Live",
@@ -76,24 +77,12 @@
       {
         "title": "From",
         "description": "Okinawa, Japan"
-      },
-      {
-        "title": "Skills",
-        "description": "TypeScript / Golang / Python / Docker / Terraform / AWS / GCP"
-      },
-      {
-        "title": "Tools",
-        "description": "GitHub / WezTerm / Docker"
-      },
-      {
-        "title": "AI",
-        "description": "Cursor / Codex / Claude / Devin / Gemini"
-      },
-      {
-        "title": "Favorite",
-        "description": "TWICE / milkygreek"
       }
-    ]
+    ],
+    "skills": "Skills",
+    "toolsAndAi": "Tools & AI",
+    "favorite": "Favorite",
+    "favoriteDescription": "TWICE / milkygreek"
   },
   "notFound": {
     "title": "Page Not Found",

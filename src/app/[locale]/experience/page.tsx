@@ -22,7 +22,7 @@ export default async function ExperiencePage({ params }: PageProps) {
   return (
     <div className="w-full px-4 pt-7 self-start">
       <div className="max-w-7xl mx-auto">
-        <div className="text-2xl mb-8 text-center font-bold">
+        <div className="text-3xl mb-14 text-center font-bold">
           {t("experience")}
         </div>
         <div className="flex flex-col items-center">

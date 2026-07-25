@@ -60,14 +60,15 @@
     ]
   },
   "profile": {
-    "items": [
+    "about": "About",
+    "basic": [
       {
         "title": "名前",
         "description": "立津 尚也"
       },
       {
         "title": "年齢",
-        "description": "27"
+        "description": "28"
       },
       {
         "title": "会社 / 住居",
@@ -76,24 +77,12 @@
       {
         "title": "出身",
         "description": "沖縄"
-      },
-      {
-        "title": "スキル",
-        "description": "TypeScript / Golang / Python / Docker / Terraform / AWS / GCP"
-      },
-      {
-        "title": "ツール",
-        "description": "GitHub / WezTerm / Docker"
-      },
-      {
-        "title": "AI",
-        "description": "Cursor / Codex / Claude / Devin / Gemini"
-      },
-      {
-        "title": "趣味",
-        "description": "TWICE / milkygreek"
       }
-    ]
+    ],
+    "skills": "スキル",
+    "toolsAndAi": "ツール & AI",
+    "favorite": "趣味",
+    "favoriteDescription": "TWICE / milkygreek"
   },
   "notFound": {
     "title": "ページが見つかりません",
