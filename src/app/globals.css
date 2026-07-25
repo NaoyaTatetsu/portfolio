@@ -210,7 +210,7 @@ body::after {
 /* PC表示では軌道を大きく */
 @media (min-width: 1024px) {
   .orbit-container {
-    --orbit-radius: 420px;
+    --orbit-radius: 380px;
   }
 }
 
