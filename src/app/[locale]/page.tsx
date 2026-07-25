@@ -15,7 +15,6 @@ export default async function Home({ params }: PageProps) {
 
   const pages = [
     { name: t("profile"), path: "/profile", icon: "👤" },
-    { name: t("news"), path: "/news", icon: "📰" },
     { name: t("blog"), path: "/blog", icon: "📝" },
     { name: t("experience"), path: "/experience", icon: "🏢" },
     { name: t("contact"), path: "/contact", icon: "📧" },

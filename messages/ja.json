@@ -4,14 +4,12 @@
     "blog": "ブログ",
     "contact": "お問い合わせ",
     "experience": "履歴書",
-    "news": "お知らせ",
     "profile": "プロフィール"
   },
   "pages": {
     "blog": "ブログ",
     "contact": "",
     "experience": "経歴",
-    "news": "お知らせ",
     "profile": "プロフィール"
   },
   "experience": {
@@ -94,15 +92,6 @@
       {
         "title": "趣味",
         "description": "TWICE / milkygreek"
-      }
-    ]
-  },
-  "news": {
-    "items": [
-      {
-        "title": "ポートフォリオサイトを公開しました",
-        "content": "ポートフォリオサイトを公開しました",
-        "date": "2024-01-15"
       }
     ]
   },

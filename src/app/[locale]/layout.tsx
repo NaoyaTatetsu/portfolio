@@ -1,31 +1,10 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { routing } from "@/i18n/routing";
-import "../globals.css";
-import type { Metadata } from "next";
+import { DocumentLang } from "@/components/DocumentLang";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { ThemeProvider } from "@/components/ThemeProvider";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata: Metadata = {
-  title: "Tatetsu Portfolio",
-  icons: {
-    icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍭</text></svg>",
-    apple: "/apple-touch-icon.svg",
-  },
-};
+import { routing } from "@/i18n/routing";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -47,22 +26,15 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-black`}
-      >
-        <ThemeProvider>
-          <NextIntlClientProvider messages={messages}>
-            <div className="min-h-screen flex flex-col">
-              <Header />
-              <main className="flex-1 flex items-center justify-center pt-16">
-                {children}
-              </main>
-              <Footer />
-            </div>
-          </NextIntlClientProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider messages={messages}>
+      <DocumentLang locale={locale} />
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-1 flex items-center justify-center pt-16">
+          {children}
+        </main>
+        <Footer />
+      </div>
+    </NextIntlClientProvider>
   );
 }
