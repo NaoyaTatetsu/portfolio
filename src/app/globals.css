@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* next-themes が <html> に付与する .dark クラスで dark: バリアントを切り替える */
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --background: #ffffff;

@@ -4,14 +4,12 @@
     "blog": "Blog",
     "contact": "Contact",
     "experience": "Experience",
-    "news": "News",
     "profile": "Profile"
   },
   "pages": {
-    "blog": "",
+    "blog": "Blog",
     "contact": "",
     "experience": "Experience",
-    "news": "News",
     "profile": "Profile"
   },
   "experience": {
@@ -94,15 +92,6 @@
       {
         "title": "Favorite",
         "description": "TWICE / milkygreek"
-      }
-    ]
-  },
-  "news": {
-    "items": [
-      {
-        "title": "Portfolio site published",
-        "content": "Portfolio site published",
-        "date": "2024-01-15"
       }
     ]
   },
