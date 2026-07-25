@@ -24,6 +24,7 @@
     "format": "biome format --write"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "gray-matter": "^4.0.3",
     "next": "16.2.6",
     "next-intl": "^4.13.0",

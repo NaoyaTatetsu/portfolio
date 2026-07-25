@@ -74,8 +74,10 @@ export default async function ProfilePage({ params }: PageProps) {
     <div className="w-full px-4 pt-7 pb-20 self-start">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col items-center gap-6 md:gap-8">
-          <div className="text-3xl mb-6 text-center font-bold">{t("profile")}</div>
-          <div className="w-full max-w-md md:max-w-xl lg:max-w-2xl mx-auto px-4 pb-8 text-left flex flex-col gap-5">
+          <div className="text-3xl mb-6 text-center font-bold">
+            {t("profile")}
+          </div>
+          <div className="w-full max-w-md md:max-w-lg lg:max-w-xl mx-auto px-4 pb-8 text-left flex flex-col gap-5">
             <div className="rounded-2xl border border-white/40 dark:border-white/10 bg-white/30 dark:bg-zinc-900/30 backdrop-blur-md shadow-sm p-5">
               <div className="space-y-3">
                 <div className="text-xl font-bold">{profileT("about")}</div>

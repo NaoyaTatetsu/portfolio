@@ -17,14 +17,14 @@
     "items": [
       {
         "school": "FOURDIGIT, Inc.",
-        "icon": "🏢",
+        "icon": "company",
         "period": "2025年8月 - Present",
         "major": "System Engineer",
         "description": []
       },
       {
         "school": "CyberAgent, Inc.",
-        "icon": "🏢",
+        "icon": "company",
         "period": "2023 Apr - 2025 Jul",
         "major": "Backend Engineer",
         "description": [
@@ -35,7 +35,7 @@
       },
       {
         "school": "Musashino University",
-        "icon": "🏫",
+        "icon": "school",
         "period": "2019 Apr - 2023 Mar",
         "major": "Data Science",
         "description": [
@@ -45,14 +45,14 @@
       },
       {
         "school": "FLS Saddleback College",
-        "icon": "🏫",
+        "icon": "school",
         "period": "2017 Nov - 2018 May",
         "major": "ESL (California)",
         "description": []
       },
       {
         "school": "Ryukyu University",
-        "icon": "🏫",
+        "icon": "school",
         "period": "2016 Apr - 2017 Aug",
         "major": "Physics",
         "description": []

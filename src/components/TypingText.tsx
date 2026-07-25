@@ -75,7 +75,7 @@ export default function TypingText({
   }, [texts, typingSpeed, deletingSpeed, pauseAfterTyping, pauseAfterDeleting]);
 
   return (
-    <h2 className="text-xl font-semibold mb-8">
+    <h2 className="text-lg md:text-xl lg:text-2xl font-semibold">
       {prefix}
       <span>{displayedText}</span>
       <span className="animate-pulse">|</span>
