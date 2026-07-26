@@ -205,12 +205,16 @@ body::after {
 /* トップページ: ナビアイコンのシャボン玉軌道 */
 .orbit-container {
   --orbit-radius: clamp(135px, 38vw, 230px);
+  /* シャボン玉は absolute 配置でコンテナの高さに含まれないため、
+     軌道の直径分の高さを確保し、main の中央揃えの基準点をずらさずに
+     フッターとの重なりを防ぐ（バブル自体のサイズ h-14/w-14 = 56px 分を加味） */
+  min-height: calc(var(--orbit-radius) * 2 + 3.5rem);
 }
 
 /* PC表示では軌道を大きく */
 @media (min-width: 1024px) {
   .orbit-container {
-    --orbit-radius: 380px;
+    --orbit-radius: 320px;
   }
 }
 
