@@ -77,8 +77,8 @@ export default async function ProfilePage({ params }: PageProps) {
           <div className="text-3xl mb-6 text-center font-bold">
             {t("profile")}
           </div>
-          <div className="w-full max-w-md md:max-w-lg lg:max-w-xl mx-auto px-4 pb-8 text-left flex flex-col gap-5">
-            <div className="rounded-2xl border border-white/40 dark:border-white/10 bg-white/30 dark:bg-zinc-900/30 backdrop-blur-md shadow-sm p-5">
+          <div className="w-full max-w-md md:max-w-lg lg:max-w-xl mx-auto px-4 pb-8 text-left flex flex-col gap-14">
+            <div>
               <div className="space-y-3">
                 <div className="text-xl font-bold">{profileT("about")}</div>
                 <div className="space-y-2">
@@ -95,13 +95,13 @@ export default async function ProfilePage({ params }: PageProps) {
             {iconSections.map((section) => (
               <div
                 key={section.title}
-                className="space-y-3 rounded-2xl border border-white/40 dark:border-white/10 bg-white/30 dark:bg-zinc-900/30 backdrop-blur-md shadow-sm p-5"
+                className="space-y-3"
               >
                 <div className="text-xl font-bold">{section.title}</div>
                 <IconRow icons={section.icons} />
               </div>
             ))}
-            <div className="space-y-2 rounded-2xl border border-white/40 dark:border-white/10 bg-white/30 dark:bg-zinc-900/30 backdrop-blur-md shadow-sm p-5">
+            <div className="space-y-2">
               <div className="text-xl font-bold">{profileT("favorite")}</div>
               <div className="text-sm break-words">
                 {profileT("favoriteDescription")}
