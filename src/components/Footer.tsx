@@ -2,7 +2,7 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { FaGithub, FaInstagram, FaXTwitter } from "react-icons/fa6";
+import { FaGithub, FaInstagram, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 
 export default function Footer() {
   const { theme } = useTheme();
@@ -58,6 +58,18 @@ export default function Footer() {
               }}
             >
               <FaGithub />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/naoya-tatetsu-204279274/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xl hover:opacity-70 transition-opacity"
+              aria-label="LinkedIn"
+              style={{
+                color: mounted && theme === "light" ? "#000000" : undefined,
+              }}
+            >
+              <FaLinkedin />
             </a>
           </div>
           <div
