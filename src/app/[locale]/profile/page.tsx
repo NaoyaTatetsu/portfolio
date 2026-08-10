@@ -93,10 +93,7 @@ export default async function ProfilePage({ params }: PageProps) {
               </div>
             </div>
             {iconSections.map((section) => (
-              <div
-                key={section.title}
-                className="space-y-3"
-              >
+              <div key={section.title} className="space-y-3">
                 <div className="text-xl font-bold">{section.title}</div>
                 <IconRow icons={section.icons} />
               </div>
