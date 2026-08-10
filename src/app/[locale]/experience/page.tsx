@@ -29,7 +29,7 @@ export default async function ExperiencePage({ params }: PageProps) {
   }>;
 
   return (
-    <div className="w-full px-4 pt-7 self-start">
+    <div className="w-full px-4 pt-7 pb-20 self-start">
       <div className="max-w-7xl mx-auto">
         <div className="text-3xl mb-14 text-center font-bold">
           {t("experience")}
