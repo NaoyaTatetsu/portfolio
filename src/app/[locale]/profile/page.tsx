@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
+import AboutCard from "@/components/AboutCard";
 
 interface PageProps {
   params: Promise<{
@@ -78,20 +79,7 @@ export default async function ProfilePage({ params }: PageProps) {
             {t("profile")}
           </div>
           <div className="w-full max-w-md md:max-w-lg lg:max-w-xl mx-auto px-4 pb-8 text-left flex flex-col gap-14">
-            <div>
-              <div className="space-y-3">
-                <div className="text-xl font-bold">{profileT("about")}</div>
-                <div className="space-y-2">
-                  {basicItems.map((item) => (
-                    <div key={item.title} className="flex gap-2 break-words">
-                      <span className="font-semibold">{item.title}</span>
-                      <span>:</span>
-                      <span>{item.description}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+            <AboutCard items={basicItems} handle="@p-jihyo" />
             {iconSections.map((section) => (
               <div key={section.title} className="space-y-3">
                 <div className="text-xl font-bold">{section.title}</div>

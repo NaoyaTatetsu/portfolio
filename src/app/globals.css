@@ -38,6 +38,32 @@ body {
   overflow-x: hidden;
 }
 
+/* プロフィールの About カード。金属風の質感
+   （ライト: ブラックプラチナ / ダーク: シルバー） */
+.about-card {
+  background:
+    linear-gradient(
+      115deg,
+      transparent 25%,
+      rgba(255, 255, 255, 0.16) 38%,
+      transparent 50%
+    ),
+    radial-gradient(circle at 24% 15%, #5c5b54, transparent 34%),
+    radial-gradient(circle at 78% 80%, #26251f, transparent 42%), #3a3933;
+}
+
+.dark .about-card {
+  background:
+    linear-gradient(
+      115deg,
+      transparent 25%,
+      rgba(255, 255, 255, 0.35) 38%,
+      transparent 50%
+    ),
+    radial-gradient(circle at 24% 15%, #dfe2e6, transparent 34%),
+    radial-gradient(circle at 78% 80%, #82868d, transparent 42%), #a9adb3;
+}
+
 /* トップページ: ナビアイコンのシャボン玉軌道 */
 .orbit-container {
   --orbit-radius: clamp(135px, 38vw, 230px);

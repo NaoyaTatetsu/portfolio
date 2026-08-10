@@ -7,6 +7,7 @@ import {
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { FaGithub, FaInstagram, FaXTwitter } from "react-icons/fa6";
+import Tilt from "@/components/Tilt";
 import TypingText from "@/components/TypingText";
 import { Link } from "@/i18n/routing";
 
@@ -60,14 +61,16 @@ export default async function Home({ params }: PageProps) {
 
   return (
     <div className="orbit-container relative flex w-full max-w-3xl flex-col items-center justify-center px-16 font-sans my-8">
-      <Image
-        src="/dev_icon.svg"
-        alt="dev icon"
-        width={320}
-        height={320}
-        priority
-        className="mb-8 rounded-full w-32 h-32 md:w-44 md:h-44 lg:w-44 lg:h-44 shadow-lg dark:shadow-xl dark:shadow-zinc-800/50"
-      />
+      <Tilt className="mb-8">
+        <Image
+          src="/dev_icon.svg"
+          alt="dev icon"
+          width={320}
+          height={320}
+          priority
+          className="rounded-full w-32 h-32 md:w-44 md:h-44 lg:w-44 lg:h-44 shadow-lg dark:shadow-xl dark:shadow-zinc-800/50"
+        />
+      </Tilt>
       <TypingText />
       <nav className="absolute inset-0 pointer-events-none" aria-label="Main">
         {bubbles.map((bubble, index) => {
