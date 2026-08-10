@@ -25,10 +25,10 @@ export default async function BlogDetailPage({ params }: PageProps) {
   }
 
   return (
-    <div className="w-full px-4 self-start pt-24">
+    <div className="w-full px-4 self-start pt-16">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col items-center">
-          <article className="mb-8 w-full max-w-3xl rounded-2xl border border-zinc-200 dark:border-[#323a4a] bg-white dark:bg-[#242a38] shadow-sm p-6 md:p-10">
+          <article className="mb-8 w-full max-w-3xl">
             <h1 className="text-xl font-bold mb-4">{post.title}</h1>
             <div className="text-sm mb-6 pb-6 border-b border-zinc-200 dark:border-zinc-800">
               {post.date}

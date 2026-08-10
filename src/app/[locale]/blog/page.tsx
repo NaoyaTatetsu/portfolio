@@ -23,7 +23,7 @@ export default async function BlogPage({ params }: PageProps) {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="flex flex-col rounded-xl border border-zinc-200 dark:border-[#323a4a] bg-white dark:bg-[#242a38] shadow-sm hover:shadow-md dark:shadow-black/30 transition-shadow p-5"
+              className="flex flex-col rounded-xl border border-[#dddddd] dark:border-[#33323a] bg-white/60 dark:bg-[#232227]/55 shadow-sm hover:shadow-md dark:shadow-black/30 transition-shadow p-5"
             >
               <div className="text-lg font-semibold mb-2">{post.title}</div>
               <div className="text-sm mb-3 text-zinc-500 dark:text-zinc-400">

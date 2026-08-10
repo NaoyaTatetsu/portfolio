@@ -10,7 +10,7 @@
 }
 
 .dark {
-  --background: #0a0a0a;
+  --background: #18181b;
   --foreground: #ededed;
 }
 
@@ -27,179 +27,41 @@ html {
 }
 
 body {
-  background: var(--background);
+  /* victoreke.com と同じノイズテクスチャ背景（400x400 の PNG を 200px でタイル表示） */
+  background-color: var(--background);
+  background-image: url("/noise.png");
+  background-repeat: repeat;
+  background-size: 200px 200px;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
   position: relative;
   overflow-x: hidden;
 }
 
-/* オーロラ背景効果 */
-body::before {
-  content: "";
-  position: fixed;
-  inset: -50%;
-  z-index: -1;
+/* プロフィールの About カード。金属風の質感
+   （ライト: ブラックプラチナ / ダーク: シルバー） */
+.about-card {
   background:
-    radial-gradient(
-      circle at 20% 50%,
-      rgba(120, 119, 198, 0.55) 0%,
-      transparent 60%
+    linear-gradient(
+      115deg,
+      transparent 25%,
+      rgba(255, 255, 255, 0.16) 38%,
+      transparent 50%
     ),
-    radial-gradient(
-      circle at 80% 80%,
-      rgba(255, 119, 198, 0.55) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      circle at 40% 20%,
-      rgba(120, 219, 255, 0.55) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      circle at 60% 60%,
-      rgba(255, 219, 120, 0.45) 0%,
-      transparent 60%
-    );
-  pointer-events: none;
-  filter: blur(40px);
-  animation: aurora-primary 24s ease-in-out infinite;
-  will-change: transform, opacity;
+    radial-gradient(circle at 24% 15%, #5c5b54, transparent 34%),
+    radial-gradient(circle at 78% 80%, #26251f, transparent 42%), #3a3933;
 }
 
-.dark body::before {
+.dark .about-card {
   background:
-    radial-gradient(
-      circle at 20% 50%,
-      rgba(120, 119, 198, 0.4) 0%,
+    linear-gradient(
+      115deg,
+      transparent 25%,
+      rgba(255, 255, 255, 0.35) 38%,
       transparent 50%
     ),
-    radial-gradient(
-      circle at 80% 80%,
-      rgba(255, 119, 198, 0.4) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 40% 20%,
-      rgba(120, 219, 255, 0.4) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 60% 60%,
-      rgba(255, 219, 120, 0.3) 0%,
-      transparent 50%
-    );
-}
-
-@keyframes aurora-primary {
-  0% {
-    transform: translate(0%, 0%) scale(1) rotate(0deg);
-    opacity: 1;
-  }
-  12% {
-    transform: translate(8%, -12%) scale(1.15) rotate(2deg);
-    opacity: 0.85;
-  }
-  25% {
-    transform: translate(-6%, 7%) scale(0.9) rotate(-1deg);
-    opacity: 0.95;
-  }
-  37% {
-    transform: translate(12%, 4%) scale(1.2) rotate(3deg);
-    opacity: 0.88;
-  }
-  50% {
-    transform: translate(-8%, -5%) scale(0.95) rotate(-2deg);
-    opacity: 1;
-  }
-  62% {
-    transform: translate(5%, 10%) scale(1.1) rotate(1deg);
-    opacity: 0.92;
-  }
-  75% {
-    transform: translate(-10%, 3%) scale(0.88) rotate(-3deg);
-    opacity: 0.9;
-  }
-  87% {
-    transform: translate(7%, -8%) scale(1.05) rotate(2deg);
-    opacity: 0.94;
-  }
-  100% {
-    transform: translate(0%, 0%) scale(1) rotate(0deg);
-    opacity: 1;
-  }
-}
-
-/* 追加のオーロラレイヤー */
-body::after {
-  content: "";
-  position: fixed;
-  inset: -50%;
-  z-index: -1;
-  background:
-    radial-gradient(
-      circle at 70% 30%,
-      rgba(150, 100, 255, 0.5) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      circle at 30% 70%,
-      rgba(100, 200, 255, 0.5) 0%,
-      transparent 60%
-    );
-  pointer-events: none;
-  filter: blur(40px);
-  animation: aurora-secondary 32s ease-in-out infinite;
-  will-change: transform, opacity;
-}
-
-.dark body::after {
-  background:
-    radial-gradient(
-      circle at 70% 30%,
-      rgba(150, 100, 255, 0.35) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 30% 70%,
-      rgba(100, 200, 255, 0.35) 0%,
-      transparent 50%
-    );
-}
-
-@keyframes aurora-secondary {
-  0% {
-    transform: translate(0%, 0%) scale(1) rotate(0deg);
-    opacity: 0.8;
-  }
-  15% {
-    transform: translate(-12%, 8%) scale(1.12) rotate(-2deg);
-    opacity: 0.95;
-  }
-  28% {
-    transform: translate(9%, -6%) scale(0.85) rotate(3deg);
-    opacity: 0.75;
-  }
-  42% {
-    transform: translate(-5%, 12%) scale(1.18) rotate(-1deg);
-    opacity: 0.9;
-  }
-  55% {
-    transform: translate(11%, -4%) scale(0.92) rotate(2deg);
-    opacity: 0.82;
-  }
-  68% {
-    transform: translate(-8%, 6%) scale(1.08) rotate(-3deg);
-    opacity: 0.88;
-  }
-  82% {
-    transform: translate(6%, -9%) scale(0.96) rotate(1deg);
-    opacity: 0.85;
-  }
-  100% {
-    transform: translate(0%, 0%) scale(1) rotate(0deg);
-    opacity: 0.8;
-  }
+    radial-gradient(circle at 24% 15%, #dfe2e6, transparent 34%),
+    radial-gradient(circle at 78% 80%, #82868d, transparent 42%), #a9adb3;
 }
 
 /* トップページ: ナビアイコンのシャボン玉軌道 */
