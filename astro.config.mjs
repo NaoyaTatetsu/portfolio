@@ -15,6 +15,12 @@ export default defineConfig({
   },
   // アイコンはビルド時に SVG としてインライン展開される（クライアント JS ゼロ）
   integrations: [icon()],
+  build: {
+    // CSS を外部ファイルにせず各ページの <head> に <style> として埋め込む。
+    // 既定の "auto" では約 4KB 超の CSS が外部ファイルになり、
+    // レンダリングブロッキングとして LCP/FCP を遅らせるため（PageSpeed Insights 指摘）
+    inlineStylesheets: "always",
+  },
   vite: {
     plugins: [tailwindcss()],
   },
