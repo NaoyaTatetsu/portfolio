@@ -1,0 +1,133 @@
+---
+import { Icon } from "astro-icon/components";
+import { type Locale, localeLabels, locales } from "../i18n/ui";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+// 現在のパスからロケールプレフィックスを外し、別ロケールの同じページへの
+// リンクを組み立てる。言語切替は <a> のフルナビゲーションなので、
+// テーマクラスは Base.astro のブロッキングスクリプトが再適用する。
+const pathname = Astro.url.pathname;
+const localePrefix = /^\/(en|ja)(?=\/|$)/;
+// 404 などロケールプレフィックスを持たないページでは各ロケールのトップへ送る
+const withoutLocale = localePrefix.test(pathname)
+  ? pathname.replace(localePrefix, "") || "/"
+  : "/";
+const localeHrefs = Object.fromEntries(
+  locales.map((l) => [l, `/${l}${withoutLocale === "/" ? "" : withoutLocale}`]),
+) as Record<Locale, string>;
+
+const buttonClass =
+  "px-3 py-1.5 text-sm font-medium rounded-md transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300";
+---
+
+<header class="fixed top-0 left-0 right-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16 gap-4">
+      <a
+        href={`/${locale}`}
+        class="hover:opacity-70 transition-opacity"
+        aria-label="Home"
+      >
+        <Icon name="heroicons:home" class="w-7 h-7" />
+      </a>
+      <div class="flex items-center gap-2">
+        <button type="button" class={buttonClass} aria-label="Toggle theme" data-theme-toggle>
+          {/* 両方描画して CSS で出し分ける。JS 到達前でも正しい方が出る */}
+          <Icon name="heroicons:sun" class="w-5 h-5 dark:hidden" />
+          <Icon name="heroicons:moon" class="w-5 h-5 hidden dark:block" />
+        </button>
+        <div class="relative" data-lang-menu>
+          <button
+            type="button"
+            class={`flex items-center gap-1 ${buttonClass}`}
+            aria-haspopup="listbox"
+            aria-expanded="false"
+            aria-label="Switch language"
+            data-lang-toggle
+          >
+            {localeLabels[locale]}
+            <Icon
+              name="heroicons:chevron-down"
+              class="w-3.5 h-3.5 transition-transform"
+              data-lang-chevron
+            />
+          </button>
+          <div
+            class="absolute right-0 mt-1 min-w-full overflow-hidden rounded-md border border-zinc-200 dark:border-zinc-700 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm shadow-lg hidden"
+            data-lang-list
+          >
+            {
+              locales
+                .filter((l) => l !== locale)
+                .map((l) => (
+                  <a
+                    href={localeHrefs[l]}
+                    class="block w-full px-3 py-1.5 text-sm font-medium text-left transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300"
+                  >
+                    {localeLabels[l]}
+                  </a>
+                ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  // テーマ切替
+  const themeButton = document.querySelector<HTMLButtonElement>("[data-theme-toggle]");
+  themeButton?.addEventListener("click", () => {
+    const root = document.documentElement;
+    const next = root.classList.contains("dark") ? "light" : "dark";
+
+    // next-themes の disableTransitionOnChange 相当。切替中だけ transition を殺す
+    const style = document.createElement("style");
+    style.appendChild(
+      document.createTextNode("*,*::before,*::after{transition:none!important}"),
+    );
+    document.head.appendChild(style);
+
+    root.classList.remove("light", "dark");
+    root.classList.add(next);
+    try {
+      localStorage.setItem("theme", next);
+    } catch {
+      // localStorage が使えない環境ではセッション内のみ反映される
+    }
+
+    // 強制リフローしてから transition を戻す
+    void window.getComputedStyle(document.body).opacity;
+    document.head.removeChild(style);
+  });
+
+  // 言語ドロップダウン
+  const menu = document.querySelector<HTMLElement>("[data-lang-menu]");
+  const langToggle = menu?.querySelector<HTMLButtonElement>("[data-lang-toggle]");
+  const langList = menu?.querySelector<HTMLElement>("[data-lang-list]");
+  const chevron = menu?.querySelector<HTMLElement>("[data-lang-chevron]");
+
+  if (menu && langToggle && langList) {
+    const setOpen = (open: boolean) => {
+      langList.classList.toggle("hidden", !open);
+      langToggle.setAttribute("aria-expanded", String(open));
+      chevron?.classList.toggle("rotate-180", open);
+    };
+
+    langToggle.addEventListener("click", () => {
+      setOpen(langList.classList.contains("hidden"));
+    });
+    document.addEventListener("mousedown", (event) => {
+      if (!menu.contains(event.target as Node)) setOpen(false);
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") setOpen(false);
+    });
+  }
+</script>

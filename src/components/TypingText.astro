@@ -1,0 +1,78 @@
+---
+interface Props {
+  texts?: string[];
+  prefix?: string;
+  typingSpeed?: number;
+  deletingSpeed?: number;
+  pauseAfterTyping?: number;
+  pauseAfterDeleting?: number;
+}
+
+const {
+  texts = [" Naoya Tatetsu.", " System Engineer."],
+  prefix = "I'm",
+  typingSpeed = 100,
+  deletingSpeed = 50,
+  pauseAfterTyping = 1500,
+  pauseAfterDeleting = 500,
+} = Astro.props;
+---
+
+<h2 class="text-lg md:text-xl lg:text-2xl font-semibold">
+  {prefix}<span data-typing-output></span><span class="animate-pulse">|</span>
+</h2>
+
+<script
+  is:inline
+  define:vars={{
+    texts,
+    typingSpeed,
+    deletingSpeed,
+    pauseAfterTyping,
+    pauseAfterDeleting,
+  }}
+>
+  (() => {
+    const output = document.querySelector("[data-typing-output]");
+    if (!output || texts.length === 0) return;
+
+    let textIndex = 0;
+    let charIndex = 0;
+    let isTyping = true;
+
+    const animate = () => {
+      const currentText = texts[textIndex];
+
+      if (isTyping) {
+        if (charIndex <= currentText.length) {
+          output.textContent = currentText.slice(0, charIndex);
+          charIndex++;
+          setTimeout(animate, typingSpeed);
+        } else {
+          // タイピング完了後、少し待ってから削除開始
+          charIndex = currentText.length;
+          setTimeout(() => {
+            isTyping = false;
+            animate();
+          }, pauseAfterTyping);
+        }
+      } else {
+        if (charIndex > 0) {
+          output.textContent = currentText.slice(0, charIndex - 1);
+          charIndex--;
+          setTimeout(animate, deletingSpeed);
+        } else {
+          // 削除完了後、次のテキストに移動
+          charIndex = 0;
+          textIndex = (textIndex + 1) % texts.length;
+          setTimeout(() => {
+            isTyping = true;
+            animate();
+          }, pauseAfterDeleting);
+        }
+      }
+    };
+
+    animate();
+  })();
+</script>

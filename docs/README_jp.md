@@ -1,36 +1,35 @@
 # ポートフォリオサイト
 
-個人ポートフォリオサイトです。Next.jsを使用して構築されており、多言語対応（日本語・英語）とダークモード対応を備えています。
+個人ポートフォリオサイトです。Astro を使用して構築されており、多言語対応（日本語・英語）とダークモード対応を備えています。**クライアント JS はゼロバンドル**で、テーマ切替とアニメーション用のインラインスクリプト数 KB のみを配信します。
 
 ## 技術スタック
 
-- **Framework**: [Next.js](https://nextjs.org/) 16.1.5 (App Router)
+- **Framework**: [Astro](https://astro.build/) 7（静的出力）
 - **Language**: TypeScript 5
-- **Runtime**: React 19.2.1
-- **Styling**: Tailwind CSS 4
-- **Internationalization**: [next-intl](https://next-intl-docs.vercel.app/) 4.7.0
-- **Theme**: [next-themes](https://github.com/pacocoursey/next-themes) 0.4.6
-- **Icons**: [react-icons](https://react-icons.github.io/react-icons/) 5.5.0
-- **Linting/Formatting**: [Biome](https://biomejs.dev/) 2.3.8
-- **React Compiler**: babel-plugin-react-compiler 1.0.0
+- **Styling**: Tailwind CSS 4（`@tailwindcss/vite` 経由）
+- **Internationalization**: `src/pages/[locale]/` の動的ルート + `getStaticPaths()`
+- **Content**: Astro Content Collections（`glob` ローダー）
+- **Icons**: [astro-icon](https://www.astroicon.dev/) + Iconify（`heroicons`, `fa6-brands`）。ビルド時にインライン展開
+- **Fonts**: [Fontsource](https://fontsource.org/) Geist / Geist Mono（self-host）
+- **Linting/Formatting**: [Biome](https://biomejs.dev/) 2.4.16
+- **Hosting**: Vercel（静的配信）
 
 ## 機能
 
 - 🌐 多言語対応（日本語・英語）
-- 🌓 ダークモード対応
+- 🌓 ダークモード対応（読み込み時のちらつきなし）
 - 📱 レスポンシブデザイン
 - 📝 ブログ機能
-- 📰 お知らせ機能
 - 👤 プロフィールページ
 - 🏢 履歴書ページ
-- 📧 お問い合わせページ
+- ⚡ クライアント JS バンドルゼロ
 
 ## セットアップ
 
 ### 必要な環境
 
 - Node.js 24.7.0（[mise](https://mise.jdx.dev/)を使用して自動インストール可能）
-- pnpm 10.14.0（推奨）
+- pnpm 10.14.0（必須。npm/yarn は `engines` でブロック済み）
 
 ### インストール
 
@@ -53,7 +52,7 @@ pnpm install
 pnpm dev
 ```
 
-ブラウザで [http://localhost:3000](http://localhost:3000) を開いて確認できます。
+ブラウザで [http://localhost:4321](http://localhost:4321) を開いて確認できます。
 
 ## 開発コマンド
 
@@ -61,11 +60,11 @@ pnpm dev
 # 開発サーバーを起動
 pnpm dev
 
-# プロダクションビルド
+# 型チェック + プロダクションビルド（dist/ に出力）
 pnpm build
 
-# プロダクションサーバーを起動
-pnpm start
+# ビルド済みの dist/ をローカル配信
+pnpm preview
 
 # リントチェック
 pnpm lint
@@ -82,41 +81,45 @@ pnpm format
 ```
 portfolio/
 ├── src/
-│   ├── app/                    # Next.js App Router
-│   │   ├── [locale]/          # 多言語対応のルーティング
-│   │   │   ├── blog/          # ブログページ
-│   │   │   ├── contact/       # お問い合わせページ
-│   │   │   ├── experience/    # 履歴書ページ
-│   │   │   ├── news/          # お知らせページ
-│   │   │   ├── profile/       # プロフィールページ
-│   │   │   └── page.tsx       # ホームページ
-│   │   ├── layout.tsx         # ルートレイアウト
-│   │   └── globals.css        # グローバルスタイル
-│   ├── components/            # 再利用可能なコンポーネント
-│   │   ├── Header.tsx         # ヘッダーコンポーネント
-│   │   ├── Footer.tsx         # フッターコンポーネント
-│   │   ├── ThemeProvider.tsx  # テーマプロバイダー
-│   │   └── TypingText.tsx     # タイピングアニメーションコンポーネント
-│   ├── i18n/                  # 国際化設定
-│   │   ├── request.ts        # i18nリクエスト設定
-│   │   └── routing.ts        # ルーティング設定
-│   └── proxy.ts               # Next.jsプロキシ（旧middleware）
-├── messages/                  # 翻訳ファイル
-│   ├── en.json               # 英語翻訳
-│   └── ja.json               # 日本語翻訳
-├── public/                    # 静的ファイル
-├── next.config.ts            # Next.js設定
-├── biome.json                # Biome設定
-├── mise.toml                 # mise設定（Node.jsバージョン管理）
-└── package.json              # 依存関係とスクリプト
+│   ├── pages/
+│   │   ├── [locale]/           # 多言語対応のルーティング（getStaticPaths）
+│   │   │   ├── blog/
+│   │   │   │   ├── index.astro # ブログ一覧
+│   │   │   │   └── [slug].astro# ブログ詳細
+│   │   │   ├── experience.astro# 履歴書ページ
+│   │   │   ├── profile.astro   # プロフィールページ
+│   │   │   └── index.astro     # ホームページ
+│   │   └── 404.astro
+│   ├── layouts/
+│   │   └── Base.astro          # html/head/body、テーマスクリプト、Header、Footer
+│   ├── components/
+│   │   ├── Header.astro        # ナビ、テーマ切替、言語切替
+│   │   ├── Footer.astro
+│   │   ├── Tilt.astro          # 3D ホバーエフェクト
+│   │   ├── TypingText.astro    # タイピングアニメーション
+│   │   └── AboutCard.astro
+│   ├── i18n/
+│   │   └── ui.ts               # ロケール定義、型付き文言、ヘルパー
+│   ├── styles/
+│   │   └── global.css          # Tailwind エントリ + カスタム CSS
+│   └── content.config.ts       # ブログのコンテンツコレクション
+├── content/blog/{locale}/{year}/{slug}.md
+├── messages/                   # 翻訳ファイル
+│   ├── en.json                 # 英語翻訳
+│   └── ja.json                 # 日本語翻訳
+├── public/                     # 静的ファイル
+├── astro.config.mjs
+├── vercel.json                 # ルートリダイレクト + セキュリティヘッダー
+├── biome.json                  # Biome設定
+├── mise.toml                   # mise設定（Node.jsバージョン管理）
+└── package.json                # 依存関係とスクリプト
 ```
 
 ## 多言語対応
 
-このプロジェクトは `next-intl` を使用して多言語対応を実装しています。
-
 - 対応言語: 日本語（`ja`）、英語（`en`）
 - 翻訳ファイル: `messages/ja.json`、`messages/en.json`
 - URL構造: `/{locale}/...`（例: `/ja/profile`、`/en/profile`）
+- `/` は `vercel.json` の設定で `/en` にリダイレクトされます
 
-新しい翻訳キーを追加する場合は、`messages/ja.json` と `messages/en.json` の両方に追加してください。
+新しい翻訳キーを追加する場合は、`messages/ja.json` と `messages/en.json` の両方に追加し、`src/i18n/ui.ts` の `Messages` インターフェースも更新してください。

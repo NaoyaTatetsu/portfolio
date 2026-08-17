@@ -1,0 +1,47 @@
+---
+import { getCollection } from "astro:content";
+import { getMessages, isLocale, localeParams } from "../../../i18n/ui";
+import Base from "../../../layouts/Base.astro";
+
+export function getStaticPaths() {
+  return localeParams();
+}
+
+const { locale } = Astro.params;
+if (!isLocale(locale)) return Astro.rewrite("/404");
+const t = getMessages(locale).pages;
+
+// id は "en/2025/20250901" の形。ロケールで絞り、末尾を slug として扱う
+const posts = (
+  await getCollection("blog", (entry) => entry.id.startsWith(`${locale}/`))
+)
+  .map((entry) => ({
+    slug: entry.id.split("/").pop() as string,
+    ...entry.data,
+  }))
+  .sort((a, b) => (a.date < b.date ? 1 : -1));
+---
+
+<Base locale={locale}>
+  <div class="w-full px-4 self-start pt-7">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-3xl mb-14 text-center font-bold">{t.blog}</div>
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-xs sm:max-w-2xl lg:max-w-4xl mx-auto"
+      >
+        {
+          posts.map((post) => (
+            <a
+              href={`/${locale}/blog/${post.slug}`}
+              class="flex flex-col rounded-xl border border-[#dddddd] dark:border-[#33323a] bg-white/60 dark:bg-[#232227]/55 shadow-sm hover:shadow-md dark:shadow-black/30 transition-shadow p-5"
+            >
+              <div class="text-lg font-semibold mb-2">{post.title}</div>
+              <div class="text-sm mb-3 text-zinc-500 dark:text-zinc-400">{post.date}</div>
+              <div class="text-sm opacity-80 line-clamp-3">{post.excerpt}</div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</Base>
