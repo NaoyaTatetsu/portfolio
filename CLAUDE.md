@@ -32,8 +32,15 @@ pnpm format       # Biome フォーマット
 
 ### レイアウト構造
 
-- `src/app/layout.tsx`(ルート): `<html>`/`<body>` と ThemeProvider。next-themes がインライン script を挿入するため、言語切替で再レンダリングされる `[locale]` セグメントの**外**に置く必要がある
-- `src/app/[locale]/layout.tsx`: Header / Footer と `<main>`。Header は `fixed` で高さ 64px(`h-16`)のため、main に `pt-16` を確保している。各ページはさらに独自の `pt-*` を持つ
+- ルートレイアウトは `src/app/[locale]/layout.tsx` 一枚のみ(`src/app/layout.tsx` は無い)。`<html lang={locale}>`/`<body>`・ThemeProvider・フォント・metadata・Header / Footer / `<main>` を全部ここで持つ
+- ルートレイアウトを `[locale]` の外に置くと locale を params から取れず `getLocale()` がリクエストヘッダを読むため、**サイト全体が動的レンダリングに落ちる**。分離してはいけない
+- レイアウト先頭で `setRequestLocale(locale)` を呼ぶこと。これが無いと `getMessages()` / `getTranslations()` がヘッダを読み、やはり動的レンダリングになる
+- Header は `fixed` で高さ 64px(`h-16`)のため、main に `pt-16` を確保している。各ページはさらに独自の `pt-*` を持つ
+
+### テーマと言語切替の相互作用
+
+- 言語切替(`Header.switchLocale`)は `window.location.href` によるフルリロード。next-intl の `router.replace()` を使うと `[locale]` レイアウトごと再マウントされ、ThemeProvider が一瞬 `<html>` の class を落として**1フレーム白が描画される**(ダークモードで顕著)
+- フルリロードなら next-themes が HTML に挿入するブロッキング script が初回ペイント前に class を復元するのでちらつかない。全ページ SSG なのでリロードコストは小さい
 
 ### テーマ(next-themes)
 

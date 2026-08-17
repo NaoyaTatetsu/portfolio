@@ -9,10 +9,9 @@ import {
 import { useLocale } from "next-intl";
 import { useTheme } from "next-themes";
 import { useEffect, useRef, useState } from "react";
-import { Link, routing, usePathname, useRouter } from "@/i18n/routing";
+import { Link, routing, usePathname } from "@/i18n/routing";
 
 export default function Header() {
-  const router = useRouter();
   const pathname = usePathname();
   const currentLocale = useLocale();
   const { theme, setTheme } = useTheme();
@@ -49,7 +48,10 @@ export default function Header() {
 
   const switchLocale = (locale: string) => {
     setLangOpen(false);
-    router.replace(pathname, { locale });
+    // ソフトナビゲーションだと [locale] レイアウトごと再マウントされ、
+    // ThemeProvider が一瞬クラスを落として1フレーム白が描画される。
+    // 全ページ SSG なのでフルリロードでも十分速い。
+    window.location.href = `/${locale}${pathname === "/" ? "" : pathname}`;
   };
 
   const toggleTheme = () => {
