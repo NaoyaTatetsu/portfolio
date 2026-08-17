@@ -4,14 +4,20 @@ import "@fontsource-variable/geist-mono";
 import "../styles/global.css";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
-import type { Locale } from "../i18n/ui";
+import { getMessages, type Locale } from "../i18n/ui";
 
 interface Props {
   locale: Locale;
   title?: string;
+  /** メタディスクリプション。省略時はロケール別のサイト共通文言 */
+  description?: string;
 }
 
-const { locale, title = "Tatetsu Portfolio" } = Astro.props;
+const {
+  locale,
+  title = "Tatetsu Portfolio",
+  description = getMessages(locale).site.description,
+} = Astro.props;
 
 const favicon =
   "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍭</text></svg>";
@@ -22,6 +28,7 @@ const favicon =
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    <meta name="description" content={description} />
     <link rel="icon" href={favicon} />
     <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
     {/*

@@ -20,6 +20,9 @@ export interface ExperienceItem {
 }
 
 export interface Messages {
+  site: {
+    description: string;
+  };
   home: {
     title: string;
     blog: string;
