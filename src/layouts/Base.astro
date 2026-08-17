@@ -25,6 +25,12 @@ const favicon =
     <link rel="icon" href={favicon} />
     <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
     {/*
+      ページ固有の <head> 要素（フォントの preload など）の差し込み口。
+      フォントは使うページだけが preload する（全ページ共通にすると
+      未使用ページで無駄なダウンロードが発生するため）
+    */}
+    <slot name="head" />
+    {/*
       初回ペイント前に同期実行してテーマクラスを確定させる。
       これが無いとダークモードで白フラッシュが出る。
       localStorage のキー "theme" は next-themes 時代と同じものを使うため、

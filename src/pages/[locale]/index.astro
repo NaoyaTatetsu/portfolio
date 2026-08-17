@@ -1,4 +1,7 @@
 ---
+// このページは font-sans（Geist）を使うため、CSS の解析を待たずに
+// フォントのダウンロードを始められるよう preload する（?url でハッシュ付き URL を解決）
+import geistLatinWoff2 from "@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url";
 import { Icon } from "astro-icon/components";
 import Tilt from "../../components/Tilt.astro";
 import TypingText from "../../components/TypingText.astro";
@@ -66,6 +69,14 @@ const bubbleClass =
 ---
 
 <Base locale={locale}>
+  <link
+    slot="head"
+    rel="preload"
+    as="font"
+    type="font/woff2"
+    href={geistLatinWoff2}
+    crossorigin
+  />
   <div
     class="orbit-container relative flex w-full max-w-3xl flex-col items-center justify-center px-16 font-sans my-8"
   >
