@@ -1,4 +1,7 @@
 {
+  "site": {
+    "description": "Naoya Tatetsu's personal portfolio — a system engineer based in Tokyo, Japan. Profile, work experience, and blog."
+  },
   "home": {
     "title": "Portfolio",
     "blog": "Blog",
