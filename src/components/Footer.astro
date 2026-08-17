@@ -1,0 +1,55 @@
+---
+import { Icon } from "astro-icon/components";
+
+// 旧実装は useTheme() + インラインスタイルでライト時の色を上書きしていたが、
+// ハイドレーション前は当たらず一瞬ちらついていた。CSS だけで同じ見た目にする。
+const links = [
+  {
+    href: "https://x.com/tttnaobi",
+    label: "X (Twitter)",
+    icon: "fa6-brands:x-twitter",
+  },
+  {
+    href: "https://www.instagram.com/tttnaoya?igsh=NG9jdTE1aG9zMDFp&utm_source=qr",
+    label: "Instagram",
+    icon: "fa6-brands:instagram",
+  },
+  {
+    href: "https://github.com/NaoyaTatetsu",
+    label: "GitHub",
+    icon: "fa6-brands:github",
+  },
+  {
+    href: "https://www.linkedin.com/in/naoya-tatetsu-204279274/",
+    label: "LinkedIn",
+    icon: "fa6-brands:linkedin",
+  },
+];
+---
+
+<footer
+  class="w-full bg-white dark:bg-zinc-900/60 dark:border-t dark:border-zinc-800 dark:backdrop-blur-sm"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="flex flex-col items-center gap-4">
+      <div class="flex gap-4">
+        {
+          links.map((link) => (
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-xl hover:opacity-70 transition-opacity text-black dark:text-inherit"
+              aria-label={link.label}
+            >
+              <Icon name={link.icon} />
+            </a>
+          ))
+        }
+      </div>
+      <div class="text-center text-sm text-black dark:text-zinc-400">
+        © 2025 NaoyaTatetsu
+      </div>
+    </div>
+  </div>
+</footer>

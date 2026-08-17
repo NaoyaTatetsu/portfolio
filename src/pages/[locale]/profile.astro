@@ -1,0 +1,87 @@
+---
+import AboutCard from "../../components/AboutCard.astro";
+import { getMessages, isLocale, localeParams } from "../../i18n/ui";
+import Base from "../../layouts/Base.astro";
+
+export function getStaticPaths() {
+  return localeParams();
+}
+
+const { locale } = Astro.params;
+if (!isLocale(locale)) return Astro.rewrite("/404");
+const messages = getMessages(locale);
+const t = messages.pages;
+const profileT = messages.profile;
+
+interface TechIcon {
+  name: string;
+  src: string;
+  /** モノクロSVGはダークモードで白に反転させる */
+  invertOnDark?: boolean;
+}
+
+const skillIcons: TechIcon[] = [
+  { name: "TypeScript", src: "/icons/typescript.svg" },
+  { name: "Golang", src: "/icons/go.svg" },
+  { name: "Python", src: "/icons/python.svg" },
+  { name: "Docker", src: "/icons/docker.svg" },
+  { name: "Terraform", src: "/icons/terraform.svg" },
+  { name: "AWS", src: "/icons/aws.svg" },
+  { name: "GCP", src: "/icons/googlecloud.svg" },
+];
+
+const toolAndAiIcons: TechIcon[] = [
+  { name: "GitHub", src: "/icons/github.svg", invertOnDark: true },
+  { name: "WezTerm", src: "/icons/wezterm.svg" },
+  { name: "Docker", src: "/icons/docker.svg" },
+  { name: "Cursor", src: "/icons/cursor.svg", invertOnDark: true },
+  { name: "Codex", src: "/icons/openai.svg", invertOnDark: true },
+  { name: "Claude", src: "/icons/claude.svg" },
+  { name: "Devin", src: "/icons/devin.png" },
+  { name: "Gemini", src: "/icons/googlegemini.svg" },
+];
+
+const iconSections = [
+  { title: profileT.skills, icons: skillIcons },
+  { title: profileT.toolsAndAi, icons: toolAndAiIcons },
+];
+---
+
+<Base locale={locale}>
+  <div class="w-full px-4 pt-7 pb-20 self-start">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col items-center gap-6 md:gap-8">
+        <div class="text-3xl mb-6 text-center font-bold">{t.profile}</div>
+        <div
+          class="w-full max-w-md md:max-w-lg lg:max-w-xl mx-auto px-4 pb-8 text-left flex flex-col gap-14"
+        >
+          <AboutCard items={profileT.basic} handle="@p-jihyo" />
+          {
+            iconSections.map((section) => (
+              <div class="space-y-3">
+                <div class="text-xl font-bold">{section.title}</div>
+                <div class="flex flex-wrap items-center gap-3">
+                  {section.icons.map((icon) => (
+                    <img
+                      src={icon.src}
+                      alt={icon.name}
+                      title={icon.name}
+                      width="32"
+                      height="32"
+                      loading="lazy"
+                      class:list={["w-8 h-8", icon.invertOnDark && "dark:invert"]}
+                    />
+                  ))}
+                </div>
+              </div>
+            ))
+          }
+          <div class="space-y-2">
+            <div class="text-xl font-bold">{profileT.favorite}</div>
+            <div class="text-sm break-words">{profileT.favoriteDescription}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Base>

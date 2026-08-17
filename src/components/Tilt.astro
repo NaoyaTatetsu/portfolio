@@ -1,0 +1,50 @@
+---
+interface Props {
+  class?: string;
+  /** 要素の端にカーソルがあるときの最大の傾き（度） */
+  maxTilt?: number;
+  /** ホバー中の拡大率 */
+  hoverScale?: number;
+}
+
+// cloudflare.pay のカードのようなホバーエフェクトの汎用ラッパー。
+// カーソル位置へ向かって 3D で傾き、離れるとバネっぽく元に戻る
+const { class: className, maxTilt = 14, hoverScale = 1.06 } = Astro.props;
+---
+
+<div
+  class={className}
+  style="perspective: 1300px"
+  data-tilt
+  data-max-tilt={maxTilt}
+  data-hover-scale={hoverScale}
+>
+  <div style="transform-style: preserve-3d" data-tilt-inner>
+    <slot />
+  </div>
+</div>
+
+<script>
+  for (const container of document.querySelectorAll<HTMLElement>("[data-tilt]")) {
+    const inner = container.querySelector<HTMLElement>("[data-tilt-inner]");
+    if (!inner) continue;
+
+    const maxTilt = Number(container.dataset.maxTilt ?? 14);
+    const hoverScale = Number(container.dataset.hoverScale ?? 1.06);
+
+    container.addEventListener("mousemove", (event) => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const rect = container.getBoundingClientRect();
+      // 中心を原点(-0.5〜0.5)としたカーソル位置
+      const px = (event.clientX - rect.left) / rect.width - 0.5;
+      const py = (event.clientY - rect.top) / rect.height - 0.5;
+      inner.style.transition = "transform 0.1s ease-out";
+      inner.style.transform = `rotateX(${(-py * 2 * maxTilt).toFixed(2)}deg) rotateY(${(px * 2 * maxTilt).toFixed(2)}deg) scale(${hoverScale})`;
+    });
+
+    container.addEventListener("mouseleave", () => {
+      inner.style.transition = "transform 0.65s cubic-bezier(0.16, 1, 0.3, 1)";
+      inner.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+    });
+  }
+</script>

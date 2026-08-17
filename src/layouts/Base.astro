@@ -1,0 +1,54 @@
+---
+import "@fontsource-variable/geist";
+import "@fontsource-variable/geist-mono";
+import "../styles/global.css";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import type { Locale } from "../i18n/ui";
+
+interface Props {
+  locale: Locale;
+  title?: string;
+}
+
+const { locale, title = "Tatetsu Portfolio" } = Astro.props;
+
+const favicon =
+  "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍭</text></svg>";
+---
+
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <link rel="icon" href={favicon} />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
+    {/*
+      初回ペイント前に同期実行してテーマクラスを確定させる。
+      これが無いとダークモードで白フラッシュが出る。
+      localStorage のキー "theme" は next-themes 時代と同じものを使うため、
+      既存訪問者の設定はそのまま引き継がれる。
+    */}
+    <script is:inline>
+      (() => {
+        try {
+          const stored = localStorage.getItem("theme");
+          const theme = stored === "light" || stored === "dark" ? stored : "dark";
+          document.documentElement.classList.add(theme);
+        } catch {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="min-h-screen flex flex-col">
+      <Header locale={locale} />
+      <main class="flex-1 flex items-center justify-center pt-16">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>

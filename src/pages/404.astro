@@ -1,0 +1,25 @@
+---
+import { defaultLocale, getMessages } from "../i18n/ui";
+import Base from "../layouts/Base.astro";
+
+// 静的ホスティングでは 404 は単一ページしか持てないため、既定ロケール(en)で出す。
+// Next.js 時代は [locale] 配下の not-found.tsx でロケール別に出し分けていた。
+const locale = defaultLocale;
+const t = getMessages(locale).notFound;
+---
+
+<Base locale={locale} title="404 | Tatetsu Portfolio">
+  <div class="w-full px-4">
+    <div class="max-w-2xl mx-auto text-center">
+      <h1 class="text-6xl font-bold mb-4">404</h1>
+      <h2 class="text-2xl font-semibold mb-4">{t.title}</h2>
+      <p class="mb-8">{t.description}</p>
+      <a
+        href={`/${locale}`}
+        class="inline-block px-6 py-3 bg-gray-900 dark:bg-gray-100 text-white dark:text-black rounded-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
+      >
+        {t.backToHome}
+      </a>
+    </div>
+  </div>
+</Base>
