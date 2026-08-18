@@ -26,6 +26,15 @@ A personal portfolio website built with Astro, featuring multilingual support (J
 - 🏢 Experience/Resume page
 - ⚡ Zero client-side JavaScript bundles
 
+## Performance
+
+Optimized for Lighthouse / PageSpeed Insights:
+
+- **No render-blocking CSS** — all stylesheets are inlined into each page's `<head>` (`build.inlineStylesheets: "always"` in `astro.config.mjs`)
+- **Font preloading** — pages that use Geist / Geist Mono preload only the font subset they need, via a `head` slot in `Base.astro` (avoids the HTML → CSS → font request chain)
+- **Optimized assets** — the noise background texture is a palette PNG (~15KB) and the home page icon is a right-sized WebP (~14KB)
+- **SEO** — every page ships a locale-aware `<meta name="description">` (see `site.description` in `messages/`)
+
 ## Setup
 
 ### Requirements
@@ -93,7 +102,7 @@ portfolio/
 │   │   │   └── index.astro     # Home page
 │   │   └── 404.astro
 │   ├── layouts/
-│   │   └── Base.astro          # html/head/body, theme script, Header, Footer
+│   │   └── Base.astro          # html/head/body, theme script, head slot, Header, Footer
 │   ├── components/
 │   │   ├── Header.astro        # Nav, theme toggle, language switcher
 │   │   ├── Footer.astro

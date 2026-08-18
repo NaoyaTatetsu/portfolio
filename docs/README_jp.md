@@ -24,6 +24,15 @@
 - 🏢 履歴書ページ
 - ⚡ クライアント JS バンドルゼロ
 
+## パフォーマンス
+
+Lighthouse / PageSpeed Insights 向けに最適化しています:
+
+- **レンダリングブロッキング CSS なし** — 全 CSS を各ページの `<head>` にインライン化（`astro.config.mjs` の `build.inlineStylesheets: "always"`）
+- **フォントの preload** — Geist / Geist Mono を使うページだけが、必要なサブセットのみを `Base.astro` の `head` スロット経由で preload（HTML → CSS → フォントのリクエストチェーンを回避）
+- **アセット最適化** — 背景のノイズテクスチャはパレット PNG（約 15KB）、トップページのアイコンは表示サイズに合わせた WebP（約 14KB）
+- **SEO** — 全ページにロケール別の `<meta name="description">` を出力（`messages/` の `site.description`）
+
 ## セットアップ
 
 ### 必要な環境
@@ -91,7 +100,7 @@ portfolio/
 │   │   │   └── index.astro     # ホームページ
 │   │   └── 404.astro
 │   ├── layouts/
-│   │   └── Base.astro          # html/head/body、テーマスクリプト、Header、Footer
+│   │   └── Base.astro          # html/head/body、テーマスクリプト、head スロット、Header、Footer
 │   ├── components/
 │   │   ├── Header.astro        # ナビ、テーマ切替、言語切替
 │   │   ├── Footer.astro
