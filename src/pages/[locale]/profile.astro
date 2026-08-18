@@ -21,6 +21,8 @@ interface TechIcon {
   src: string;
   /** モノクロSVGはダークモードで白に反転させる */
   invertOnDark?: boolean;
+  /** 反転では色が崩れるアイコン用。ダークモード時はこちらの画像に差し替える */
+  darkSrc?: string;
 }
 
 const skillIcons: TechIcon[] = [
@@ -29,7 +31,7 @@ const skillIcons: TechIcon[] = [
   { name: "Python", src: "/icons/python.svg" },
   { name: "Docker", src: "/icons/docker.svg" },
   { name: "Terraform", src: "/icons/terraform.svg" },
-  { name: "AWS", src: "/icons/aws.svg" },
+  { name: "AWS", src: "/icons/aws.svg", darkSrc: "/icons/aws-dark.svg" },
   { name: "GCP", src: "/icons/googlecloud.svg" },
 ];
 
@@ -73,15 +75,32 @@ const iconSections = [
                 <div class="text-xl font-bold">{section.title}</div>
                 <div class="flex flex-wrap items-center gap-3">
                   {section.icons.map((icon) => (
-                    <img
-                      src={icon.src}
-                      alt={icon.name}
-                      title={icon.name}
-                      width="32"
-                      height="32"
-                      loading="lazy"
-                      class:list={["w-8 h-8", icon.invertOnDark && "dark:invert"]}
-                    />
+                    <>
+                      <img
+                        src={icon.src}
+                        alt={icon.name}
+                        title={icon.name}
+                        width="32"
+                        height="32"
+                        loading="lazy"
+                        class:list={[
+                          "w-8 h-8",
+                          icon.invertOnDark && "dark:invert",
+                          icon.darkSrc && "dark:hidden",
+                        ]}
+                      />
+                      {icon.darkSrc && (
+                        <img
+                          src={icon.darkSrc}
+                          alt={icon.name}
+                          title={icon.name}
+                          width="32"
+                          height="32"
+                          loading="lazy"
+                          class="w-8 h-8 hidden dark:block"
+                        />
+                      )}
+                    </>
                   ))}
                 </div>
               </div>
