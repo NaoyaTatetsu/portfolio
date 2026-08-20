@@ -41,3 +41,9 @@ yarn-error.log*
 
 /.gstack
 .gstack/
+
+# playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
