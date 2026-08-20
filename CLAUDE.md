@@ -15,9 +15,10 @@ pnpm preview      # ビルド済み dist/ をローカル配信
 pnpm lint         # Biome チェック(ESLint/Prettier は不使用)
 pnpm lint:fix     # Biome 自動修正
 pnpm format       # Biome フォーマット
+pnpm test:e2e     # Playwright E2E テスト(ビルド + preview を自動起動)
 ```
 
-テストフレームワークは導入していない。動作確認はビルドとブラウザで行う。
+E2E テストは Playwright(`e2e/`)。ビルド済み `dist/` を `astro preview` のポート **4322**(開発サーバーと衝突しない)で配信してテストする。ユニットテストは導入していない。
 
 ## Git 運用
 

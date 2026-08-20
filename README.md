@@ -85,6 +85,9 @@ pnpm lint:fix
 
 # Format code
 pnpm format
+
+# Run E2E tests (Playwright — builds and serves dist/ automatically)
+pnpm test:e2e
 ```
 
 ## Project Structure
@@ -114,6 +117,7 @@ portfolio/
 │   ├── styles/
 │   │   └── global.css          # Tailwind entry + custom CSS
 │   └── content.config.ts       # Blog content collection
+├── e2e/                        # Playwright E2E tests
 ├── content/blog/{locale}/{year}/{slug}.md
 ├── messages/                   # Translation files
 │   ├── en.json
