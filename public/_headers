@@ -1,0 +1,3 @@
+# Vercel では vercel.json の headers で付与していたものを移設。
+/*
+  X-Frame-Options: SAMEORIGIN

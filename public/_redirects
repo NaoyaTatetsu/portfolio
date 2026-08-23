@@ -1,0 +1,4 @@
+# ルート / を既定ロケールへ振り分ける。
+# Vercel では vercel.json の redirects がエッジで処理していたが、
+# Workers は vercel.json を読まないためここで定義する。
+/    /en    308
