@@ -1,0 +1,55 @@
+name: Deploy
+
+on:
+  push:
+    branches: [develop]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# デプロイは常に最新のコミットだけを反映させる。
+# アセットのアップロードは原子的なので、古い実行のキャンセルで壊れない。
+concurrency:
+  group: deploy-workers
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.14.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24.7.0"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run linter
+        run: pnpm run lint
+
+      # pnpm run build は astro check を含むので型チェックも兼ねる
+      - name: Build project
+        run: pnpm run build
+
+      # Terraform が作った Worker の「器」に、この deploy が
+      # コードと静的アセット（= worker_version）を載せる。
+      # 器の設定（名前・workers.dev・observability）は触らない。
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          # wrangler をリポジトリの依存に入れていないため、ここで固定する
+          wranglerVersion: "4.42.0"
+          command: deploy
