@@ -1,0 +1,20 @@
+{
+  // Worker 名は Terraform 側（infrastructure リポジトリの
+  // cloudflare/envs/prd/portfolio-frontend/workers.tf）の name と一致させる。
+  // 一致していないと wrangler が別の Worker を新規作成してしまう。
+  "name": "prd-portfolio-frontend",
+  "account_id": "e8073445ac8c67c123785c12f594a2c9",
+  "compatibility_date": "2026-08-23",
+
+  // main を持たない「静的アセットのみの Worker」。ランタイム JS はゼロ。
+  // 将来 /api/* などを足す場合はここに main を追加する。
+  "assets": {
+    "directory": "./dist",
+    // 未知のパスは dist/404.html を返す（src/pages/404.astro 由来）
+    "not_found_handling": "404-page"
+  }
+
+  // observability と workers_dev はここに書かない。
+  // Worker の「器」の設定は Terraform が所有しており、
+  // wrangler 側にも書くと deploy のたびに上書きし合う。
+}
