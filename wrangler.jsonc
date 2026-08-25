@@ -12,9 +12,15 @@
     "directory": "./dist",
     // 未知のパスは dist/404.html を返す（src/pages/404.astro 由来）
     "not_found_handling": "404-page"
-  }
+  },
 
-  // observability と workers_dev はここに書かない。
-  // Worker の「器」の設定は Terraform が所有しており、
-  // wrangler 側にも書くと deploy のたびに上書きし合う。
+  // *.workers.dev での配信を止める。カスタムドメイン（p-jihyo.jp）と
+  // 同じ内容が2つの URL で配信されると重複コンテンツになるため。
+  //
+  // Terraform 側（cloudflare_worker の subdomain.enabled）と必ず同じ値にすること。
+  // 片方だけ false にすると、もう片方が deploy/apply のたびに再有効化する。
+  "workers_dev": false
+
+  // observability はここに書かない。Worker の「器」の設定は Terraform が
+  // 所有しており、wrangler 側にも書くと deploy のたびに上書きし合う。
 }

@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-個人ポートフォリオサイト。Astro 7 + TypeScript。日英2言語対応・ダークモード対応。Vercel に静的配信。
+個人ポートフォリオサイト。Astro 7 + TypeScript。日英2言語対応・ダークモード対応。Cloudflare Workers に静的配信(https://p-jihyo.jp)。
 
 **クライアント JS はゼロバンドル**(React なし)。インタラクティブな箇所だけ Astro コンポーネント内の `<script>` にバニラ JS で書く。これは移行時の主目的なので、React やその他 UI フレームワークを持ち込まないこと。
 
@@ -32,7 +32,8 @@ E2E テストは Playwright(`e2e/`)。ビルド済み `dist/` を `astro preview
 - ロケールは `en` / `ja`(`src/i18n/ui.ts`)。URL は常にプレフィックス付き(`/en/...`, `/ja/...`)、自動検出は無効
 - Astro 組み込みの i18n 機能(フォルダ分割)は使わず、`src/pages/[locale]/` の動的ルート + 各ページの `getStaticPaths()`(`localeParams()`)で解決する。ページファイルをロケールごとに複製せずに済み、ミドルウェア不要で静的出力のみに収まる
 - UI 文言は `messages/{en,ja}.json`。`getMessages(locale)` で型付きオブジェクトとして取得する(`src/i18n/ui.ts` の `Messages` インターフェースが唯一の型定義。JSON にキーを足したらここも更新する)
-- ルート `/` → `/en` のリダイレクトは `vercel.json` の 308。`astro.config.mjs` の `redirects` は `astro preview` 等でのフォールバック(静的出力では meta refresh の HTML になる)
+- ルート `/` → `/en` のリダイレクトは `public/_redirects` の 308(Cloudflare のエッジが返す)。`astro.config.mjs` に `redirects` を書いてはいけない。静的出力では meta refresh の `dist/index.html` が生成され、静的アセットが `_redirects` より優先されてしまう
+- セキュリティヘッダーは `public/_headers`。`www` → apex のリダイレクトは Cloudflare の Redirect Rule(リポジトリ外)
 
 ### レイアウト
 
