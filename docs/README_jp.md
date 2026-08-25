@@ -12,7 +12,7 @@
 - **Icons**: [astro-icon](https://www.astroicon.dev/) + Iconify（`heroicons`, `fa6-brands`）。ビルド時にインライン展開
 - **Fonts**: [Fontsource](https://fontsource.org/) Geist / Geist Mono（self-host）
 - **Linting/Formatting**: [Biome](https://biomejs.dev/) 2.4.16
-- **Hosting**: Vercel（静的配信）
+- **Hosting**: Cloudflare Workers（静的アセット配信）
 
 ## 機能
 
@@ -122,7 +122,7 @@ portfolio/
 │   └── ja.json                 # 日本語翻訳
 ├── public/                     # 静的ファイル
 ├── astro.config.mjs
-├── vercel.json                 # ルートリダイレクト + セキュリティヘッダー
+├── wrangler.jsonc              # Cloudflare Workers 設定
 ├── biome.json                  # Biome設定
 ├── mise.toml                   # mise設定（Node.jsバージョン管理）
 └── package.json                # 依存関係とスクリプト
@@ -133,6 +133,6 @@ portfolio/
 - 対応言語: 日本語（`ja`）、英語（`en`）
 - 翻訳ファイル: `messages/ja.json`、`messages/en.json`
 - URL構造: `/{locale}/...`（例: `/ja/profile`、`/en/profile`）
-- `/` は `vercel.json` の設定で `/en` にリダイレクトされます
+- `/` は `public/_redirects` の設定で `/en` にリダイレクトされます（308、Cloudflare のエッジが返す）
 
 新しい翻訳キーを追加する場合は、`messages/ja.json` と `messages/en.json` の両方に追加し、`src/i18n/ui.ts` の `Messages` インターフェースも更新してください。

@@ -14,7 +14,7 @@ A personal portfolio website built with Astro, featuring multilingual support (J
 - **Icons**: [astro-icon](https://www.astroicon.dev/) + Iconify (`heroicons`, `fa6-brands`), inlined at build time
 - **Fonts**: [Fontsource](https://fontsource.org/) Geist / Geist Mono (self-hosted)
 - **Linting/Formatting**: [Biome](https://biomejs.dev/) 2.4.16
-- **Hosting**: Vercel (static)
+- **Hosting**: Cloudflare Workers (static assets)
 
 ## Features
 
@@ -124,7 +124,7 @@ portfolio/
 │   └── ja.json
 ├── public/                     # Static assets
 ├── astro.config.mjs
-├── vercel.json                 # Root redirect + security headers
+├── wrangler.jsonc              # Cloudflare Workers config
 ├── biome.json
 ├── mise.toml
 └── package.json
@@ -135,6 +135,6 @@ portfolio/
 - Supported languages: Japanese (`ja`), English (`en`)
 - Translation files: `messages/ja.json`, `messages/en.json`
 - URL structure: `/{locale}/...` (e.g., `/ja/profile`, `/en/profile`)
-- `/` redirects to `/en` via `vercel.json`
+- `/` redirects to `/en` via `public/_redirects` (308, served at Cloudflare's edge)
 
 When adding new translation keys, add them to both `messages/ja.json` and `messages/en.json`, and update the `Messages` interface in `src/i18n/ui.ts`.
