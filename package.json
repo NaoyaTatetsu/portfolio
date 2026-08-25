@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.5",
-    "@biomejs/biome": "2.4.16",
+    "@biomejs/biome": "2.5.10",
     "@iconify-json/fa6-brands": "^1.2.6",
     "@iconify-json/heroicons": "^1.2.3",
     "@playwright/test": "^1.62.1",
