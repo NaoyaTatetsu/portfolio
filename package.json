@@ -41,7 +41,7 @@
     "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^26",
-    "astro-icon": "^1.1.5",
+    "astro-icon": "^1.2.0",
     "tailwindcss": "^4.3.3",
     "typescript": "^5"
   }
