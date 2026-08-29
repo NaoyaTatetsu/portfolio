@@ -6,8 +6,14 @@
     ":semanticCommitTypeAll(chore)",
   ],
   timezone: "Asia/Tokyo",
-  // 深夜にまとめて起票する(Dependabot の daily 相当)
+  // 深夜にまとめて起票する(Dependabot の daily 相当)。
+  // 日中に自動マージ→自動デプロイが走らないので、作業中の develop が動かない
   schedule: ["after 2am and before 6am"],
+  // 時間あたりの起票制限(既定 2件/時)は外す。public リポジトリで Actions は
+  // 無料枠を消費せず、依存も npm 15 + Actions 5 + Node/pnpm と小さいため、
+  // 制限があると溜まった更新の消化に何日もかかるだけで守るものが無い。
+  // 同時オープン数の上限(prConcurrentLimit の既定 10)はセーフティとして残す
+  prHourlyLimit: 0,
   labels: ["dependencies"],
   // package.json のレンジ自体も上げる(Dependabot と同じ見え方にする)。
   // "auto" だとレンジ内更新が lockfile だけになり差分が読みにくい
