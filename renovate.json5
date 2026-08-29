@@ -1,0 +1,41 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: [
+    "config:recommended",
+    // Dependabot 時代のコミット/PR タイトル(chore(deps): ...)を踏襲する
+    ":semanticCommitTypeAll(chore)",
+  ],
+  timezone: "Asia/Tokyo",
+  // 深夜にまとめて起票する(Dependabot の daily 相当)
+  schedule: ["after 2am and before 6am"],
+  labels: ["dependencies"],
+  // package.json のレンジ自体も上げる(Dependabot と同じ見え方にする)。
+  // "auto" だとレンジ内更新が lockfile だけになり差分が読みにくい
+  rangeStrategy: "bump",
+  // GitHub ネイティブの auto-merge は使わない。
+  // ruleset の必須チェックを Renovate が bypass できてしまう構成のため、
+  // Renovate 自身に「ブランチのチェックが全て green」を確認させてからマージする
+  platformAutomerge: false,
+  lockFileMaintenance: {
+    enabled: true,
+    schedule: ["before 6am on monday"],
+  },
+  packageRules: [
+    {
+      // patch / minor / digest は CI(lint + astro check + build)が通れば自動マージ
+      matchUpdateTypes: ["minor", "patch", "pin", "digest"],
+      automerge: true,
+    },
+    {
+      // major は破壊的変更を含みうるので必ず人がレビューする
+      matchUpdateTypes: ["major"],
+      automerge: false,
+      addLabels: ["major"],
+    },
+  ],
+  // mise.toml / package.json の engines・packageManager / 各ワークフローの
+  // node-version・pnpm version にツールチェーンのバージョンが分散しており、
+  // 片方だけ上がると気づけない。手動で揃えて上げる運用のまま据え置く
+  mise: { enabled: false },
+  "github-actions": { enabled: true },
+}
