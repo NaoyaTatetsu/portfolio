@@ -6,8 +6,9 @@
     ":semanticCommitTypeAll(chore)",
   ],
   timezone: "Asia/Tokyo",
-  // 深夜にまとめて起票する(Dependabot の daily 相当)
-  schedule: ["after 2am and before 6am"],
+  // 起票のスケジュールは設けない。patch / minor は自動マージなので、
+  // 窓を設けると「CI が通ったら即マージ」が窓待ちで最大1日遅れる。
+  // 起票量は config:recommended の prHourlyLimit: 2 / prConcurrentLimit: 10 が抑える
   labels: ["dependencies"],
   // package.json のレンジ自体も上げる(Dependabot と同じ見え方にする)。
   // "auto" だとレンジ内更新が lockfile だけになり差分が読みにくい
