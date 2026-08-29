@@ -34,3 +34,43 @@ jobs:
 
       - name: Build project
         run: pnpm run build
+
+  # E2E は lint/build と独立に回す。playwright.config.ts の webServer が
+  # 自前で pnpm build && pnpm preview するので、ここでのビルドは不要。
+  e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.14.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24.7.0"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # playwright.config.ts の projects は chromium のみ
+      - name: Install Playwright browser
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Run E2E tests
+        run: pnpm run test:e2e
+
+      # retries: 2 + trace: "on-first-retry" なので、
+      # 落ちたテストのトレースが test-results/ に残る
+      - name: Upload traces
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-traces
+          path: test-results/
+          retention-days: 7
