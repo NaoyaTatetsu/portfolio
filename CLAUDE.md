@@ -25,6 +25,14 @@ E2E テストは Playwright(`e2e/`)。ビルド済み `dist/` を `astro preview
 - ベースブランチは `develop`。PR は `develop` に向ける
 - 作業は `update/*` `fix/*` などのトピックブランチで行う
 
+### 依存更新(Renovate)
+
+- Dependabot は廃止。Mend の Renovate GitHub App が `renovate.json5` を読んで PR を起票する(npm + GitHub Actions。深夜 JST にまとめて実行)
+- patch / minor / digest は CI(`lint-and-build`)が全て green になった時点で Renovate が自動マージする。major はラベル `major` が付き、必ず人がレビューする
+- 自動マージは GitHub ネイティブの auto-merge ではなく Renovate 自身が行う(`platformAutomerge: false`)。develop の ruleset は Renovate App を bypass actor(`pull_request` モード)に含めており、レビュー必須ルールをすり抜けられるため、ネイティブ auto-merge だと CI 完了前にマージされうる
+- 自動マージが守っているのは lint / `astro check` / build まで。E2E は CI に載っていないので、実行時に壊れる更新は素通りしうる
+- mise マネージャは無効化している。ツールチェーンのバージョンが `mise.toml` / `package.json` の `engines`・`packageManager` / 各ワークフローの `node-version`・pnpm `version` に分散しており、片方だけ上がると気づけないため、手で揃えて上げる
+
 ## アーキテクチャ
 
 ### ルーティング / i18n
