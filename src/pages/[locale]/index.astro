@@ -77,8 +77,12 @@ const bubbleClass =
     href={geistLatinWoff2}
     crossorigin
   />
+  {/*
+    上下マージンを非対称にして、軌道の中心（＝アイコンとタイピング文字）を
+    画面中央より少しだけ上に置く（mb - mt の半分だけ上にずれる）
+  */}
   <div
-    class="orbit-container relative flex w-full max-w-3xl flex-col items-center justify-center px-16 font-sans my-8"
+    class="orbit-container relative flex w-full max-w-3xl flex-col items-center justify-center px-16 font-sans mt-8 mb-28"
   >
     <Tilt class="mb-8">
       <img
