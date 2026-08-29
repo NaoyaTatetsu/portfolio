@@ -32,10 +32,19 @@
       automerge: false,
       addLabels: ["major"],
     },
+    // Node / pnpm のバージョンは mise.toml・package.json の engines と
+    // packageManager・各ワークフローの node-version と pnpm version に
+    // 分散している。1つの PR にまとめて全箇所を同時に上げないとドリフトする。
+    // Renovate の既定でも同じグルーピングになるが、崩れると片肺更新に
+    // なってしまう箇所なので明示しておく
+    {
+      matchDepNames: ["node"],
+      groupName: "Node.js",
+    },
+    {
+      matchDepNames: ["pnpm"],
+      groupName: "pnpm",
+    },
   ],
-  // mise.toml / package.json の engines・packageManager / 各ワークフローの
-  // node-version・pnpm version にツールチェーンのバージョンが分散しており、
-  // 片方だけ上がると気づけない。手動で揃えて上げる運用のまま据え置く
-  mise: { enabled: false },
   "github-actions": { enabled: true },
 }

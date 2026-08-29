@@ -32,7 +32,7 @@ CI では `lint-and-build` と独立した `e2e` ジョブで回す。ビルド�
 - Dependabot は廃止。Mend の Renovate GitHub App が `renovate.json5` を読んで PR を起票する(npm + GitHub Actions。深夜 JST にまとめて実行)
 - patch / minor / digest は CI(`lint-and-build` と `e2e`)が全て green になった時点で Renovate が自動マージする。major はラベル `major` が付き、必ず人がレビューする
 - 自動マージは GitHub ネイティブの auto-merge ではなく Renovate 自身が行う(`platformAutomerge: false`)。develop の ruleset は Renovate App を bypass actor(`pull_request` モード)に含めており、レビュー必須ルールをすり抜けられるため、ネイティブ auto-merge だと CI 完了前にマージされうる
-- mise マネージャは無効化している。ツールチェーンのバージョンが `mise.toml` / `package.json` の `engines`・`packageManager` / 各ワークフローの `node-version`・pnpm `version` に分散しており、片方だけ上がると気づけないため、手で揃えて上げる
+- Node / pnpm のバージョンは `mise.toml` / `package.json` の `engines`・`packageManager` / 各ワークフローの `node-version`・pnpm `version` に分散している。Renovate はこれらを `Node.js` / `pnpm` グループとして**1つの PR にまとめて**上げるので、全箇所が同時に動く。バージョンを増やす場所を追加したときは、Renovate が拾えているか(mise マネージャの対象か等)を確認する
 
 ## アーキテクチャ
 
