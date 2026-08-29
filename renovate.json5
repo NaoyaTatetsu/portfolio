@@ -38,6 +38,18 @@
       automerge: false,
       addLabels: ["major"],
     },
+    // GitHub Actions の major は「CI が通るか」でほぼ判断できて個別レビューの
+    // 価値が薄いので、1つの PR にまとめる。major は自動マージされず滞留する分、
+    // prConcurrentLimit(既定 10)の枠を件数分消費してしまうのを避ける狙いもある。
+    // 注意: この規則は必ず下の Node / pnpm 規則より前に置くこと。
+    // ci.yml / deploy.yml の node-version と pnpm version も github-actions
+    // マネージャが拾うため、後に置くと pnpm v11 のような major が Actions 側と
+    // npm / mise 側で別 PR に割れてドリフトする(後の規則が groupName を上書きする)
+    {
+      matchManagers: ["github-actions"],
+      matchUpdateTypes: ["major"],
+      groupName: "GitHub Actions (major)",
+    },
     // Node / pnpm のバージョンは mise.toml・package.json の engines と
     // packageManager・各ワークフローの node-version と pnpm version に
     // 分散している。1つの PR にまとめて全箇所を同時に上げないとドリフトする。
