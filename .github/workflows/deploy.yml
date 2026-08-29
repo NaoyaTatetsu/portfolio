@@ -47,7 +47,7 @@ jobs:
       # コードと静的アセット（= worker_version）を載せる。
       # 器の設定（名前・workers.dev・observability）は触らない。
       - name: Deploy to Cloudflare Workers
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           # wrangler をリポジトリの依存に入れていないため、ここで固定する
