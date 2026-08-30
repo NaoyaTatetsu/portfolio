@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": "24.x",
+    "node": "24.20.0",
     "npm": "⚠️use pnpm!⚠️",
     "yarn": "⚠️use pnpm!⚠️",
     "pnpm": "10.14.0"
