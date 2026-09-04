@@ -50,6 +50,17 @@
       matchUpdateTypes: ["major"],
       groupName: "GitHub Actions (major)",
     },
+    // TypeScript 7 はネイティブ(Go)実装で、tsc の programmatic API をまだ
+    // 提供していない。astro check が依存する @astrojs/language-server が
+    // その API を使うため、7 系にすると astro check が起動時点で落ちる。
+    // このリポジトリは tsc を直接呼ばず、TypeScript は astro check と
+    // エディタの型チェックのためだけに入っているので、7 に上げる利点が無い。
+    // Astro 側の対応: https://github.com/withastro/roadmap/discussions/1321
+    // 対応が入ったらこの規則を外す
+    {
+      matchDepNames: ["typescript"],
+      allowedVersions: "<7",
+    },
     // Node / pnpm のバージョンは mise.toml・package.json の engines と
     // packageManager・各ワークフローの node-version と pnpm version に
     // 分散している。1つの PR にまとめて全箇所を同時に上げないとドリフトする。
