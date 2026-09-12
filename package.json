@@ -7,9 +7,9 @@
     "node": "24.21.0",
     "npm": "⚠️use pnpm!⚠️",
     "yarn": "⚠️use pnpm!⚠️",
-    "pnpm": "10.34.5"
+    "pnpm": "12.4.1"
   },
-  "packageManager": "pnpm@10.34.5",
+  "packageManager": "pnpm@12.4.1",
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild",
