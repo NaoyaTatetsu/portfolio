@@ -51,5 +51,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           # wrangler をリポジトリの依存に入れていないため、ここで固定する
-          wranglerVersion: "4.135.0"
+          wranglerVersion: "4.141.0"
           command: deploy
