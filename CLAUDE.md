@@ -22,6 +22,8 @@ E2E テストは Playwright(`e2e/`)。ビルド済み `dist/` を `astro preview
 
 CI では `lint-and-build` と独立した `e2e` ジョブで回す。ビルドは `playwright.config.ts` の `webServer` が自前で行うのでワークフロー側では走らせない。どちらも develop の ruleset で必須チェックにしている。
 
+`lint-and-build` の最後で `wrangler deploy --dry-run` を実行し、デプロイ手順(wrangler-action が実行時に `pnpm add wrangler` する)をマージ前に検証している。`wranglerVersion` は `ci.yml` と `deploy.yml` で揃えること。
+
 ## Git 運用
 
 - ベースブランチは `develop`。PR は `develop` に向ける

@@ -35,6 +35,17 @@ jobs:
       - name: Build project
         run: pnpm run build
 
+      # deploy.yml と同じ手順でデプロイを検証する(--dry-run なので
+      # Cloudflare へのアップロードはせず、API トークンも不要)。
+      # wrangler-action はここで pnpm add wrangler を実行するため、
+      # allowBuilds の不足などデプロイ時だけ起きる失敗をマージ前に検出できる。
+      # wranglerVersion は deploy.yml と揃える(Renovate が同じ PR で両方上げる)
+      - name: Deploy dry run
+        uses: cloudflare/wrangler-action@v4
+        with:
+          wranglerVersion: "4.147.0"
+          command: deploy --dry-run
+
   # E2E は lint/build と独立に回す。playwright.config.ts の webServer が
   # 自前で pnpm build && pnpm preview するので、ここでのビルドは不要。
   e2e:
