@@ -116,9 +116,9 @@ portfolio/
 │   │   └── ui.ts               # Locales, typed messages, helpers
 │   ├── styles/
 │   │   └── global.css          # Tailwind entry + custom CSS
+│   ├── content/blog/{locale}/{year}/{slug}.md
 │   └── content.config.ts       # Blog content collection
 ├── e2e/                        # Playwright E2E tests
-├── content/blog/{locale}/{year}/{slug}.md
 ├── messages/                   # Translation files
 │   ├── en.json
 │   └── ja.json

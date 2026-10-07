@@ -114,9 +114,9 @@ portfolio/
 │   │   └── ui.ts               # ロケール定義、型付き文言、ヘルパー
 │   ├── styles/
 │   │   └── global.css          # Tailwind エントリ + カスタム CSS
+│   ├── content/blog/{locale}/{year}/{slug}.md
 │   └── content.config.ts       # ブログのコンテンツコレクション
 ├── e2e/                        # Playwright E2E テスト
-├── content/blog/{locale}/{year}/{slug}.md
 ├── messages/                   # 翻訳ファイル
 │   ├── en.json                 # 英語翻訳
 │   └── ja.json                 # 日本語翻訳
