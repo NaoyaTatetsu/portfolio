@@ -43,7 +43,7 @@ jobs:
       - name: Deploy dry run
         uses: cloudflare/wrangler-action@v4
         with:
-          wranglerVersion: "4.147.0"
+          wranglerVersion: "4.148.0"
           command: deploy --dry-run
 
   # E2E は lint/build と独立に回す。playwright.config.ts の webServer が
