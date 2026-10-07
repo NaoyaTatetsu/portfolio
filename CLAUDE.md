@@ -74,7 +74,7 @@ CI では `lint-and-build` と独立した `e2e` ジョブで回す。ビルド�
 
 ### ブログ
 
-- 記事は `content/blog/{locale}/{year}/{slug}.md`。frontmatter は title / date / excerpt
+- 記事は `src/content/blog/{locale}/{year}/{slug}.md`。frontmatter は title / date / excerpt
 - Astro Content Collections の `glob` ローダーで読む(`src/content.config.ts`)。生成される id は `en/2025/20250901` の形なので、先頭のロケールで絞り込み、末尾を slug として扱う
 - スキーマの `z` は `astro:content` からではなく `zod` から直接 import する(前者は Astro 7 で非推奨)
 - Markdown → HTML は Astro 組み込み(GFM は既定で有効)
