@@ -71,6 +71,7 @@ CI では `lint-and-build` と独立した `e2e` ジョブで回す。ビルド�
 
 - `astro-icon` + `@iconify-json/heroicons` / `@iconify-json/fa6-brands`。ビルド時に SVG としてインライン展開されるのでランタイム JS はゼロ
 - 使い方: `<Icon name="heroicons:home" class="w-5 h-5" />`
+- 自前の SVG は `src/icons/` に置くと `<Icon name="ファイル名" />`(サブディレクトリは `dir/ファイル名`)で使える。今は空だが、ディレクトリが無いとビルド時に astro-icon が WARN を出すため `.gitkeep` で残している
 
 ### ブログ
 
