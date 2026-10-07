@@ -78,7 +78,10 @@ CI では `lint-and-build` と独立した `e2e` ジョブで回す。ビルド�
 - 記事は `src/content/blog/{locale}/{year}/{slug}.md`。frontmatter は title / date / excerpt
 - Astro Content Collections の `glob` ローダーで読む(`src/content.config.ts`)。生成される id は `en/2025/20250901` の形なので、先頭のロケールで絞り込み、末尾を slug として扱う
 - スキーマの `z` は `astro:content` からではなく `zod` から直接 import する(前者は Astro 7 で非推奨)
-- Markdown → HTML は Astro 組み込み(GFM は既定で有効)
+- Markdown → HTML は unified(`@astrojs/markdown-remark`)。Astro 7 の既定は Sätteri だが、remark プラグインの remark-link-card-plus を使うため `astro.config.mjs` の `markdown.processor` で unified に切り替えている。プラグインは `unified({ remarkPlugins })` に渡す(`markdown.remarkPlugins` は非推奨)。GFM は既定で有効
+- URL だけの段落はリンクカードになる(remark-link-card-plus)。ビルド時に OGP を取得して静的 HTML にするため、ビルド(CI・デプロイ含む)のたびにリンク先へアクセスする。見た目は `global.css` の `.remark-link-card-plus__*` で定義
+  - 対象はトップレベルの段落だけ。箇条書きの項目の中の URL はカードにならない(リストの外に、前後を空行で区切って書く)
+  - Zenn の `@[card](URL)` 記法には対応していない
 
 ## 注意点
 
