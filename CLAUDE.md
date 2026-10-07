@@ -78,7 +78,9 @@ CI では `lint-and-build` と独立した `e2e` ジョブで回す。ビルド�
 - 記事は `src/content/blog/{locale}/{year}/{slug}.md`。frontmatter は title / date / excerpt
 - Astro Content Collections の `glob` ローダーで読む(`src/content.config.ts`)。生成される id は `en/2025/20250901` の形なので、先頭のロケールで絞り込み、末尾を slug として扱う
 - スキーマの `z` は `astro:content` からではなく `zod` から直接 import する(前者は Astro 7 で非推奨)
-- Markdown → HTML は Astro 組み込み(GFM は既定で有効)
+- Markdown → HTML は Astro 7 既定の Sätteri(GFM は既定で有効)。プラグインは `astro.config.mjs` の `satteri({ mdastPlugins })` に渡す。remark / rehype プラグイン(`markdown.remarkPlugins` 等)は Sätteri では動かないので使わない
+- Zenn の `@[card](URL)` 記法でリンクカードを表示できる(`src/plugins/link-card.ts`)。ビルド時に OGP を取得して静的 HTML にするため、ビルド(CI・デプロイ含む)のたびにリンク先へアクセスする。取得に失敗してもビルドは止めず、URL だけのカードになる
+  - 独立した段落、または段落(箇条書きの項目を含む)の最終行に書く。箇条書きの中に入れたいときは、項目の本文の直後の行に空行を挟まず書く(空行を挟むとリストが終わる)
 
 ## 注意点
 

@@ -1,8 +1,11 @@
 // @ts-check
+
+import { satteri } from "@astrojs/markdown-satteri";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
+import { linkCard } from "./src/plugins/link-card.ts";
 
 // i18n は Astro 組み込みのフォルダ分割ではなく src/pages/[locale]/ の
 // 動的ルート + getStaticPaths() で扱う。ページファイルをロケールごとに
@@ -31,6 +34,11 @@ export default defineConfig({
       },
     }),
   ],
+  markdown: {
+    // Astro 7 既定の Sätteri をそのまま使い、プラグインだけ足す。
+    // Zenn の @[card](URL) をリンクカードにする（ビルド時に OGP を取得して静的 HTML 化）
+    processor: satteri({ mdastPlugins: [linkCard] }),
+  },
   build: {
     // CSS を外部ファイルにせず各ページの <head> に <style> として埋め込む。
     // 既定の "auto" では約 4KB 超の CSS が外部ファイルになり、
