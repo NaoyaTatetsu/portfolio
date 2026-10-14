@@ -27,7 +27,7 @@
     "astro": "^7.3.8",
     "astro-expressive-code": "^0.44.2",
     "remark-link-card-plus": "^0.8.1",
-    "zod": "^4.6.5"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
