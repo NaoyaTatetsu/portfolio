@@ -1,0 +1,185 @@
+---
+// 画面全体に降る雨。canvas に描くだけのオーバーレイで、クリックなどの操作は透過する。
+// 奥行き(z: 0 = 奥, 1 = 手前)で太さ・長さ・速さ・濃さを変え、
+// 速い雨粒ほど長く伸びる(モーションブラー)ことでリアルに見せる。
+// 風はゆっくり強弱が変わり、手前の雨粒は画面下端で跳ねる
+---
+
+<canvas
+  class="pointer-events-none fixed inset-0 z-40 h-full w-full"
+  aria-hidden="true"
+  data-rain></canvas>
+
+<script>
+  interface Drop {
+    x: number;
+    y: number;
+    z: number;
+    speed: number;
+  }
+
+  interface Splash {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    life: number;
+    maxLife: number;
+    size: number;
+  }
+
+  const canvas = document.querySelector<HTMLCanvasElement>("[data-rain]");
+  const ctx = canvas?.getContext("2d");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  if (canvas && ctx) {
+    // 雨粒の密度(画面 1px² あたり)と上限。スマホでも重くならないよう上限を設ける
+    const DENSITY = 1 / 3200;
+    const MAX_DROPS = 450;
+    // 雨粒の速さ(px/秒)。手前ほど速く見える
+    const MIN_SPEED = 900;
+    const MAX_SPEED = 2300;
+    // カメラの露光時間に相当する値。速さ × これが雨筋の長さになる
+    const EXPOSURE = 0.016;
+    const GRAVITY = 2400;
+    // 奥行きを何段階に分けて描くか。段ごとに1回の stroke でまとめて描いて軽くする
+    const LAYERS = 6;
+
+    let width = 0;
+    let height = 0;
+    let drops: Drop[] = [];
+    let splashes: Splash[] = [];
+    let color = "";
+    let frame = 0;
+    let lastTime = 0;
+    let elapsed = 0;
+
+    const createDrop = (initial: boolean): Drop => {
+      // 奥の雨粒を多めにして、手前の太い雨粒が多すぎないようにする
+      const z = Math.random() ** 1.6;
+      return {
+        // 風で横に流れるぶん、画面の外側からも降らせる
+        x: Math.random() * width * 1.4 - width * 0.2,
+        y: initial ? Math.random() * height : -Math.random() * height * 0.3,
+        z,
+        speed: MIN_SPEED + (MAX_SPEED - MIN_SPEED) * (0.25 + 0.75 * z) * (0.85 + Math.random() * 0.3),
+      };
+    };
+
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const count = Math.min(MAX_DROPS, Math.round(width * height * DENSITY));
+      drops = Array.from({ length: count }, () => createDrop(true));
+    };
+
+    const updateColor = () => {
+      // ダークでは街灯に照らされたような明るい雨筋、ライトでは青みがかった灰色
+      color = document.documentElement.classList.contains("light") ? "60, 80, 110" : "205, 218, 235";
+    };
+
+    // 風の強さ(横向きの速さの比率)。周期の違う sin を重ねて、不規則な突風にする
+    const windAt = (t: number) => 0.12 + 0.07 * Math.sin(t * 0.31) + 0.04 * Math.sin(t * 0.83 + 1.7) + 0.02 * Math.sin(t * 2.3);
+
+    const splash = (x: number, z: number, wind: number) => {
+      const count = 2 + Math.floor(Math.random() * 3);
+      for (let i = 0; i < count; i++) {
+        const maxLife = 0.25 + Math.random() * 0.2;
+        splashes.push({
+          x,
+          y: height - 1,
+          vx: (Math.random() - 0.5) * 160 + wind * 300,
+          vy: -(120 + Math.random() * 220) * (0.6 + z * 0.6),
+          life: maxLife,
+          maxLife,
+          size: 0.6 + z * 0.9,
+        });
+      }
+    };
+
+    const step = (time: number) => {
+      // タブ復帰直後などに雨粒が一気に飛ばないよう、経過時間に上限を設ける
+      const dt = Math.min((time - lastTime) / 1000, 0.05);
+      lastTime = time;
+      elapsed += dt;
+      const wind = windAt(elapsed);
+
+      ctx.clearRect(0, 0, width, height);
+
+      const paths = Array.from({ length: LAYERS }, () => new Path2D());
+      for (let i = 0; i < drops.length; i++) {
+        const drop = drops[i];
+        const vx = drop.speed * wind;
+        drop.x += vx * dt;
+        drop.y += drop.speed * dt;
+
+        if (drop.y > height) {
+          if (drop.z > 0.55 && drop.x > 0 && drop.x < width && Math.random() < 0.7) {
+            splash(drop.x, drop.z, wind);
+          }
+          drops[i] = createDrop(false);
+          continue;
+        }
+
+        const layer = Math.min(LAYERS - 1, Math.floor(drop.z * LAYERS));
+        const length = drop.speed * EXPOSURE * (0.6 + drop.z * 0.8);
+        const path = paths[layer];
+        path.moveTo(drop.x, drop.y);
+        path.lineTo(drop.x - vx * EXPOSURE * (0.6 + drop.z * 0.8), drop.y - length);
+      }
+
+      ctx.lineCap = "round";
+      for (let layer = 0; layer < LAYERS; layer++) {
+        const z = (layer + 0.5) / LAYERS;
+        ctx.strokeStyle = `rgba(${color}, ${(0.08 + z * 0.32).toFixed(3)})`;
+        ctx.lineWidth = 0.5 + z * 1.3;
+        ctx.stroke(paths[layer]);
+      }
+
+      splashes = splashes.filter((s) => (s.life -= dt) > 0);
+      for (const s of splashes) {
+        s.vy += GRAVITY * dt;
+        s.x += s.vx * dt;
+        s.y = Math.min(s.y + s.vy * dt, height - 1);
+        ctx.fillStyle = `rgba(${color}, ${((s.life / s.maxLife) * 0.45).toFixed(3)})`;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      frame = requestAnimationFrame(step);
+    };
+
+    const start = () => {
+      if (frame || reducedMotion.matches || document.hidden) return;
+      lastTime = performance.now();
+      frame = requestAnimationFrame(step);
+    };
+
+    const stop = () => {
+      cancelAnimationFrame(frame);
+      frame = 0;
+      ctx.clearRect(0, 0, width, height);
+      splashes = [];
+    };
+
+    updateColor();
+    resize();
+    start();
+
+    window.addEventListener("resize", resize);
+    // テーマ切替(<html> の class 変更)に雨の色を追従させる
+    new MutationObserver(updateColor).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    // 見えていないタブでは描画を止める
+    document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
+    // 視差効果を減らす設定の人には降らせない
+    reducedMotion.addEventListener("change", () => (reducedMotion.matches ? stop() : start()));
+  }
+</script>

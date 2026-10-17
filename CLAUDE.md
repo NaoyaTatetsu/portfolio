@@ -61,6 +61,11 @@ CI では `lint-and-build` と独立した `e2e` ジョブで回す。ビルド�
 - 言語切替は `<a>` によるフルナビゲーション。SPA 的に差し替えるとテーマクラスの再適用が1フレーム遅れて白が描画されるため、この形を維持すること
 - 色は `global.css` の CSS 変数 `--background` / `--foreground` で定義(ライト `#ffffff` / ダーク `#18181b` = zinc-900)
 
+### 雨のエフェクト
+
+- `src/components/Rain.astro` を `Base.astro` の `<body>` 末尾に置き、全ページに canvas で雨を降らせている。`pointer-events-none` の `fixed` オーバーレイ(`z-40`、ヘッダーの `z-50` より下)なので操作は透過する
+- 奥行きごとに太さ・長さ・速さ・濃さを変え、風の強弱と画面下端の跳ねを付けている。`prefers-reduced-motion: reduce` では降らせず、非表示のタブでは止める。色は `<html>` の `.light` / `.dark` に追従する
+
 ### スタイリング(Tailwind CSS v4)
 
 - 設定ファイルなし。`src/styles/global.css` の `@theme inline` で定義する CSS-first 構成。Vite プラグイン(`@tailwindcss/vite`)経由で読み込む
