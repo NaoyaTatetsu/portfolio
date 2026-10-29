@@ -88,6 +88,7 @@ CI では `lint-and-build` と独立した `e2e` ジョブで回す。ビルド�
 
 - **コードを実装・変更した後は必ず `pnpm lint` と `pnpm build` を実行し、エラー・警告が無くなるまで修正する**(まず `pnpm lint:fix` で自動修正し、残りは手で直す)。`pnpm build` は `astro check` を含むので型チェックも兼ねる
 - Biome は `.astro` のテンプレート部分を解析しないため、フロントマターの変数が「未使用」に誤検知される。`biome.json` の overrides で `.astro` のみ `noUnusedVariables` / `noUnusedImports` を無効化している。`.astro` の型チェックは `astro check` が担当する
+- Biome 2.6 から Markdown も整形対象になったが、`biome.json` の `markdown.formatter.enabled: false` で無効にしている。記事の書き方(表の桁揃え・箇条書きの継続行など)を勝手に書き換えるうえ、frontmatter の `---` 直後に空行を入れるため
 - 開発サーバーは勝手に起動しない(ユーザーが自分の端末で管理している)。起動が必要なら先に確認する
 - 静的ホスティングのため 404 は `src/pages/404.astro` の1枚のみ。ロケール別の出し分けはできず既定ロケール(en)で表示される
 - `/{locale}/contact` はページ未作成のため意図的に 404 する(トップからのリンクは残してある)
