@@ -83,6 +83,9 @@ CI では `lint-and-build` と独立した `e2e` ジョブで回す。ビルド�
 - URL だけの段落はリンクカードになる(remark-link-card-plus)。ビルド時に OGP を取得して静的 HTML にするため、ビルド(CI・デプロイ含む)のたびにリンク先へアクセスする。見た目は `global.css` の `.remark-link-card-plus__*` で定義
   - 対象はトップレベルの段落だけ。箇条書きの項目の中の URL はカードにならない(リストの外に、前後を空行で区切って書く)
   - Zenn の `@[card](URL)` 記法には対応していない
+- 外部リンクは別タブで開く(`target="_blank" rel="noopener noreferrer"`)。サイト全体のルール
+  - 記事本文の Markdown リンクは `astro.config.mjs` の rehype-external-links が自動で付ける(http/https の絶対 URL だけ。`/ja/blog/...` のようなサイト内リンクは同じタブ)。リンクカードは remark-link-card-plus が元から別タブで開く
+  - コンポーネントに外部リンクを書くときは `<a>` に直接 `target="_blank" rel="noopener noreferrer"` を付ける(`Footer.astro`・トップページのバブルと同じ)
 
 ## 注意点
 
