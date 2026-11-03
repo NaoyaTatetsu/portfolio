@@ -40,10 +40,13 @@ CI では `lint-and-build` と独立した `e2e` ジョブで回す。ビルド�
 
 ### ルーティング / i18n
 
-- ロケールは `en` / `ja`(`src/i18n/ui.ts`)。URL は常にプレフィックス付き(`/en/...`, `/ja/...`)、自動検出は無効
+- ロケールは `en` / `ja`(`src/i18n/ui.ts`)。URL はトップの `/` を除いて常にプレフィックス付き(`/en/...`, `/ja/...`)、自動検出は無効
 - Astro 組み込みの i18n 機能(フォルダ分割)は使わず、`src/pages/[locale]/` の動的ルート + 各ページの `getStaticPaths()`(`localeParams()`)で解決する。ページファイルをロケールごとに複製せずに済み、ミドルウェア不要で静的出力のみに収まる
 - UI 文言は `messages/{en,ja}.json`。`getMessages(locale)` で型付きオブジェクトとして取得する(`src/i18n/ui.ts` の `Messages` インターフェースが唯一の型定義。JSON にキーを足したらここも更新する)
-- ルート `/` → `/en` のリダイレクトは `public/_redirects` の 308(Cloudflare のエッジが返す)。`astro.config.mjs` に `redirects` を書いてはいけない。静的出力では meta refresh の `dist/index.html` が生成され、静的アセットが `_redirects` より優先されてしまう
+- ルート `/` だけはプレフィックス無しで、日本語のトップを表示する(`src/pages/index.astro`。リダイレクトせず URL は `/` のまま)。中身は `src/components/Home.astro` で `/[locale]` と共有している。ページ内のリンクは `/ja/...` に向く
+  - `/ja` のトップは生成せず、`public/_redirects` で `/` へ 308 する。静的アセットは `_redirects` より優先されるため、`dist/ja/index.html` を作ると効かなくなる(`[locale]/index.astro` は `homeLocaleParams()` で ja を除いている)
+  - 日本語トップへの内部リンクは `localeHref()`(`src/i18n/ui.ts`)で組み立てると `/` になる。`` `/${locale}` `` と直書きしない
+  - `astro.config.mjs` に `redirects` を書いてはいけない。静的出力では meta refresh の `dist/index.html` が生成されてしまう
 - セキュリティヘッダーは `public/_headers`。`www` → apex のリダイレクトは Cloudflare の Redirect Rule(リポジトリ外)
 
 ### レイアウト
