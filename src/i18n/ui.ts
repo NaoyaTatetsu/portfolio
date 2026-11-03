@@ -73,9 +73,21 @@ export function localeParams() {
   return locales.map((locale) => ({ params: { locale } }));
 }
 
-/** ロケールプレフィックス付きの内部リンクを組み立てる */
+/**
+ * ルート / にトップを出すロケール。このロケールのトップは /ja ではなく / になり、
+ * /ja は public/_redirects で / へ 308 する（トップ以外は /ja/... のまま）
+ */
+export const rootLocale: Locale = "ja";
+
+/** トップページを生成するロケール（rootLocale のトップは src/pages/index.astro が出す） */
+export function homeLocaleParams() {
+  return localeParams().filter(({ params }) => params.locale !== rootLocale);
+}
+
+/** ロケールプレフィックス付きの内部リンクを組み立てる（rootLocale のトップだけは /） */
 export function localeHref(locale: Locale, path = ""): string {
   const normalized = path === "/" ? "" : path;
+  if (locale === rootLocale && normalized === "") return "/";
   return `/${locale}${normalized}`;
 }
 

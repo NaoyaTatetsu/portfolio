@@ -133,6 +133,6 @@ portfolio/
 - 対応言語: 日本語（`ja`）、英語（`en`）
 - 翻訳ファイル: `messages/ja.json`、`messages/en.json`
 - URL構造: `/{locale}/...`（例: `/ja/profile`、`/en/profile`）
-- `/` は日本語のトップページを表示します（リダイレクトせず、URL は `/` のまま。`src/pages/index.astro`）
+- `/` は日本語のトップページを表示します（リダイレクトせず、URL は `/` のまま。`src/pages/index.astro`）。`/ja` は `public/_redirects` で `/` にリダイレクトされます（308）
 
 新しい翻訳キーを追加する場合は、`messages/ja.json` と `messages/en.json` の両方に追加し、`src/i18n/ui.ts` の `Messages` インターフェースも更新してください。

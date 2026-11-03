@@ -2,7 +2,7 @@
 import Home from "../components/Home.astro";
 
 // ルート / は日本語のトップをそのまま表示する（リダイレクトせず URL は / のまま）。
-// ページ内のリンクは /ja/... に向くので、トップ以外は従来どおりロケール付きの URL になる
+// /ja は public/_redirects で / へ 308 する。トップ以外は従来どおり /ja/... の URL
 ---
 
 <Home locale="ja" />

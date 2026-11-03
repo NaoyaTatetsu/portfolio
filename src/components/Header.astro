@@ -1,6 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
-import { type Locale, localeLabels, locales } from "../i18n/ui";
+import { type Locale, localeHref, localeLabels, locales } from "../i18n/ui";
 
 interface Props {
   locale: Locale;
@@ -18,7 +18,7 @@ const withoutLocale = localePrefix.test(pathname)
   ? pathname.replace(localePrefix, "") || "/"
   : "/";
 const localeHrefs = Object.fromEntries(
-  locales.map((l) => [l, `/${l}${withoutLocale === "/" ? "" : withoutLocale}`]),
+  locales.map((l) => [l, localeHref(l, withoutLocale)]),
 ) as Record<Locale, string>;
 
 const buttonClass =
@@ -29,7 +29,7 @@ const buttonClass =
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16 gap-4">
       <a
-        href={`/${locale}`}
+        href={localeHref(locale)}
         class="hover:opacity-70 transition-opacity"
         aria-label="Home"
       >

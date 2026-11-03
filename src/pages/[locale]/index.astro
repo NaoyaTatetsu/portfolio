@@ -1,9 +1,10 @@
 ---
 import Home from "../../components/Home.astro";
-import { isLocale, localeParams } from "../../i18n/ui";
+import { homeLocaleParams, isLocale } from "../../i18n/ui";
 
+// 日本語のトップは / に出すので /ja は生成しない（/ja は _redirects で / へ）
 export function getStaticPaths() {
-  return localeParams();
+  return homeLocaleParams();
 }
 
 const { locale } = Astro.params;
