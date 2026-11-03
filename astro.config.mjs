@@ -5,6 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
+import rehypeExternalLinks from "rehype-external-links";
 import remarkLinkCard from "remark-link-card-plus";
 
 // i18n は Astro 組み込みのフォルダ分割ではなく src/pages/[locale]/ の
@@ -38,7 +39,16 @@ export default defineConfig({
     // remark-link-card-plus（remark プラグイン）を使うため、Astro 7 既定の Sätteri ではなく
     // unified を処理系にする。URL だけの段落をリンクカードにする（ビルド時に OGP を取得して静的 HTML 化）。
     // カードの見た目は global.css の .remark-link-card-plus__* で定義
-    processor: unified({ remarkPlugins: [remarkLinkCard] }),
+    // 外部リンク（http/https の絶対 URL）は別タブで開く。サイト内リンク（/ja/... など）はそのまま
+    processor: unified({
+      remarkPlugins: [remarkLinkCard],
+      rehypePlugins: [
+        [
+          rehypeExternalLinks,
+          { target: "_blank", rel: ["noopener", "noreferrer"] },
+        ],
+      ],
+    }),
   },
   build: {
     // CSS を外部ファイルにせず各ページの <head> に <style> として埋め込む。
