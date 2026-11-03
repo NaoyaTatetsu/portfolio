@@ -1,13 +1,16 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("i18n", () => {
-  // ルート / から /en への振り分けは public/_redirects で定義しており、
-  // Cloudflare のエッジが 308 を返す。_redirects は Cloudflare 固有の
-  // ファイルで astro preview は解釈しないため、この構成では検証できない。
-  // e2e を wrangler dev 上で走らせるようにしたら再有効化する。
-  test.skip("ルート / は /en にリダイレクトされる", async ({ page }) => {
-    await page.goto("/");
-    await page.waitForURL("**/en", { timeout: 10_000 });
+  test("ルート / はリダイレクトせずに日本語のトップを表示する", async ({
+    page,
+  }) => {
+    const response = await page.goto("/");
+    expect(response?.status()).toBe(200);
+    expect(new URL(page.url()).pathname).toBe("/");
+    await expect(page.locator("html")).toHaveAttribute("lang", "ja");
+    await expect(
+      page.getByRole("link", { name: "プロフィール" }).first(),
+    ).toHaveAttribute("href", "/ja/profile");
   });
 
   test("日本語ページは日本語の文言で表示される", async ({ page }) => {

@@ -135,6 +135,6 @@ portfolio/
 - Supported languages: Japanese (`ja`), English (`en`)
 - Translation files: `messages/ja.json`, `messages/en.json`
 - URL structure: `/{locale}/...` (e.g., `/ja/profile`, `/en/profile`)
-- `/` redirects to `/en` via `public/_redirects` (308, served at Cloudflare's edge)
+- `/` shows the Japanese home page without redirecting (the URL stays `/`; see `src/pages/index.astro`)
 
 When adding new translation keys, add them to both `messages/ja.json` and `messages/en.json`, and update the `Messages` interface in `src/i18n/ui.ts`.

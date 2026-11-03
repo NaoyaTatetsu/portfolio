@@ -12,11 +12,9 @@ import remarkLinkCard from "remark-link-card-plus";
 // 動的ルート + getStaticPaths() で扱う。ページファイルをロケールごとに
 // 複製せずに済み、静的出力のみで完結する（ミドルウェア不要）。
 export default defineConfig({
-  // ルート / から /en へのリダイレクトは public/_redirects で定義する
-  // （Cloudflare Workers がエッジで 308 を返す）。
-  // ここに redirects を書くと静的出力では meta refresh の HTML
-  // （dist/index.html）が生成され、静的アセットが _redirects の
-  // ルールより優先されて 200 + meta refresh が返ってしまうため書かない。
+  // ルート / は src/pages/index.astro が日本語のトップをそのまま出す（リダイレクトしない）。
+  // ここに redirects を書くと静的出力では meta refresh の HTML（dist/index.html）が
+  // 生成されてしまうため書かない。
   // アイコンはビルド時に SVG としてインライン展開される（クライアント JS ゼロ）
   // Expressive Code: コードブロックにファイル名（```toml title="x.toml"）を出す。
   // テーマはサイトと同じく <html> の .dark / .light クラスで切り替え、OS 設定には追従しない
