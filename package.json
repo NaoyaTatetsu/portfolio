@@ -7,9 +7,9 @@
     "node": "26.13.0",
     "npm": "⚠️use pnpm!⚠️",
     "yarn": "⚠️use pnpm!⚠️",
-    "pnpm": "12.16.1"
+    "pnpm": "12.18.0"
   },
-  "packageManager": "pnpm@12.16.1",
+  "packageManager": "pnpm@12.18.0",
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build",
