@@ -185,8 +185,8 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0
       remark-link-card-plus:
-        specifier: ^0.8.1
-        version: 0.8.1
+        specifier: ^0.8.2
+        version: 0.8.2
       zod:
         specifier: ^4.6.7
         version: 4.6.7
@@ -2101,8 +2101,8 @@ packages:
   remark-gfm@4.0.1:
     resolution: {integrity: sha512-1quofZ2RQ9EWdeN34S79+KExV1764+wCUGop5CPL1WGdD0ocPpu91lzPGbwWMECpEpd42kJGQwzRfyov9j4yNg==}
 
-  remark-link-card-plus@0.8.1:
-    resolution: {integrity: sha512-Lm1LeLukYGGtBjfWLZkhLcXy8rnTKFxfn2OKuKsW6v+kPziT5daVvCLTpnJ8sNSEGAlSUy9ZBEM6e6+UMm5HxA==}
+  remark-link-card-plus@0.8.2:
+    resolution: {integrity: sha512-hInHUWi1oKwyGhbQlDra7z2Jxi6I6NgMSWgPNC64kJdTgdeHLuXE9mfgEV2Mug3P+vzyY0FQHbe+XLqWI+l40Q==}
     engines: {node: '>=22.13.0'}
 
   remark-mdx@3.1.1:
@@ -4915,7 +4915,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  remark-link-card-plus@0.8.1:
+  remark-link-card-plus@0.8.2:
     dependencies:
       '@types/mdast': 4.0.4
       file-type: 22.3.0
