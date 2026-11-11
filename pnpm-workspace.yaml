@@ -2,3 +2,10 @@ allowBuilds:
   esbuild: true
   sharp: true
   workerd: false
+
+# @napi-rs/wasm-runtime の peer 指定が「^1.x か 2.0.0 のベータ版」を許すため、
+# 放っておくと 2.0.0-beta が選ばれる。@emnapi/core（1.x）と組み合わず
+# @astrojs/check の読み込みで落ちる（astro check が失敗する）ので 1.x に固定する。
+# 2.0.0 の正式版が出て @emnapi/core と揃ったら外す
+overrides:
+  "@emnapi/runtime": ^1.11.3
