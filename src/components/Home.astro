@@ -3,7 +3,12 @@
 // フォントのダウンロードを始められるよう preload する（?url でハッシュ付き URL を解決）
 import geistLatinWoff2 from "@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url";
 import { Icon } from "astro-icon/components";
-import { getMessages, type Locale } from "../i18n/ui";
+import {
+  absoluteLocaleUrl,
+  getMessages,
+  type Locale,
+  locales,
+} from "../i18n/ui";
 import Base from "../layouts/Base.astro";
 import Tilt from "./Tilt.astro";
 import TypingText from "./TypingText.astro";
@@ -14,7 +19,27 @@ interface Props {
 }
 
 const { locale } = Astro.props;
-const t = getMessages(locale).home;
+const messages = getMessages(locale);
+const t = messages.home;
+
+// 名前で検索されたときに Google が人物として扱えるよう、構造化データ（schema.org の Person）を出す。
+// sameAs はフッターと同じ SNS / GitHub のプロフィール
+const person = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: messages.site.name,
+  alternateName: locales
+    .filter((other) => other !== locale)
+    .map((other) => getMessages(other).site.name),
+  url: absoluteLocaleUrl(locale, "", Astro.site),
+  jobTitle: "System Engineer",
+  sameAs: [
+    "https://github.com/NaoyaTatetsu",
+    "https://x.com/tttnaobi",
+    "https://www.instagram.com/tttnaoya",
+    "https://www.linkedin.com/in/naoya-tatetsu-204279274/",
+  ],
+};
 
 const bubbles = [
   {
@@ -77,6 +102,12 @@ const bubbleClass =
     href={geistLatinWoff2}
     crossorigin
   />
+  <script
+    slot="head"
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(person)}
+  />
   {/*
     上下マージンを非対称にして、軌道の中心（＝アイコンとタイピング文字）を
     画面中央より少しだけ上に置く（mb - mt の半分だけ上にずれる）
@@ -84,10 +115,12 @@ const bubbleClass =
   <div
     class="orbit-container relative flex w-full max-w-3xl flex-col items-center justify-center px-16 font-sans mt-8 mb-28"
   >
+    {/* 名前は TypingText が JS で打ち出すだけで HTML に残らないため、見出しとして別に持つ */}
+    <h1 class="sr-only">{messages.site.title}</h1>
     <Tilt class="mb-8">
       <img
         src="/dev_icon.webp"
-        alt="dev icon"
+        alt={messages.site.name}
         width="352"
         height="353"
         fetchpriority="high"

@@ -21,6 +21,10 @@ export interface ExperienceItem {
 
 export interface Messages {
   site: {
+    /** 人名。トップの見出し・アイコンの alt・構造化データ（Person）に使う */
+    name: string;
+    /** サイト名。各ページの <title> の末尾に付く */
+    title: string;
     description: string;
   };
   home: {
@@ -89,6 +93,19 @@ export function localeHref(locale: Locale, path = ""): string {
   const normalized = path === "/" ? "" : path;
   if (locale === rootLocale && normalized === "") return "/";
   return `/${locale}${normalized}`;
+}
+
+/**
+ * canonical・hreflang・構造化データ用の絶対 URL。Cloudflare の配信に合わせて末尾スラッシュを付ける
+ * （/en/profile は /en/profile/ へリダイレクトされるため、正規の URL はスラッシュ付きの方）
+ */
+export function absoluteLocaleUrl(
+  locale: Locale,
+  path: string,
+  site: URL | undefined,
+): string {
+  const href = localeHref(locale, path);
+  return new URL(href.endsWith("/") ? href : `${href}/`, site).href;
 }
 
 export const localeLabels: Record<Locale, string> = {
