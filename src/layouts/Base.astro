@@ -4,20 +4,52 @@ import "@fontsource-variable/geist-mono";
 import "../styles/global.css";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
-import { getMessages, type Locale } from "../i18n/ui";
+import {
+  absoluteLocaleUrl,
+  getMessages,
+  type Locale,
+  locales,
+  rootLocale,
+} from "../i18n/ui";
 
 interface Props {
   locale: Locale;
+  /** ページ名。<title> は「ページ名 | サイト名」になる。省略時はサイト名のみ */
   title?: string;
   /** メタディスクリプション。省略時はロケール別のサイト共通文言 */
   description?: string;
+  /** 同じページが存在するロケール（hreflang に出す）。省略時は全ロケール */
+  alternateLocales?: readonly Locale[];
+  /** 検索結果に出さない（404 用）。canonical / hreflang も出さない */
+  noindex?: boolean;
 }
 
 const {
   locale,
-  title = "Tatetsu Portfolio",
+  title,
   description = getMessages(locale).site.description,
+  alternateLocales = locales,
+  noindex = false,
 } = Astro.props;
+
+const siteTitle = getMessages(locale).site.title;
+const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
+
+// canonical / hreflang 用に、現在の URL からロケールを除いたパス（"/profile/" など）を得る
+const pathname = Astro.url.pathname.replace(/\/?$/, "/");
+const localePrefix = new RegExp(`^/(?:${locales.join("|")})(/.*)$`);
+const pathWithoutLocale = pathname.match(localePrefix)?.[1] ?? pathname;
+const absoluteUrl = (target: Locale) =>
+  absoluteLocaleUrl(target, pathWithoutLocale, Astro.site);
+const canonical = absoluteUrl(locale);
+const alternates = alternateLocales.map((target) => ({
+  hreflang: target,
+  href: absoluteUrl(target),
+}));
+// 言語が合わない訪問者には日本語（ルート /）を出す
+const xDefault = alternateLocales.includes(rootLocale)
+  ? absoluteUrl(rootLocale)
+  : undefined;
 
 const favicon =
   "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍭</text></svg>";
@@ -27,8 +59,28 @@ const favicon =
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
+    <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    {
+      noindex ? (
+        <meta name="robots" content="noindex" />
+      ) : (
+        <>
+          <link rel="canonical" href={canonical} />
+          {alternateLocales.length > 1 &&
+            alternates.map((alternate) => (
+              <link
+                rel="alternate"
+                hreflang={alternate.hreflang}
+                href={alternate.href}
+              />
+            ))}
+          {alternateLocales.length > 1 && xDefault && (
+            <link rel="alternate" hreflang="x-default" href={xDefault} />
+          )}
+        </>
+      )
+    }
     <link rel="icon" href={favicon} />
     <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
     {/*

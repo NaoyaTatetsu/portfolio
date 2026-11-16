@@ -66,4 +66,43 @@ test.describe("i18n", () => {
       /立津尚也/,
     );
   });
+
+  test("タイトルに名前とページ名が入る", async ({ page }) => {
+    await page.goto("/");
+    await expect(page).toHaveTitle("立津尚也のポートフォリオ");
+
+    await page.goto("/ja/profile/");
+    await expect(page).toHaveTitle("プロフィール | 立津尚也のポートフォリオ");
+  });
+
+  test("canonical と hreflang が対になるページを指す", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      "href",
+      "https://p-jihyo.jp/",
+    );
+    await expect(
+      page.locator('link[rel="alternate"][hreflang="en"]'),
+    ).toHaveAttribute("href", "https://p-jihyo.jp/en/");
+
+    await page.goto("/en/profile/");
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      "href",
+      "https://p-jihyo.jp/en/profile/",
+    );
+    await expect(
+      page.locator('link[rel="alternate"][hreflang="ja"]'),
+    ).toHaveAttribute("href", "https://p-jihyo.jp/ja/profile/");
+  });
+
+  test("トップに人物の構造化データが出力される", async ({ page }) => {
+    await page.goto("/");
+    const json = await page
+      .locator('script[type="application/ld+json"]')
+      .textContent();
+    const person = JSON.parse(json ?? "{}");
+    expect(person["@type"]).toBe("Person");
+    expect(person.name).toBe("立津尚也");
+    expect(person.alternateName).toContain("Naoya Tatetsu");
+  });
 });

@@ -6,22 +6,33 @@ import Base from "../../../layouts/Base.astro";
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
   // id は "en/2025/20250901" の形。ロケールと slug を取り出してルートを作る
+  const slugOf = (id: string) => id.split("/").at(-1);
   return posts.map((post) => {
     const segments = post.id.split("/");
+    const slug = slugOf(post.id);
+    // 同じ slug の記事があるロケールだけを hreflang に出す（片方の言語しかない記事もありうる）
+    const alternateLocales = posts
+      .filter((other) => slugOf(other.id) === slug)
+      .map((other) => other.id.split("/")[0])
+      .filter(isLocale);
     return {
-      params: { locale: segments[0], slug: segments[segments.length - 1] },
-      props: { post },
+      params: { locale: segments[0], slug },
+      props: { post, alternateLocales },
     };
   });
 }
 
 const { locale } = Astro.params;
-const { post } = Astro.props;
+const { post, alternateLocales } = Astro.props;
 if (!isLocale(locale)) return Astro.rewrite("/404");
 const { Content } = await render(post);
 ---
 
-<Base locale={locale} title={`${post.data.title} | Tatetsu Portfolio`}>
+<Base
+  locale={locale}
+  title={post.data.title}
+  alternateLocales={alternateLocales}
+>
   <div class="w-full px-4 self-start pt-16">
     <div class="max-w-7xl mx-auto">
       <div class="flex flex-col items-center">

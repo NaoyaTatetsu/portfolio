@@ -54,6 +54,14 @@ CI では `lint-and-build` と独立した `e2e` ジョブで回す。ビルド�
 - `src/layouts/Base.astro` が `<html>`/`<head>`/`<body>` と Header / `<main>` / Footer を持つ。全ページがこれを使う
 - Header は `fixed` で高さ 64px(`h-16`)のため、`<main>` に `pt-16` を確保している。各ページはさらに独自の `pt-*` を持つ
 
+### SEO
+
+- `<title>` は `Base.astro` が「ページ名 | サイト名」で組み立てる。ページからは `title` にページ名だけを渡す(サイト名は `messages/*.json` の `site.title`。日本語は「立津尚也のポートフォリオ」)
+- `Base.astro` が全ページに canonical と hreflang(+ `x-default` は日本語)を出す。URL は Cloudflare の配信に合わせて末尾スラッシュ付き(`absoluteLocaleUrl()`)。片方の言語にしか無いページは `alternateLocales` で絞る(ブログ記事は `[slug].astro` が同じ slug の記事から自動で渡す)。404 は `noindex`
+- sitemap は `@astrojs/sitemap` が `dist/sitemap-index.xml` に出す(404 は除外)。絶対 URL のため `astro.config.mjs` に `site` を設定している
+- トップ(`Home.astro`)は schema.org の `Person` を JSON-LD で出す。名前は TypingText が JS で打つだけで HTML に残らないので、`sr-only` の `<h1>` に持たせている
+- `robots.txt` はリポジトリに無く、Cloudflare の managed robots.txt(AI クローラーのブロック)が配信している
+
 ### テーマ
 
 - `.dark` / `.light` クラスが `<html>` に付く。Tailwind の `dark:` バリアントは `global.css` の `@custom-variant dark` で連動

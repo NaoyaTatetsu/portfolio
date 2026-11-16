@@ -4,10 +4,10 @@ test.describe("トップページ", () => {
   test("タイトルとアイコンが表示される", async ({ page }) => {
     await page.goto("/en");
 
-    await expect(page).toHaveTitle("Tatetsu Portfolio");
+    await expect(page).toHaveTitle("Naoya Tatetsu's Portfolio");
 
     // メインアイコンが実際に読み込まれている(壊れた画像でない)こと
-    const icon = page.getByAltText("dev icon");
+    const icon = page.getByAltText("Naoya Tatetsu");
     await expect(icon).toBeVisible();
     expect(
       await icon.evaluate((img: HTMLImageElement) => img.naturalWidth),

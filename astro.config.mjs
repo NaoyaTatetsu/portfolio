@@ -1,6 +1,7 @@
 // @ts-check
 
 import { unified } from "@astrojs/markdown-remark";
+import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import expressiveCode from "astro-expressive-code";
@@ -12,6 +13,8 @@ import remarkLinkCard from "remark-link-card-plus";
 // 動的ルート + getStaticPaths() で扱う。ページファイルをロケールごとに
 // 複製せずに済み、静的出力のみで完結する（ミドルウェア不要）。
 export default defineConfig({
+  // canonical / hreflang / 構造化データの絶対 URL と sitemap の生成に使う
+  site: "https://p-jihyo.jp",
   // ルート / は src/pages/index.astro が日本語のトップをそのまま出す（リダイレクトしない）。
   // ここに redirects を書くと静的出力では meta refresh の HTML（dist/index.html）が
   // 生成されてしまうため書かない。
@@ -19,6 +22,8 @@ export default defineConfig({
   // Expressive Code: コードブロックにファイル名（```toml title="x.toml"）を出す。
   // テーマはサイトと同じく <html> の .dark / .light クラスで切り替え、OS 設定には追従しない
   integrations: [
+    // dist/sitemap-index.xml を出す（Search Console に登録する）。404 は載せない
+    sitemap({ filter: (page) => !page.endsWith("/404/") }),
     icon(),
     expressiveCode({
       themes: ["github-dark", "github-light"],
