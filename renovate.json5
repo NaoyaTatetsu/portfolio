@@ -28,6 +28,14 @@
   },
   packageRules: [
     {
+      // pnpm 12 は既定で公開から 24 時間未満のパッケージの install を止める
+      // (minimumReleaseAge = 1440 分。ERR_PNPM_MINIMUM_RELEASE_AGE_VIOLATION)。
+      // Renovate が公開直後の版で PR を出すと、24 時間経つまで CI が落ち続けて
+      // 自動マージもされないので、npm パッケージは公開から 1 日待ってから起票する
+      matchDatasources: ["npm"],
+      minimumReleaseAge: "1 day",
+    },
+    {
       // patch / minor / digest は CI(lint + astro check + build)が通れば自動マージ
       matchUpdateTypes: ["minor", "patch", "pin", "digest"],
       automerge: true,
