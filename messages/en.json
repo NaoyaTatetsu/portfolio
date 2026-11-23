@@ -15,7 +15,8 @@
     "blog": "Blog",
     "contact": "",
     "experience": "Experience",
-    "profile": "Profile"
+    "profile": "Profile",
+    "toc": "Contents"
   },
   "experience": {
     "title": "Experience",

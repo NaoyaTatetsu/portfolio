@@ -1,0 +1,109 @@
+---
+import type { MarkdownHeading } from "astro";
+
+// 記事の右側に出す目次（Zenn の記事ページと同じ形）。
+// h2 / h3 を並べ、スクロール位置に合わせて今読んでいる見出しを強調する
+interface Props {
+  headings: MarkdownHeading[];
+  label: string;
+}
+
+const { headings, label } = Astro.props;
+const items = headings.filter(({ depth }) => depth === 2 || depth === 3);
+---
+
+{
+  items.length > 0 && (
+    <nav
+      aria-label={label}
+      data-toc
+      class="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto rounded-xl border border-zinc-200 bg-white/70 px-4 py-3 backdrop-blur-sm dark:border-zinc-700 dark:bg-zinc-800/70"
+    >
+      <p class="mb-1 font-bold">{label}</p>
+      {/*
+        文字サイズは記事本文（16px）に揃える。h2 の項目は太字、h3 は通常の太さ。
+        縦線の上に見出しごとの点を置く。点は ::before、縦線は ol の ::before
+      */}
+      <ol class="relative text-[16px] leading-[1.6] before:absolute before:top-2 before:bottom-2 before:left-[3px] before:w-px before:bg-zinc-300 dark:before:bg-zinc-600">
+        {items.map((heading) => (
+          <li class={heading.depth === 3 ? "pl-8" : "pl-5"}>
+            <a
+              href={`#${heading.slug}`}
+              data-toc-link={heading.slug}
+              class:list={[
+                "relative block py-0.5 text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100",
+                "aria-[current=true]:text-zinc-900 dark:aria-[current=true]:text-zinc-100",
+                // 点は1行目の中央に合わせる（py-0.5 の 2px + 行の高さ 1.6em の半分）
+                "before:absolute before:top-[calc(2px+0.8em)] before:-translate-y-1/2 before:rounded-full before:bg-zinc-300 dark:before:bg-zinc-600",
+                "aria-[current=true]:before:bg-sky-500",
+                heading.depth === 2 && "font-bold",
+                heading.depth === 3
+                  ? "before:-left-8 before:ml-[1px] before:size-[5px]"
+                  : "before:-left-5 before:size-[7px]",
+              ]}
+            >
+              {heading.text}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )
+}
+
+<script>
+  // 画面上端（固定ヘッダーの下）を通り過ぎた最後の見出しを「今読んでいる見出し」とする
+  const links = [
+    ...document.querySelectorAll<HTMLAnchorElement>("[data-toc-link]"),
+  ];
+  const targets = links
+    .map((link) => ({
+      link,
+      heading: document.getElementById(link.dataset.tocLink ?? ""),
+    }))
+    .filter(
+      (target): target is { link: HTMLAnchorElement; heading: HTMLElement } =>
+        target.heading !== null,
+    );
+
+  // ヘッダー（64px）+ 少しの余白
+  const offset = 120;
+  let ticking = false;
+
+  const update = () => {
+    ticking = false;
+    let current = targets[0];
+    for (const target of targets) {
+      if (target.heading.getBoundingClientRect().top <= offset) {
+        current = target;
+      } else {
+        break;
+      }
+    }
+    // 末尾の見出しは上端まで届く前にページが終わるので、最下部まで来たら最後の見出しにする
+    const atBottom =
+      window.innerHeight + window.scrollY >=
+      document.documentElement.scrollHeight - 2;
+    if (atBottom) current = targets[targets.length - 1];
+    for (const { link } of targets) {
+      if (link === current?.link) {
+        link.setAttribute("aria-current", "true");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    }
+  };
+
+  if (targets.length > 0) {
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(update);
+      },
+      { passive: true },
+    );
+    update();
+  }
+</script>
