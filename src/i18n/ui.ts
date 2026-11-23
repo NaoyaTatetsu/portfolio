@@ -39,6 +39,8 @@ export interface Messages {
     contact: string;
     experience: string;
     profile: string;
+    /** ブログ記事の目次の見出し */
+    toc: string;
   };
   experience: {
     title: string;
